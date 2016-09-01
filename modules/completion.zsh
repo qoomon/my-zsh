@@ -3,13 +3,13 @@
 #Layout is :completion:FUNCTION:COMPLETER:COMMAND-OR-MAGIC-CONTEXT:ARGUMENT:TAG
 autoload +X -U colors && colors
 
-autoload -U compinit
-# Speed up compinit by only checking cache from time to time.
-if [ -z "$(find "${ZDOTDIR}/.zcompdump" -newermt '-1 day')" ]; then
-	compinit; # checking zcompdump 
-else
-	compinit -C; # do not checking zcompdump
-fi;
+autoload -U compinit && compinit
+# # Speed up compinit by only checking cache from time to time.
+# if [ -z "$(find "${ZDOTDIR}/.zcompdump" -newermt '-1 day')" ]; then
+# 	compinit; # checking zcompdump 
+# else
+# 	compinit -C; # do not checking zcompdump
+# fi;
 
 #autoload -U keeper && keeper
 
