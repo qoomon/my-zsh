@@ -61,17 +61,13 @@ function zsh_config_update {
 set -a ZSH_MODULES_LOADED; ZSH_MODULES_LOADED=()
 function zsh_module_bundle {
   local module_name=$1
-  if [ -n "$module_name" ]; then
-    if [[ "${ZSH_MODULES_LOADED[(r)$module_name]}" != "$module_name" ]]; then
-      source "$ZSH_MODULE_DIR/$module_name.zsh"
-      ZSH_MODULES_LOADED+="$module_name"
-    fi
-  else
-    zsh_module_bundle_remaining
+  if [ "${ZSH_MODULES_LOADED[(r)$module_name]}" != "$module_name" ]; then
+    source "$ZSH_MODULE_DIR/$module_name.zsh"
+    ZSH_MODULES_LOADED+="$module_name"
   fi
 }
 
-function zsh_module_bundle_remaining {
+function zsh_module_bundle_all {
   for module_file in $(find "$ZSH_MODULE_DIR" -type f -name '*.zsh'); do
     zsh_module_bundle "$(_basename $module_file '.zsh')"
   done
@@ -81,6 +77,22 @@ function zsh_module_bundle_remaining {
 ##################
 ### PLUGINS
 ##################
+
+function zsh_plugin_bundle {
+  local repo_url=$1
+  local zsh_file=$2
+
+  local plugin_name=$(_basename "$repo_url" '.git')
+  local plugin_dir="$ZSH_PLUGIN_DIR/$plugin_name"
+
+  if [ ! -e "$plugin_dir" ]; then
+    echo "${fg_bold[blue]}* install plugin $plugin_name$reset_color";
+    git clone "$repo_url" "$plugin_dir"
+    echo
+  fi
+
+  zsh_plugin_load $plugin_name $zsh_file
+}
 
 function zsh_plugin_load {
   local plugin_name=$1
@@ -101,22 +113,6 @@ function zsh_plugin_load {
     return;
   fi
   source "$plugin_dir/$zsh_file"
-}
-
-function zsh_plugin_bundle {
-  local repo_url=$1
-  local zsh_file=$2
-
-  local plugin_name=$(_basename "$repo_url" '.git')
-  local plugin_dir="$ZSH_PLUGIN_DIR/$plugin_name"
-
-  if [ ! -e "$plugin_dir" ]; then
-    echo "${fg_bold[blue]}* install plugin $plugin_name$reset_color";
-    git clone "$repo_url" "$plugin_dir"
-    echo
-  fi
-
-  zsh_plugin_load $plugin_name $zsh_file
 }
 
 
@@ -180,7 +176,7 @@ function zsh_completions_update {
 ##################
 
 #### lazy load functions
-function zsh_functions_load {
+function zsh_function_bundle_all {
   for function_file in $(find "$ZSH_FUNCTION_DIR" -type f -name '*.zsh' 2>/dev/null); do
     local function_name="$(_basename "$function_file" '.zsh')"
     alias $function_name='lazy_function_load '$function_file''

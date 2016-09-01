@@ -52,9 +52,13 @@ if [ "$ZSH_UI" = 'yes' ]; then
   zsh_module_bundle 'history'
 fi
 
-zsh_module_bundle
+zsh_module_bundle_all
 
-zsh_functions_load
+################
+### LOAD FUNCTIONS
+################
+
+zsh_function_bundle_all
 
 ################ PROFILING ZSHRC FILE - print results
 [ "$ZSH_PROFILE" = 'yes' ] && zprof
