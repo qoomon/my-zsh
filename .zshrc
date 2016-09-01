@@ -1,7 +1,14 @@
 ################ PROFILING ZSHRC FILE - load profiler
 ZSH_PROFILE=${ZSH_PROFILE:-'no'}
-[ "$ZSH_PROFILE" = 'yes' ] && zmodload 'zsh/zprof';
-function zshrc_profile { (export ZSH_PROFILE='yes'; time (zsh -ic exit)) }
+if [ "$ZSH_PROFILE" = 'yes' ]; then
+  PS4=$'%D{%M%S%.} %N:%i> '
+  startlog_file=/tmp/startlog.$$
+  exec 3>&2 2>$startlog_file
+  setopt xtrace prompt_subst
+
+  zmodload 'zsh/zprof';
+fi
+function zshrc_profile { time (export ZSH_PROFILE='yes';  zsh -ic exit) }
 
 ################
 ### SETUP
@@ -61,4 +68,10 @@ zsh_module_bundle_all
 zsh_function_bundle_all
 
 ################ PROFILING ZSHRC FILE - print results
-[ "$ZSH_PROFILE" = 'yes' ] && zprof
+if [ "$ZSH_PROFILE" = 'yes' ]; then
+  zprof
+
+  unsetopt xtrace
+  exec 2>&3 3>&-
+  cat $startlog_file  | awk 'p{printf "%3s", $1-p ;printf " "; $1=""; print $0}{p=$1}' | awk -v red="$(tput setaf 1)" -v yellow="$(tput setaf 3)" -v green="$(tput setaf 2)" -v default="$(tput sgr0)" '{if ($1>3) color=red; else if ($1>=2) color=yellow; else if ($1>=1) color=green; else color=default; printf color; printf "%s", $0; print default}'
+fi
