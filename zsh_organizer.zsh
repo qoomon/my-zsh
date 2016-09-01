@@ -19,12 +19,6 @@ fpath=($fpath "$ZSH_COMPLETION_DIR")
 
 export ZSH_FILE_DIR="$ZSH_CONFIG_DIR/files"
 
-function file_basename { 
-  local file=$1
-  file=${file##*/}; 
-  file=${file%%.*}; 
-  echo $file
-}
 
 function zsh_reload {
   exec "$SHELL" -l
@@ -65,7 +59,7 @@ function zsh_module_bundle {
 
 function zsh_module_bundle_remaining {
   for module_file in $(find "$ZSH_MODULE_DIR" -type f -name '*.zsh'); do
-    zsh_module_bundle "$(file_basename $module_file)"
+    zsh_module_bundle "$(_basename $module_file '.zsh')"
   done
 }
 
@@ -87,10 +81,10 @@ function zsh_plugins_update {
 
 # update completions
 function zsh_completions_update {
-  for completion_file in $(find $ZSH_COMPLETION_DIR -name '_*' ); do
+  for completion_file in $(find "$ZSH_COMPLETION_DIR" -name '_*' ); do
     cd $ZSH_COMPLETION_DIR;
     echo "${fg_bold[blue]}* update completion $completion_file$reset_color";
-    local completion_file_url=$(cat "$(dirname $completion_file)/.$(file_basename $completion_file)")
+    local completion_file_url=$(cat "$(_dirname $completion_file)/.$(_basename $completion_file)")
     if [ $(curl -s -L -w %{http_code} -O -z $completion_file $completion_file_url) = '200' ]; then
       echo "From $completion_file_url"
       echo "Updated."
@@ -127,7 +121,7 @@ function zsh_plugin_bundle {
   local repo_url=$1
   local zsh_file=$2
 
-  local plugin_name=$(file_basename "$repo_url")
+  local plugin_name=$(_basename "$repo_url" '.git')
   local plugin_dir="$ZSH_PLUGIN_DIR/$plugin_name"
 
   if [ ! -e "$plugin_dir" ]; then
@@ -140,40 +134,36 @@ function zsh_plugin_bundle {
 }
 
 
+
 function zsh_completion_bundle {
   local file_url=$1
-  local file_basename=$(file_basename "$file_url")
-  local meta_file_basename=".$file_basename"
+  local file_name=$(_basename "$file_url")
+  local meta_file_name=".$file_name"
 
-  if [ ! -e "$ZSH_COMPLETION_DIR/$file_basename" ]; then
-    echo "${fg_bold[blue]}* install completion $file_basename$reset_color";
-    echo "Downloading to $ZSH_COMPLETION_DIR/$file_basename"
+  if [ ! -e "$ZSH_COMPLETION_DIR/$file_name" ]; then
+    echo "${fg_bold[blue]}* install completion $file_name$reset_color";
+    echo "Downloading to $ZSH_COMPLETION_DIR/$file_name"
     echo " "
     mkdir -p $ZSH_COMPLETION_DIR
     cd $ZSH_COMPLETION_DIR
     curl -s -L -O $file_url
-    echo $file_url > $meta_file_basename # store url into meta file for allow updating
+    echo $file_url > $meta_file_name # store url into meta file for allow updating
     cd - 1> /dev/null
   fi
 }
 
-# #### lazy load functions
-# function zsh_functions_load {
-#   autoload -U $(cd "$ZSH_FUNCTION_DIR" && 'ls')
-# }
-
 
 #### lazy load functions
 function zsh_functions_load {
-  for function_file in $(find "$ZSH_FUNCTION_DIR" -type f -name '*.zsh'); do
-    local function_name="$(file_basename "$function_file")"
+  for function_file in $(find "$ZSH_FUNCTION_DIR" -type f -name '*.zsh' 2>/dev/null); do
+    local function_name="$(_basename "$function_file" '.zsh')"
     alias $function_name='lazy_function_load '$function_file''
   done
 }
 
 function lazy_function_load {
   local function_file="$1"
-  local function_name="$(file_basename "$function_file")"
+  local function_name="$(_basename "$function_file" '.zsh')"
   source "$function_file"
   if type -a $function_name | grep -q "$function_file"; then
     unalias $function_name
@@ -181,4 +171,23 @@ function lazy_function_load {
   else
     echo "function '$function_name' can not be found within '$function_file'" 1>&2 
   fi
+}
+
+#################
+### Helper Functions 
+##################
+
+#### faster than basename command
+function _basename { 
+  local name=$1
+  local sufix=$2
+  name=${name##*/}; 
+  name=${name%$sufix}; 
+  echo $name
+}
+
+function _dirname { 
+  local name=$1
+  name=${name%/*}; 
+  echo $name
 }

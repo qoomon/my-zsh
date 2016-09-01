@@ -23,8 +23,6 @@ ZLE_SPACE_SUFFIX_CHARS=$'&|' # do not remove space after completion for '&' and 
 
 ## Options
 # see http://www.cs.elte.hu/zsh-manual/zsh_16.html
-#unsetopt menu_complete   # do not autoselect the first completion entry
-#unsetopt flowcontrol
 setopt auto_list
 setopt auto_menu         # show completion menu on succesive tab press
 setopt complete_in_word
@@ -38,8 +36,8 @@ zstyle ':completion::complete:*' cache-path "${ZDOTDIR}/.zcompcache"
 zstyle ':completion:*' completer _complete _expand
 
 zstyle ':completion:*' verbose yes # show descriptions for options for many commands
-# zstyle ':completion:*' extra-verbose yes
-zstyle ':completion:*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' extra-verbose yes
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:[[:ascii:]]||[[:ascii:]]=** r:|=*' # Case-Insensitive Completion, Fuzzy Completion
 
 zstyle ':completion:*' accept-exact '*(N)' # forces prefix matching
 zstyle ':completion:*' select-prompt '%Sat %p%s' # Add position hint to prompt when there are a lot of choices
@@ -53,7 +51,7 @@ zstyle ':completion:*:descriptions' auto-description 'specify: %d'
 zstyle ':completion:*:descriptions' format '<%F{green}%B%d%b%f>' # enable and format completion groups
 zstyle ':completion:*:warnings' format '%F{red}%Bno completion match%b%f' # enable and format no match
 zstyle ':completion:*:messages' format '%F{yellow}%B%d%b%f'
-# zstyle ':completion:*:corrections' format '%U%F{green}%d (errors: %e)%f%u'
+#zstyle ':completion:*:corrections' format '%U%F{green}%d (errors: %e)%f%u'
 
 zstyle ':completion:*' ignore-parents parent pwd # cd will never select the parent directory (e.g.: cd ../<TAB>)
 zstyle ':completion:*' list-dirs-first yes # list folders first on completion

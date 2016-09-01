@@ -29,6 +29,7 @@ source "$ZSH_CONFIG_DIR/zsh_organizer.zsh"
 ################
 ### LOAD MODULES
 ################
+zsh_module_bundle 'basic'
 if [ "$ZSH_UI" = 'yes' ]; then
   zsh_module_bundle 'prompt'
   zsh_module_bundle 'completion'
