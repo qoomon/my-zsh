@@ -3,11 +3,12 @@
 #Layout is :completion:FUNCTION:COMPLETER:COMMAND-OR-MAGIC-CONTEXT:ARGUMENT:TAG
 autoload +X -U colors && colors
 
+autoload -U compinit
 # Speed up compinit by only checking cache from time to time.
-if [ -n "$(find "${ZDOTDIR}/.zcompdump" -mmin -60)" ]; then
-	autoload +X -U compinit && compinit -u; # checking cache 
+if [ -z "$(find "${ZDOTDIR}/.zcompdump" -newermt '-1 day')" ]; then
+	compinit; # checking zcompdump 
 else
-	autoload +X -U compinit && compinit -C; # do not checking cache
+	compinit -C; # do not checking zcompdump
 fi;
 
 #autoload -U keeper && keeper
@@ -29,12 +30,12 @@ setopt auto_menu         # show completion menu on succesive tab press
 setopt complete_in_word
 setopt always_to_end
 
+## Use completion cache
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "${ZDOTDIR}/.zcompcache"
+
 # enable completer
 zstyle ':completion:*' completer _complete _expand
-
-## Use completion cache
-zstyle ':completion::complete:*' use-cache yes
-zstyle ':completion::complete:*' cache-path ~/.zcompcache
 
 zstyle ':completion:*' verbose yes # show descriptions for options for many commands
 # zstyle ':completion:*' extra-verbose yes

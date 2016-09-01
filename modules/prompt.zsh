@@ -19,7 +19,7 @@ TRAPWINCH() {
 
 ###### Command Line ############################################################
 
-function precmd {
+function _prompt_info_precmd {
   
   local current_user=$(whoami)
   local local current_host=$(hostname -s)
@@ -46,6 +46,7 @@ function precmd {
 
   echo "$precmd"
 }
+precmd_functions=($precmd_functions _prompt_info_precmd)
 
 # setopt promptsubst # substitude variables within prompt string
 PS1='❯ '
@@ -64,7 +65,7 @@ _PROMPT_CMD_EXEC_ID=0
 function _prompt_exit_code_preexec {
   _PROMPT_EXEC_ID=$(expr $_PROMPT_EXEC_ID + 1)
 }
-preexec_functions=($precmd_functions _prompt_exit_code_preexec)
+preexec_functions=($preexec_functions _prompt_exit_code_preexec)
 
 # run before command line
 function _prompt_exit_code_precmd {
@@ -74,7 +75,7 @@ function _prompt_exit_code_precmd {
   fi
   _PROMPT_CMD_EXEC_ID=$_PROMPT_EXEC_ID
 }
-precmd_functions=($preexec_functions _prompt_exit_code_precmd)
+precmd_functions=($precmd_functions _prompt_exit_code_precmd)
 
 ################
 ### PROMPT UTILS
