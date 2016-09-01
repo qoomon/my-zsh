@@ -19,6 +19,8 @@ fpath=($fpath "$ZSH_COMPLETION_DIR")
 
 export ZSH_FILE_DIR="$ZSH_CONFIG_DIR/files"
 
+export APP_CONFIG_DIR="$ZSH_CONFIG_DIR/configs"
+
 
 function zsh_reload {
   exec "$SHELL" -l
@@ -44,13 +46,17 @@ function zsh_config_update {
   zsh_reload
 }
 
-set -a ZSH_MODULES; ZSH_MODULES=()
+##################
+### MODULES
+##################
+
+set -a ZSH_MODULES_LOADED; ZSH_MODULES_LOADED=()
 function zsh_module_bundle {
   local module_name=$1
   if [ -n "$module_name" ]; then
-    if [[ "${ZSH_MODULES[(r)$module_name]}" != "$module_name" ]]; then
+    if [[ "${ZSH_MODULES_LOADED[(r)$module_name]}" != "$module_name" ]]; then
       source "$ZSH_MODULE_DIR/$module_name.zsh"
-      ZSH_MODULES+="$module_name"
+      ZSH_MODULES_LOADED+="$module_name"
     fi
   else
     zsh_module_bundle_remaining
@@ -63,38 +69,10 @@ function zsh_module_bundle_remaining {
   done
 }
 
-# update plugins
-function zsh_plugins_update {
-  for plugin_dir in $(find "$ZSH_PLUGIN_DIR" -type d -mindepth 1 -maxdepth 1); do
-    echo "${fg_bold[blue]}* update plugin $plugin_dir$reset_color";
-    cd $plugin_dir;
-    local changed_files="$(git diff --name-only ..origin)"
-    git pull
-    if [ -n "$changed_files" ]; then
-      echo "Updated:"
-      echo "$changed_files" | sed -e 's/^/  /'
-    fi
-    echo " "
-    cd - 1> /dev/null
-  done
-}
 
-# update completions
-function zsh_completions_update {
-  for completion_file in $(find "$ZSH_COMPLETION_DIR" -name '_*' ); do
-    cd $ZSH_COMPLETION_DIR;
-    echo "${fg_bold[blue]}* update completion $completion_file$reset_color";
-    local completion_file_url=$(cat "$(_dirname $completion_file)/.$(_basename $completion_file)")
-    if [ $(curl -s -L -w %{http_code} -O -z $completion_file $completion_file_url) = '200' ]; then
-      echo "From $completion_file_url"
-      echo "Updated."
-    else
-      echo "File is up to date"
-    fi
-    echo " "
-    cd - 1> /dev/null
-  done
-}
+##################
+### PLUGINS
+##################
 
 function zsh_plugin_load {
   local plugin_name=$1
@@ -134,6 +112,25 @@ function zsh_plugin_bundle {
 }
 
 
+# update plugins
+function zsh_plugins_update {
+  for plugin_dir in $(find "$ZSH_PLUGIN_DIR" -type d -mindepth 1 -maxdepth 1); do
+    echo "${fg_bold[blue]}* update plugin $plugin_dir$reset_color";
+    cd $plugin_dir;
+    local changed_files="$(git diff --name-only ..origin)"
+    git pull
+    if [ -n "$changed_files" ]; then
+      echo "Updated:"
+      echo "$changed_files" | sed -e 's/^/  /'
+    fi
+    echo " "
+    cd - 1> /dev/null
+  done
+}
+
+##################
+### COMPLETIONS
+##################
 
 function zsh_completion_bundle {
   local file_url=$1
@@ -152,6 +149,27 @@ function zsh_completion_bundle {
   fi
 }
 
+# update completions
+function zsh_completions_update {
+  for completion_file in $(find "$ZSH_COMPLETION_DIR" -name '_*' ); do
+    cd $ZSH_COMPLETION_DIR;
+    echo "${fg_bold[blue]}* update completion $completion_file$reset_color";
+    local completion_file_url=$(cat "$(_dirname $completion_file)/.$(_basename $completion_file)")
+    if [ $(curl -s -L -w %{http_code} -O -z $completion_file $completion_file_url) = '200' ]; then
+      echo "From $completion_file_url"
+      echo "Updated."
+    else
+      echo "File is up to date"
+    fi
+    echo " "
+    cd - 1> /dev/null
+  done
+}
+
+
+##################
+### FUNCTIONS
+##################
 
 #### lazy load functions
 function zsh_functions_load {
@@ -173,8 +191,24 @@ function lazy_function_load {
   fi
 }
 
-#################
-### Helper Functions 
+##################
+### APP CONFIGS  
+##################
+
+function app_config_apply {
+  local appName=$1
+  zsh $APP_CONFIG_DIR/${appName}.zsh
+  echo "$appName config applied"
+}
+
+function app_config_apply_all {
+  for completion_file in $(find "$APP_CONFIG_DIR" -name '*.zsh' ); do
+    app_config_apply $(_basename $completion_file '.zsh')
+  done
+}
+
+##################
+### Helper  
 ##################
 
 #### faster than basename command
@@ -186,6 +220,7 @@ function _basename {
   echo $name
 }
 
+#### faster than dirname command
 function _dirname { 
   local name=$1
   name=${name%/*}; 

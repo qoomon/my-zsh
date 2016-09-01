@@ -1,5 +1,6 @@
 function zshrc_benchmark {
-  repeat 10 time zsh -ic exit
+  local repeatCount=${1:-10}
+  repeat $repeatCount time zsh -ic exit
 }
 
 function zshrc_profile {

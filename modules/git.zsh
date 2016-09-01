@@ -1,38 +1,7 @@
-# git global config
-git config --global merge.ff false
-git config --global pull.rebase true
-git config --global push.followTags true
-git config --global tag.sort version:refname
-
-if type atom >/dev/null; then
-  git config --global core.editor "atom --wait"
-fi
-
-if type idea >/dev/null; then
-  git config --global mergetool.intellij.cmd 'idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")'
-  git config --global mergetool.intellij.trustExitCode false
-  git config --global merge.tool intellij
-
-  git config --global difftool.intellij.cmd 'idea diff $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE")'
-  git config --global difftool.intellij.trustExitCode false
-  git config --global diff.tool intellij
-fi
 
 alias git_log="git log --graph --all --date=format:'%a %Y-%m-%d %H:%M' --pretty=format:' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)'"
 
 alias git_hash='git rev-parse --short HEAD'
-
-# find template in files folder
-# git config --global commit.template ~/git_commit_template.txt
-
-
-# npm install --global commitizen
-# npm install --global cz-conventional-changelog
-# echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
-
-# npm install --global conventional-changelog-cli
-
-# npm install --global conventional-recommended-bump
 
 function git_repository_version_latest {
   git describe --all --tags --match 'v*' --first-parent --abbrev=0 | sed 's|^v||'
