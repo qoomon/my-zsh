@@ -5,21 +5,29 @@
 autoload +X -U colors && colors
 
 export ZSH_CONFIG_DIR=${ZSH_CONFIG_DIR:-"$HOME"}
+declare -r ZSH_CONFIG_DIR
 
 export ZSH_MODULE_DIR="$ZSH_CONFIG_DIR/modules"
+declare -r ZSH_MODULE_DIR
 
 export ZSH_FUNCTION_DIR="$ZSH_CONFIG_DIR/functions"
+declare -r ZSH_FUNCTION_DIR
 
 export ZSH_LIB_DIR="$ZSH_CONFIG_DIR/lib"
+declare -r ZSH_LIB_DIR
 
 export ZSH_PLUGIN_DIR="$ZSH_LIB_DIR/plugins"
+declare -r ZSH_PLUGIN_DIR
 
 export ZSH_COMPLETION_DIR="$ZSH_LIB_DIR/completion"
+declare -r ZSH_COMPLETION_DIR
 fpath=($fpath "$ZSH_COMPLETION_DIR")
 
 export ZSH_FILE_DIR="$ZSH_CONFIG_DIR/files"
+declare -r ZSH_FILE_DIR
 
 export APP_CONFIG_DIR="$ZSH_CONFIG_DIR/configs"
+declare -r APP_CONFIG_DIR
 
 
 function zsh_reload {

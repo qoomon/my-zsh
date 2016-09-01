@@ -44,7 +44,8 @@ zstyle ':completion:*' select-prompt '%Sat %p%s' # Add position hint to prompt w
 zstyle ':completion:*' force-list always # always show comletion also if not ambiguous
 zstyle ':completion:*' list-separator '--' # seperator between completion and description
 zstyle ':completion:*' group-name '' # group matches by tag
-# zstyle ':completion:*:functions' ignored-patterns '_*' # Ignore completion functions:
+zstyle ':completion:*:functions' ignored-patterns '_*' # Ignore private functions
+zstyle ':completion:*:parameters' ignored-patterns '_*' # Ignore private parameters
 
 zstyle ':completion:*:descriptions' auto-description 'specify: %d'
 

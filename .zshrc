@@ -7,6 +7,7 @@ function zshrc_profile { (export ZSH_PROFILE='yes'; time (zsh -ic exit)) }
 ### SETUP
 ################
 export ZDOTDIR=${ZDOTDIR:-$HOME}
+declare -r ZDOTDIR
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
