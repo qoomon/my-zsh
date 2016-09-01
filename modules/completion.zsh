@@ -3,7 +3,7 @@
 #Layout is :completion:FUNCTION:COMPLETER:COMMAND-OR-MAGIC-CONTEXT:ARGUMENT:TAG
 autoload +X -U colors && colors
 
-autoload -U compinit && compinit -C  # Speed up compinit by not checking cache (-C).
+autoload -U compinit && compinit -C # Speed up compinit by not checking cache (-C).
 if [ -z "$(find "${ZDOTDIR}/.zcompdump" -newermt '-1 day')" ]; then
   compinit
 fi
@@ -26,7 +26,7 @@ setopt complete_in_word
 setopt always_to_end
 
 ## Use completion cache
-zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' use-cache yes
 zstyle ':completion::complete:*' cache-path "${ZDOTDIR}/.zcompcache"
 
 # enable completer
@@ -81,7 +81,7 @@ zstyle ':completion:*:manuals' separate-sections true
 # zstyle ':completion:*:auto-describe' format 'specify: %d'
 
 # Make the list prompt friendly
-#zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+# zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
 
 zstyle ':completion:*' last-prompt yes
 # ## Listing behaviour
