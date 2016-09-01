@@ -26,21 +26,6 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export ZSH_CONFIG_DIR=$(dirname $0)
 source "$ZSH_CONFIG_DIR/zsh_organizer.zsh"
 
-
-################
-### LOAD MODULES
-################
-zsh_module_bundle 'basic'
-if [ "$ZSH_UI" = 'yes' ]; then
-  zsh_module_bundle 'prompt'
-  zsh_module_bundle 'completion'
-  zsh_module_bundle 'history'
-fi
-
-zsh_module_bundle
-
-zsh_functions_load
-
 ################
 ### LOAD EXTERNAL RESOURCES
 ################
@@ -56,6 +41,20 @@ if [ "$ZSH_UI" = 'yes' ]; then
   zsh_completion_bundle 'https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker'
   zsh_completion_bundle 'https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose'
 fi
+
+################
+### LOAD MODULES
+################
+zsh_module_bundle 'basic'
+if [ "$ZSH_UI" = 'yes' ]; then
+  zsh_module_bundle 'prompt'
+  zsh_module_bundle 'completion'
+  zsh_module_bundle 'history'
+fi
+
+zsh_module_bundle
+
+zsh_functions_load
 
 ################ PROFILING ZSHRC FILE - print results
 [ "$ZSH_PROFILE" = 'yes' ] && zprof
