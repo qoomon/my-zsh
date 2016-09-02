@@ -87,7 +87,7 @@ function zsh_plugin_bundle {
 
   if [ ! -e "$plugin_dir" ]; then
     echo "${fg_bold[blue]}* install plugin $plugin_name$reset_color";
-    git clone "$repo_url" "$plugin_dir"
+    git clone --depth 1 "$repo_url" "$plugin_dir"
     echo
   fi
 

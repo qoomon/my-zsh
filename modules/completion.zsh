@@ -46,9 +46,9 @@ zstyle ':completion:*:parameters' ignored-patterns '_*' # Ignore private paramet
 
 zstyle ':completion:*:descriptions' auto-description 'specify: %d'
 
-zstyle ':completion:*:descriptions' format '<%F{green}%B%d%b%f>' # enable and format completion groups
+zstyle ':completion:*:descriptions' format '<%F{yellow}%B%d%b%f>' # enable and format completion groups
 zstyle ':completion:*:warnings' format '%F{red}%Bno completion match%b%f' # enable and format no match
-zstyle ':completion:*:messages' format '%F{yellow}%B%d%b%f'
+zstyle ':completion:*:messages' format '%F{green}%B%d%b%f'
 #zstyle ':completion:*:corrections' format '%U%F{green}%d (errors: %e)%f%u'
 
 zstyle ':completion:*' ignore-parents parent pwd # cd will never select the parent directory (e.g.: cd ../<TAB>)

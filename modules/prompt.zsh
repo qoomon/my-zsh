@@ -19,7 +19,7 @@ TRAPWINCH() {
 
 ###### Command Line ############################################################
 
-function _prompt_info_precmd {
+function _prompt_info {
   
   local current_user="$(whoami)"
   local current_host="$(hostname -s)"
@@ -45,11 +45,12 @@ function _prompt_info_precmd {
   fi
 
   echo "$precmd"
+  
 }
-precmd_functions=($precmd_functions _prompt_info_precmd)
 
-# setopt promptsubst # substitude variables within prompt string
-PS1='❯ '
+setopt promptsubst # substitude variables within prompt string
+PS1='$(_prompt_info)
+❯ '
 PS2='▪ '
 
 # right prompt
