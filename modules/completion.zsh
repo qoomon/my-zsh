@@ -26,15 +26,15 @@ setopt complete_in_word
 setopt always_to_end
 
 ## Use completion cache
-zstyle ':completion::complete:*' use-cache yes
-zstyle ':completion::complete:*' cache-path "${ZDOTDIR}/.zcompcache"
+# zstyle ':completion::complete:*' use-cache yes
+# zstyle ':completion::complete:*' cache-path "${ZDOTDIR}/.zcompcache"
 
 # enable completer
 zstyle ':completion:*' completer _complete _expand
 
 zstyle ':completion:*' verbose yes # show descriptions for options for many commands
 zstyle ':completion:*' extra-verbose yes
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:[[:ascii:]]||[[:ascii:]]=** r:|=*' # Case-Insensitive Completion, Fuzzy Completion
+zstyle ':completion:*' matcher-list 'r:|?=** m:{[:lower:][:upper:]}={[:upper:][:lower:]}' # Fuzzy Completion, Case-Insensitive Completion
 
 zstyle ':completion:*' accept-exact '*(N)' # forces prefix matching
 zstyle ':completion:*' select-prompt '%Sat %p%s' # Add position hint to prompt when there are a lot of choices

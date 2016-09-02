@@ -8,7 +8,7 @@ alias home="cd \"\$HOME\""
 
 alias sudo='\sudo '
 
-alias pick='\fzf -m ' # multi select anything
+alias pick='\fzf -m ' # fuzzy search and select anything
 
 alias mv='\mv -i' # ask before overwrite file
 alias cp='\cp -i' # ask before overwrite file
