@@ -29,3 +29,13 @@ fi
 # npm install --global conventional-changelog-cli
 
 # npm install --global conventional-recommended-bump
+
+#################
+### sourcetree
+#################
+
+## Diff Command      Arguments  
+# /usr/local/bin/idea diff $LOCAL $PWD/$REMOTE
+## Merge Tool        Arguments
+# /usr/local/bin/idea merge $LOCAL $PWD/$REMOTE $PWD/$BASE $MERGED
+

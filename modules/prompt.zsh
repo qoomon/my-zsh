@@ -21,10 +21,10 @@ TRAPWINCH() {
 
 function _prompt_info_precmd {
   
-  local current_user=$(whoami)
-  local local current_host=$(hostname -s)
-  local current_dir=$(pwd | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1…/|g')
-  local current_branch=$(git branch 2> /dev/null | sed -n '/\* /s///p' | sed 's/^( *//;s/ *)$//;')
+  local current_user="$(whoami)"
+  local current_host="$(hostname -s)"
+  local current_dir="$(pwd | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1…/|g')"
+  local current_branch="$(git branch 2> /dev/null | sed -n '/\* /s///p' | sed 's/^( *//;s/ *)$//;')"
 
   # precmd start
   local precmd="${fg_bold[grey]}#$reset_color "
