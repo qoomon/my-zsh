@@ -38,6 +38,7 @@ source "$ZSH_CONFIG_DIR/zsh_organizer.zsh"
 ################
 if [ "$ZSH_UI" = 'yes' ]; then
   zsh_plugin_bundle 'https://github.com/rupa/z.git' 'z.sh'
+  zsh_plugin_bundle 'https://github.com/jimhester/per-directory-history'
   zsh_plugin_bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
   zsh_plugin_bundle 'https://github.com/zsh-users/zsh-history-substring-search.git'
     HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
