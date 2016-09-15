@@ -1,5 +1,5 @@
 # History ######################################################################
-HISTFILE=${ZDOTDIR}/.zhistory        # enable history saving on shell exit
+HISTFILE=${ZDOTDIR:-$HOME}/.zhistory        # enable history saving on shell exit
 HISTSIZE=10000                  # lines of history to maintain memory
 SAVEHIST=$HISTSIZE              # lines of history to maintain in history file.
 setopt EXTENDED_HISTORY         # save timestamp and runtime information

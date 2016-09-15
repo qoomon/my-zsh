@@ -11,7 +11,7 @@ autoload +X -U colors && colors
 
 setopt NOTIFY # Report the status of background jobs immediately, rather than waiting until just before printing a prompt.
 setopt INTERACTIVE_COMMENTS # Allowes to use #-sign as comment within commandline
-  
+
 # Ensure that the prompt is redrawn when the terminal size changes.
 TRAPWINCH() {
   zle && { zle reset-prompt; zle -R }
@@ -20,7 +20,7 @@ TRAPWINCH() {
 ###### Command Line ############################################################
 
 function _prompt_info {
-  
+
   local current_user="$(whoami)"
   local current_host="$(hostname -s)"
   local current_dir="$(pwd | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1…/|g')"
@@ -45,13 +45,18 @@ function _prompt_info {
   fi
 
   echo "$precmd"
-  
-}
 
-setopt promptsubst # substitude variables within prompt string
-PS1='$(_prompt_info)
-❯ '
+}
+precmd_functions=($precmd_functions _prompt_info)
+PS1='❯ '
 PS2='▪ '
+
+## promptsubst made some problems while completion e.g. remove previous comandline
+#setopt promptsubst # substitude variables within prompt string
+#PS1='$(_prompt_info)
+#❯ '
+#PS2='▪ '
+
 
 # right prompt
 # RPROMPT='[%D{%H:%M:%S}]' # date

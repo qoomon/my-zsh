@@ -4,7 +4,7 @@
 autoload +X -U colors && colors
 
 autoload -U compinit && compinit -C # Speed up compinit by not checking cache (-C).
-if [ -z "$(find "${ZDOTDIR}/.zcompdump" -newermt '-1 day')" ]; then
+if [ -z "$(find "${ZDOTDIR:-$HOME}/.zcompdump" -newermt '-1 day')" ]; then
   compinit
 fi
 
@@ -25,9 +25,11 @@ setopt auto_menu         # show completion menu on succesive tab press
 setopt complete_in_word
 setopt always_to_end
 
+zstyle '*' single-ignored show
+
 ## Use completion cache
-# zstyle ':completion::complete:*' use-cache yes
-# zstyle ':completion::complete:*' cache-path "${ZDOTDIR}/.zcompcache"
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
 
 # enable completer
 zstyle ':completion:*' completer _complete _expand
@@ -44,11 +46,12 @@ zstyle ':completion:*' group-name '' # group matches by tag
 zstyle ':completion:*:functions' ignored-patterns '_*' # Ignore private functions
 zstyle ':completion:*:parameters' ignored-patterns '_*' # Ignore private parameters
 
-zstyle ':completion:*:descriptions' auto-description 'specify: %d'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description 'specify: %d'
 
-zstyle ':completion:*:descriptions' format '<%F{yellow}%B%d%b%f>' # enable and format completion groups
-zstyle ':completion:*:warnings' format '%F{red}%Bno completion match%b%f' # enable and format no match
-zstyle ':completion:*:messages' format '%F{green}%B%d%b%f'
+zstyle ':completion:*:descriptions' format '%F{yellow}< %d >%f' # enable and format completion groups
+zstyle ':completion:*:warnings' format '%F{red}no matches found%f' # enable and format no match
+zstyle ':completion:*:messages' format '%F{purple}%d%f'
 #zstyle ':completion:*:corrections' format '%U%F{green}%d (errors: %e)%f%u'
 
 zstyle ':completion:*' ignore-parents parent pwd # cd will never select the parent directory (e.g.: cd ../<TAB>)
@@ -100,12 +103,6 @@ zstyle ':completion:*:kill:*' force-list always
 
 zstyle ':completion:*:killall:*' command 'ps -u $USER -o command'
 
-# ## Misc Completions from help output
-# compdef _gnu_generic <function> # try to generate completion outof output of <function> --help
-
-## _ignored completer see and eable above "zstyle ':completion:*' completer ..."
-zstyle '*' single-ignored show
-
 ################
 ### COMPLETION UTILS
 ################
@@ -130,15 +127,3 @@ zle -C hist-complete complete-word _generic
 zstyle ':completion:hist-complete:*' completer _history
 zstyle ':completion:hist-complete:*' force-list always
 bindkey '^H' hist-complete # '^H' is ctrl + H
-
-
-## made troubles while insert some strings with successive dots
-# rationalise-dot() {
-#   if [[ $LBUFFER = *.. ]]; then
-#     LBUFFER+=/..
-#   else
-#     LBUFFER+=.
-#   fi
-# }
-# zle -N rationalise-dot
-# bindkey . rationalise-dot

@@ -1,4 +1,4 @@
-# sodo with loaded .zshrc and co.
+# sudo with loaded .zshrc and co.
 function sudome  {
 
   local index=0;
@@ -8,10 +8,10 @@ function sudome  {
     fi
     index=$(expr $index + 1)
   done
-  
+
   local -a args; args=(${@:1:$index})
   local -a cmd; cmd=(${@:$(expr $index + 1)})
-  
+
   ( export ZSH_UI='no'; sudo -E $args zsh -ic "${cmd}" )
 }
 type compdef >/dev/null && compdef _sudo sudome # set default sudo completion
