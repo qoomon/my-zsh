@@ -12,10 +12,19 @@ autoload +X -U colors && colors
 setopt NOTIFY # Report the status of background jobs immediately, rather than waiting until just before printing a prompt.
 setopt INTERACTIVE_COMMENTS # Allowes to use #-sign as comment within commandline
 
-# Ensure that the prompt is redrawn when the terminal size changes.
-TRAPWINCH() {
-  zle && { zle reset-prompt; zle -R }
+_prompt_cli_id=0
+function _prompt_cli_id {
+  _prompt_cli_id=$(expr $_prompt_cli_id + 1)
 }
+# run before prompt
+precmd_functions=($precmd_functions _prompt_cli_id)
+
+_prompt_exec_id=0
+function _prompt_exec_id {
+  _prompt_exec_id=$(expr $_prompt_exec_id + 1)
+}
+# run before execute command
+preexec_functions=($preexec_functions _prompt_exec_id)
 
 ###### Command Line ############################################################
 
@@ -61,27 +70,28 @@ PS2='▪ '
 # right prompt
 # RPROMPT='[%D{%H:%M:%S}]' # date
 
+
 ###### EXIT CODE ###############################################################
 # print exit code on error
-
-_PROMPT_EXEC_ID=0
-_PROMPT_CMD_EXEC_ID=0
-
-# run before execute command
-function _prompt_exit_code_preexec {
-  _PROMPT_EXEC_ID=$(expr $_PROMPT_EXEC_ID + 1)
-}
-preexec_functions=($preexec_functions _prompt_exit_code_preexec)
-
-# run before command line
-function _prompt_exit_code_precmd {
+_prompt_exit_code_exec_id=0
+function _prompt_exit_code {
   local exit_code=$?
-  if [ $exit_code -ne 0 ] && [ $_PROMPT_EXEC_ID -ne $_PROMPT_CMD_EXEC_ID ]; then
+  if [ $exit_code != 0 ] && [ $_prompt_exec_id != $_prompt_exit_code_exec_id ]; then
     echo "${fg_bold[red]}✖ $exit_code$reset_color"
   fi
-  _PROMPT_CMD_EXEC_ID=$_PROMPT_EXEC_ID
+  _prompt_exit_code_exec_id=$_prompt_exec_id
 }
-precmd_functions=($precmd_functions _prompt_exit_code_precmd)
+# run before prompt
+precmd_functions=(_prompt_exit_code $precmd_functions)
+
+
+###### REZIZE TERMINAL WINDOW ##################################################
+# Ensure that the prompt is redrawn when the terminal size changes.
+function TRAPWINCH {
+  if [ $_prompt_cli_id -gt 1 ]; then # prevent segmentation fault
+    zle && { zle reset-prompt; zle -R }
+  fi
+}
 
 ################
 ### PROMPT UTILS

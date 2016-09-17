@@ -31,12 +31,9 @@ zstyle '*' single-ignored show
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
 
-# enable completer
-zstyle ':completion:*' completer _complete _expand
-
 zstyle ':completion:*' verbose yes # show descriptions for options for many commands
 zstyle ':completion:*' extra-verbose yes
-zstyle ':completion:*' matcher-list 'r:|?=** m:{[:lower:][:upper:]}={[:upper:][:lower:]}' # Fuzzy Completion, Case-Insensitive Completion
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'  # Case-Insensitive Completion
 
 zstyle ':completion:*' accept-exact '*(N)' # forces prefix matching
 zstyle ':completion:*' select-prompt '%Sat %p%s' # Add position hint to prompt when there are a lot of choices
@@ -57,23 +54,6 @@ zstyle ':completion:*:messages' format '%F{purple}%d%f'
 zstyle ':completion:*' ignore-parents parent pwd # cd will never select the parent directory (e.g.: cd ../<TAB>)
 zstyle ':completion:*' list-dirs-first yes # list folders first on completion
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} # colorize file system completion
-
-## _complete completer see and eable above "zstyle ':completion:*' completer ..."
-# nothing so far
-
-# ## _history completer see and eable above "zstyle ':completion:*' completer ..."
-# nothing so far
-
-# ## _match completer see and eable above "zstyle ':completion:*' completer ..."
-# zstyle ':completion:*:match:*' match-original only
-
-# ## _approximate completer see and eable above "zstyle ':completion:*' completer ..."
-# zstyle ':completion:*:approximate:*' max-errors 1 numeric
-# zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)' # the number of allowed errors by _approximate increases with the length of what you have typed so far
-# zstyle ':completion:*:approximate:*' insert-unanbiguous no
-
-# zstyle ':completion:*' show-ambiguity "1;31" # highlight the first ambiguous character red in completion lists
-# zstyle ':completion:*' show-completer yes # Show message while waiting for completion
 
 # ## Menu behaviour
 # zstyle ':completion:*' menu select # interactive # always show completions
