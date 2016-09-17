@@ -25,7 +25,8 @@ setopt auto_menu         # show completion menu on succesive tab press
 setopt complete_in_word
 setopt always_to_end
 
-zstyle '*' single-ignored show
+# list of completers to use
+zstyle ':completion:*' completer _complete _expand
 
 ## Use completion cache
 zstyle ':completion::complete:*' use-cache on
