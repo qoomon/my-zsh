@@ -35,36 +35,37 @@ function _prompt_info {
   local current_dir="$(pwd | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1…/|g')"
   local current_branch="$(git branch 2> /dev/null | sed -n '/\* /s///p' | sed 's/^( *//;s/ *)$//;')"
 
-  # precmd start
-  local precmd="${fg_bold[grey]}#$reset_color "
+  # prompt_info indicator
+  local prompt_info="${fg_bold[grey]}#$reset_color "
 
   # current_user & current_host
-  if [ "$current_user" = "root" ]; then precmd+="${fg_bold[red]}"; else precmd+="${fg[cyan]}"; fi
-  precmd+="$current_user$reset_color${fg_bold[grey]}@$reset_color${fg[blue]}$current_host$reset_color"
+  if [ "$current_user" = "root" ]; then prompt_info+="${fg_bold[red]}"; else prompt_info+="${fg[cyan]}"; fi
+  prompt_info+="$current_user$reset_color${fg_bold[grey]}@$reset_color${fg[blue]}$current_host$reset_color"
 
   # current_dir
-  precmd+=" ${fg_bold[grey]}in$reset_color ${fg[yellow]}$current_dir$reset_color"
+  prompt_info+=" ${fg_bold[grey]}in$reset_color ${fg[yellow]}$current_dir$reset_color"
 
   # current_branch
   if [ -n "$current_branch" ]; then
     if [[ "$current_branch" != "detached "* ]]; then
-      precmd+=" ${fg_bold[grey]}on$reset_color"
+      prompt_info+=" ${fg_bold[grey]}on$reset_color"
     fi
-    precmd+=" ${fg[green]}$current_branch$reset_color"
+    prompt_info+=" ${fg[green]}$current_branch$reset_color"
   fi
 
-  echo "$precmd"
+  echo "$prompt_info"
 
 }
-precmd_functions=($precmd_functions _prompt_info)
-PS1='❯ '
+
+setopt promptsubst # substitude variables within prompt string
+PS1='%{$(_prompt_info)%}
+❯ '
 PS2='▪ '
 
-## promptsubst made some problems while completion e.g. remove previous comandline
-#setopt promptsubst # substitude variables within prompt string
-#PS1='$(_prompt_info)
-#❯ '
-#PS2='▪ '
+## alternative approach
+# precmd_functions=($precmd_functions _prompt_info)
+# PS1='❯ '
+# PS2='▪ '
 
 
 # right prompt

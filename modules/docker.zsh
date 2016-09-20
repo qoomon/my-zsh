@@ -1,3 +1,5 @@
+export DOCKER_HOST=unix:///var/run/docker.sock
+
 function docker_connect {
   docker exec -i -t $1 sh
 }

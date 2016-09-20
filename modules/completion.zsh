@@ -26,15 +26,17 @@ setopt complete_in_word
 setopt always_to_end
 
 # list of completers to use
-zstyle ':completion:*' completer _complete _expand
+# zstyle ':completion:*' completer  _complete _expand _list _match _prefix
 
 ## Use completion cache
-zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
+# zstyle ':completion::complete:*' use-cache on
+# zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
 
 zstyle ':completion:*' verbose yes # show descriptions for options for many commands
 zstyle ':completion:*' extra-verbose yes
+
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'  # Case-Insensitive Completion
+# zstyle ':completion:*' matcher-list 'r:|?=** m:{[:lower:][:upper:]}={[:upper:][:lower:]}'  # fuzzy & Case-Insensitive Completion
 
 zstyle ':completion:*' accept-exact '*(N)' # forces prefix matching
 zstyle ':completion:*' select-prompt '%Sat %p%s' # Add position hint to prompt when there are a lot of choices
@@ -88,7 +90,9 @@ zstyle ':completion:*:killall:*' command 'ps -u $USER -o command'
 ### COMPLETION UTILS
 ################
 
+
 function tab-key-press {
+
   if [[ -z $BUFFER ]]; then # on empty cli
     # complete executables for current direcotry
     BUFFER+="./"
@@ -97,7 +101,7 @@ function tab-key-press {
   else
     # adds '...' during completion to cli
     echo -n "${fg_bold[cyan]}...$reset_color"
-    zle expand-or-complete
+    zle expand-or-complete # default binding
     zle redisplay
   fi
 }
