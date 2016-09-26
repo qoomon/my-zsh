@@ -58,7 +58,7 @@ function zsh_config_update {
 ### MODULES
 ##################
 
-set -a ZSH_MODULES_LOADED; ZSH_MODULES_LOADED=()
+set -A ZSH_MODULES_LOADED; ZSH_MODULES_LOADED=()
 function zsh_module_bundle {
   local module_name=$1
   if [ "${ZSH_MODULES_LOADED[(r)$module_name]}" != "$module_name" ]; then
