@@ -10,11 +10,12 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list hh >/dev/null && brew install hh # history viewer
 ! brew list htop >/dev/null && brew install htop # better top
 ! brew list nmap >/dev/null && brew install nmap
+! brew list mrt >/dev/null && brew install mrt # ping and trace combined : http://www.bitwizard.nl/mtr/
 ! brew list tmux >/dev/null && brew install tmux # https://github.com/tmux/tmux
+! brew list the_silver_searcher >/dev/null && brew install the_silver_searcher # https://github.com/ggreer/the_silver_searcher
 
 ! brew list httpie >/dev/null && brew install httpie # better alternative to curl
 ! brew list httpry >/dev/null && brew install httpry # http sniffer https://github.com/jbittel/httpry
-
 ! brew list w3m >/dev/null && brew install w3m # terminal browser
 
 ! brew list siege >/dev/null && brew install siege # benchmark http # https://github.com/JoeDog/siege
