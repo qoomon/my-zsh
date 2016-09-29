@@ -20,7 +20,7 @@ alias gls='\gls --color --group-directories-first --time-style=+"%b %d %Y %H:%M:
 
 alias grep='\grep --color=auto' # colorize matching parts
 
-alias mvnc="mvn_colorized"
+alias mvn="mvn_colorized"
 
 alias man="man_colorized"
 
