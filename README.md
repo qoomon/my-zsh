@@ -4,6 +4,9 @@
 * install_utils_macos.sh  - install common command line utils (with brew)
 
 ## shortcuts
+* pause process: ctrl + z
+ * 'fg' command: run process again in foreground
+ * 'bg' command: run process again in background
 * open man page for current command : esc + h
 * edit commandline within $EDITOR : ctrl + x  -> ctrl + e
 

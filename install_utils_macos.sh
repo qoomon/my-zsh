@@ -13,6 +13,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list tmux >/dev/null && brew install tmux # https://github.com/tmux/tmux
 
 ! brew list httpie >/dev/null && brew install httpie # better alternative to curl
+! brew list httpry >/dev/null && brew install httpry # http sniffer https://github.com/jbittel/httpry
 
 ! brew list w3m >/dev/null && brew install w3m # terminal browser
 

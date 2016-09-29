@@ -54,6 +54,7 @@ zstyle ':completion:*:warnings' format '%F{red}no matches found%f' # enable and 
 zstyle ':completion:*:messages' format '%F{purple}%d%f'
 #zstyle ':completion:*:corrections' format '%U%F{green}%d (errors: %e)%f%u'
 
+zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' ignore-parents parent pwd # cd will never select the parent directory (e.g.: cd ../<TAB>)
 zstyle ':completion:*' list-dirs-first yes # list folders first on completion
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} # colorize file system completion
