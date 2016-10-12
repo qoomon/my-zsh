@@ -2,9 +2,9 @@
 ### ALIASES
 ################
 
-alias type="type -a"
+alias debug_function='() { (set -x; $@) } '
 
-alias home="cd \"\$HOME\""
+alias type="type -a"
 
 alias sudo='\sudo '
 
@@ -20,11 +20,11 @@ alias gls='\gls --color --group-directories-first --time-style=+"%b %d %Y %H:%M:
 
 alias grep='\grep --color=auto' # colorize matching parts
 
-alias mvn="mvn_colorized"
+alias mvn='mvn_colorized'
 
-alias man="man_colorized"
+alias man='man_colorized'
 
-alias diff="diff_colorized"
+alias diff='diff_colorized'
 
 alias wordcount="tr -s ' ' | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr"
 
