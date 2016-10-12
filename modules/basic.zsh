@@ -26,6 +26,8 @@ alias man="man_colorized"
 
 alias diff="diff_colorized"
 
+alias wordcount="tr -s ' ' | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr"
+
 
 ################
 ### SUFFIX ALIASES
