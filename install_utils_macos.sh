@@ -6,7 +6,6 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 
 ! brew list zsh >/dev/null && brew install zsh
 ! brew list fzf >/dev/null && brew install fzf # https://github.com/junegunn/fzf
-! brew list z >/dev/null && brew install z # https://github.com/rupa/z
 ! brew list hh >/dev/null && brew install hh # history viewer
 ! brew list htop >/dev/null && brew install htop # better top
 ! brew list nmap >/dev/null && brew install nmap
