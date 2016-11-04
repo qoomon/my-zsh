@@ -4,8 +4,17 @@ git config --global pull.rebase true
 git config --global push.followTags true
 git config --global tag.sort version:refname
 
+# list all alias
+git config --global alias.alias '\!git config --get-regexp '\''alias'\'' | sed -E -e '\''s|^alias\.||'\'' | grep -v -e '\''^alias'\'' | sort | sed -E -e '\''s|^([^ ]*)( .*)|${fg_bold[blue]}\1###${fg[white]}\2$reset_color|'\'' | column -s '\''###'\'' -t'
+
+# colorized log
+git config --global alias.logx 'log --graph --all --date=format:'\''%a %Y-%m-%d %H:%M'\'' --pretty=format:'\'' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)'\'''
+
+# get commit hash for HEAD by default or Branch or Tag
+git config --global alias.hash '!sh -c '\''git rev-parse ${1:-HEAD}'\'' -'
+
 if type atom >/dev/null; then
-  git config --global core.editor "atom --wait"
+  git config --global core.editor 'atom --wait'
 fi
 
 if type idea >/dev/null; then

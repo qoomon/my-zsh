@@ -1,10 +1,6 @@
 
-alias git_log="git log --graph --all --date=format:'%a %Y-%m-%d %H:%M' --pretty=format:' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)'"
-
-alias git_hash='git rev-parse --short HEAD'
-
 function git_repository_version_latest {
-  git describe --all --tags --match 'v*' --first-parent --abbrev=0 | sed 's|^v||'
+  git describe --all --tags --match 'v*' --first-parent --abbrev=0 2>/dev/null| sed 's|^v||'
 }
 
 function git_repository_version_bump_recommendation {
@@ -45,7 +41,7 @@ function git_repository_version_next {
 }
 
 function git_repository_version_compare {
-  local current_version=$1
+  local current_version=${1:-}
   local -a current_version_array; current_version_array=($(echo "$current_version" | grep -E -o "[^.-]+" ))
 
   local next_version=$(git_repository_version_next)
