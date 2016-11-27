@@ -14,4 +14,4 @@ function sudome  {
 
   ( export ZSH_UI='no'; sudo -E $args zsh -ic "${cmd}" )
 }
-type compdef >/dev/null && compdef _sudo sudome # set default sudo completion
+type compdef >/dev/null && compdef _sudo sudome # set default completion

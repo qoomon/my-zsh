@@ -1,6 +1,6 @@
 autoload +X -U colors && colors
 
-function diff_colorized {  
+function diff_colorized {
   local opt="\{0,1\}"
   'diff' $@ | sed \
       -e "s|^\(<.*\)|${fg[red]}\1$reset_color|" \
@@ -9,3 +9,4 @@ function diff_colorized {
       -l
   return $PIPESTATUS
 }
+type compdef >/dev/null && compdef _diff diff_colorized # set default completion

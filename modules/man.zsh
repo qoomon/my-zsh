@@ -10,3 +10,4 @@ function man_colorized {
     _NROFF_U=1 \
     'man' $@
 }
+type compdef >/dev/null && compdef _man man_colorized # set default completion

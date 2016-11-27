@@ -1,14 +1,16 @@
+function alias_colorized {
+  if [ $# -gt 0 ] || ! [ -t 1 ]; then # ! [ -t 1 ] is true if piped
+    \alias $@
+  else
+    \alias | grep -v -e '^alias' | sed -E -e "s|^([^ ]*)=(.*)|${fg_bold[blue]}\1 ${fg[white]}###\2$reset_color|" | column -s '###' -t
+  fi
+}
+type compdef >/dev/null && compdef _alias alias_colorized # set default completion
+
 ################
 ### ALIASES
 ################
 
-function alias_colorized {
-  if [ $# -gt 0 ] || ! [ -t 1 ]; then # ! [ -t 1 ] is true if piped
-    \alias $@
-  else 
-    \alias | grep -v -e '^alias' | sed -E -e "s|^([^ ]*)=(.*)|${fg_bold[blue]}\1 ${fg[white]}###\2$reset_color|" | column -s '###' -t 
-  fi 
-}
 alias aliasx=alias_colorized
 
 alias type="type -a"
@@ -19,7 +21,7 @@ alias mv='\mv -i' # ask before overwrite file
 alias cp='\cp -i' # ask before overwrite file
 alias rm='\rm -i' # ask before remove file
 
-alias ls='\ls -G' # G - colorize types, 
+alias ls='\ls -G' # G - colorize types,
 alias lsx='ls -lhTA' # l - long format, h - human readable, A - list all except . and ..
 
 alias gls='\gls --color'

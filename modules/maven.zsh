@@ -1,6 +1,6 @@
 autoload +X -U colors && colors
 
-function mvn_colorized {  
+function mvn_colorized {
   'mvn' $@ | sed -E \
       -e "s|^(\[INFO\] Building )([^ ]*)( .*)|${fg_bold[blue]}\1${fg_bold[cyan]}\2${fg_bold[white]}\3$reset_color|" \
       -e "s|^(\[INFO\] )(--- )(.*)|${fg_bold[blue]}\1${fg_no_bold[grey]}\2${fg_no_bold[cyan]}\3$reset_color|" \
@@ -25,4 +25,4 @@ function mvn_colorized {
       -l
   return $PIPESTATUS
 }
-
+type compdef >/dev/null && compdef _mvn mvn_colorized # set default completion
