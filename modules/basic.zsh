@@ -39,6 +39,8 @@ alias wordcount="tr -s ' ' | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | sort | u
 
 alias debug_function='() { (set -x; $@) } '
 
+alias devide='_print_divider'
+
 
 ################
 ### SUFFIX ALIASES
