@@ -1,7 +1,16 @@
 # zsh_config
 ## Installation
-* install_config.sh - install this config for current user
+* checkout to $HOME/.zsh
+* run install_config.sh - install this config for current user
+
+### Optional
 * install_utils_macos.sh  - install common command line utils (with brew)
+
+## Commands
+zsh_config_edit - will open config in Atom
+
+
+## Zsh Knowledge
 
 ## shortcuts
 * pause process: ctrl + z
