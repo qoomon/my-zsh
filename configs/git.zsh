@@ -1,6 +1,7 @@
 # git global config
 git config --global merge.ff false
 git config --global pull.rebase true
+git config --global rebase.autoStash true
 git config --global push.followTags true
 git config --global tag.sort version:refname
 
