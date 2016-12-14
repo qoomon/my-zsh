@@ -4,6 +4,7 @@ git config --global pull.rebase true
 git config --global rebase.autoStash true
 git config --global push.followTags true
 git config --global tag.sort version:refname
+# git config --global credential.helper osxkeychain
 
 # list all alias
 git config --global alias.alias '\!git config --get-regexp '\''alias'\'' | sed -E -e '\''s|^alias\.||'\'' | grep -v -e '\''^alias'\'' | sort | sed -E -e '\''s|^([^ ]*)( .*)|${fg_bold[blue]}\1###${fg[white]}\2$reset_color|'\'' | column -s '\''###'\'' -t'
