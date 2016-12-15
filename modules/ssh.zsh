@@ -7,7 +7,7 @@ function ssh_tunnel {
   ssh -L ${local_port}:localhost:${remote_port} ${remote_host}
 }
 
-function ssh_key-set {
+function ssh_key_set {
    ssh-add -D
    ssh-add ~"/.ssh/$1"
 }
