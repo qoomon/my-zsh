@@ -103,17 +103,21 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
-function _print_divider { # print online of divider icons
+function divider { # print online of divider icons
   local dividerIcon="▪"   # ≡ ▪ ◊ ◄►
   local dividerSpaces="$(echo $dividerIcon | sed 's|.| |g')"
 
   #zle clear-screen
   printf '\e[0K\r\e[0K\r%*s' "$( expr ${COLUMNS:-$(tput cols)} - 2 )" '' | sed "s|$dividerSpaces|$dividerIcon|g"
+}
+
+function _divider { # print online of divider icons
+  divider
   echo ''
   zle reset-prompt
 }
-zle -N _print_divider
-bindkey "^N" _print_divider
+zle -N _divider
+bindkey "^N" _divider
 
 function _clear_screen { # clear screen without coping last line
   printf '\e[0K\r\e[0K\r'
