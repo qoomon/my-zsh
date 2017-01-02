@@ -48,8 +48,7 @@ fi
 ### sourcetree
 #################
 
-## Diff Command      Arguments  
+## Diff Command      Arguments
 # /usr/local/bin/idea diff $LOCAL $PWD/$REMOTE
 ## Merge Tool        Arguments
 # /usr/local/bin/idea merge $LOCAL $PWD/$REMOTE $PWD/$BASE $MERGED
-

@@ -109,6 +109,7 @@ function _print_divider { # print online of divider icons
 
   #zle clear-screen
   printf '\e[0K\r\e[0K\r%*s' "$( expr ${COLUMNS:-$(tput cols)} - 2 )" '' | sed "s|$dividerSpaces|$dividerIcon|g"
+  echo ''
   zle reset-prompt
 }
 zle -N _print_divider

@@ -9,11 +9,11 @@ function ssh_tunnel {
 
 function ssh_key_set {
    ssh-add -D
-   ssh-add ~"/.ssh/$1"
+   ssh-add "$HOME/.ssh/${1:-id_rsa}"
 }
 
 function ssh_key_info {
-   ssh-keygen -l -f ~"/.ssh/$1"
+   ssh-keygen -l -f "$HOME/.ssh/$1"
 }
 
 

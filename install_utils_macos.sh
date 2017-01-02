@@ -17,8 +17,10 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 
 ! brew list httpie >/dev/null && brew install httpie # better alternative to curl
 ! brew list httpry >/dev/null && brew install httpry # http sniffer https://github.com/jbittel/httpry
-! brew list w3m >/dev/null && brew install w3m # terminal browser
+! brew list w3m >/dev/null &&  brew install w3m # terminal browser
 
+! brew list oath-toolkit >/dev/null && brew install oath-toolkit # generate OTP Codes
+! brew list zbar >/dev/null && brew install zbar # read qr-code images e.g. command: zbarimg qr.png
 
 ! brew list siege >/dev/null && brew install siege # benchmark http # https://github.com/JoeDog/siege
 ! brew list vegeta >/dev/null && brew install vegeta # benchmark http # https://github.com/tsenart/vegeta
