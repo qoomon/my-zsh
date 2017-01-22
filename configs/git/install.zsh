@@ -1,9 +1,12 @@
+# see $HOME/.gitconfig
+
 # git global config
 git config --global merge.ff false
 git config --global pull.rebase true
 git config --global rebase.autoStash true
 git config --global push.followTags true
 git config --global tag.sort version:refname
+git config --global core.editor 'vim'
 # git config --global commit.template ~/git_commit_template.txt
 if [ "$(uname)" == "Darwin" ]; then
   git config --global credential.helper osxkeychain
@@ -17,10 +20,6 @@ git config --global alias.logx 'log --graph --all --date=format:'\''%a %Y-%m-%d 
 
 # get commit hash for HEAD by default or Branch or Tag
 git config --global alias.hash '!sh -c '\''git rev-parse ${1:-HEAD}'\'' -'
-
-# if type atom >/dev/null; then
-#   git config --global core.editor 'atom --wait'
-# fi
 
 if type idea >/dev/null; then
   git config --global mergetool.intellij.cmd 'idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")'
