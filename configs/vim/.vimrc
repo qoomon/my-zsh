@@ -1,11 +1,10 @@
+" https://dougblack.io/words/a-good-vimrc.html
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set laststatus=2
-
 set autoread
 
+set laststatus=2
 set number	" Show line numbers
 set ruler	" Show row and column ruler information
 set linebreak	" Break lines at word (requires Wrap lines)
