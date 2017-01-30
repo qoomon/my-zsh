@@ -6,20 +6,23 @@ git config --global pull.rebase true
 git config --global rebase.autoStash true
 git config --global push.followTags true
 git config --global tag.sort version:refname
-git config --global core.editor 'vim'
+git config --global core.editor "$EDITOR"
 # git config --global commit.template ~/git_commit_template.txt
 if [ "$(uname)" == "Darwin" ]; then
   git config --global credential.helper osxkeychain
 fi
 
 # list all alias
-git config --global alias.alias '\!git config --get-regexp '\''alias'\'' | sed -E -e '\''s|^alias\.||'\'' | grep -v -e '\''^alias'\'' | sort | sed -E -e '\''s|^([^ ]*)( .*)|${fg_bold[blue]}\1###${fg[white]}\2$reset_color|'\'' | column -s '\''###'\'' -t'
+git config --global alias.alias '!git config --get-regexp "alias" | sed -E -e "s|^alias\.||" | grep -v -e "^alias" | sort | sed -E -e "s|^([^ ]*)( .*)|'${fg_bold[blue]}'\1###'${fg[white]}'\2'$reset_color'|" | column -s "###" -t'
+
+# open ignore file with $EDITOR
+git config --global alias.ignore '!$EDITOR .gitignore'
 
 # colorized log
-git config --global alias.logx 'log --graph --all --date=format:'\''%a %Y-%m-%d %H:%M'\'' --pretty=format:'\'' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)'\'''
+git config --global alias.logx '!git log --graph --all --date=format:'\''%a %Y-%m-%d %H:%M'\'' --pretty=format:'\'' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)'\'''
 
 # get commit hash for HEAD by default or Branch or Tag
-git config --global alias.hash '!sh -c '\''git rev-parse ${1:-HEAD}'\'' -'
+git config --global alias.hash '!git rev-parse ${1:-HEAD}'
 
 if type idea >/dev/null; then
   git config --global mergetool.intellij.cmd 'idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")'
