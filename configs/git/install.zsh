@@ -1,6 +1,7 @@
 # see $HOME/.gitconfig
 
 # git global config
+git config --global color.ui true
 git config --global merge.ff false
 git config --global pull.rebase true
 git config --global rebase.autoStash true
@@ -13,13 +14,13 @@ if [ "$(uname)" == "Darwin" ]; then
 fi
 
 # list all alias
-git config --global alias.alias '!git config --get-regexp "alias" | sort | sed -E -e "s|^alias\.||" | grep -v -e "^alias" | sort | sed -E -e "s|^([^ ]*)( .*)|'${fg_bold[blue]}'\1###'${fg[white]}'\2'$reset_color'|" | column -s "###" -t'
+git config --global alias.alias "\!git config --get-regexp alias | sort | sed -E -e 's|^alias\.||' | grep -v -e '^alias' | sort | sed -E -e 's|^([^ ]*)( .*)|${fg_bold[blue]}\1###${fg[white]}\2$reset_color|' | column -s '###' -t"
 
 # open ignore file with $EDITOR
-git config --global alias.ignore '!([ -n "$1" ] && echo "$1" >> .gitignore) || $EDITOR .gitignore'
+git config --global alias.ignore $'!sh -c "if [ -n \'$1\' ]; then echo \'$1\' >> .gitignore; else $EDITOR .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi;"'
 
 # colorized log
-git config --global alias.logx '!git log --graph --all --date=format:'\''%a %Y-%m-%d %H:%M'\'' --pretty=format:'\'' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)'\'''
+git config --global alias.logx $'!git log --color=always --graph --all --date=format:\'%a %Y-%m-%d %H:%M\' --pretty=tformat:\' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)\' -m'
 
 # get commit hash for HEAD by default or Branch or Tag
 git config --global alias.hash '!git rev-parse ${1:-HEAD}'

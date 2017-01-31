@@ -28,6 +28,7 @@ alias gls='\gls --color'
 alias glsx='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --human-readable -l' # l - long format
 
 alias grep='\grep --color=auto' # colorize matching parts
+alias less='\less -R' # enable colors
 
 alias mvnx='mvn_colorized'
 
