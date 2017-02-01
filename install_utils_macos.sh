@@ -1,11 +1,13 @@
 #!/bin/sh -x
 
+# install homebrew
 command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 ! brew list coreutils >/dev/null && brew install coreutils # http://www.gnu.org/software/coreutils/manual/coreutils.pdf
 
 ! brew list zsh >/dev/null && brew install zsh
-! brew list fzf >/dev/null && brew install fzf # https://github.com/junegunn/fzf
+
+! brew list fzf >/dev/null && brew install fzf # https://github.com/junegunn/fzf # install shell extensions /usr/local/opt/fzf/install
 ! brew list hh >/dev/null && brew install hh # history viewer
 ! brew list htop >/dev/null && brew install htop # better top
 ! brew list nmap >/dev/null && brew install nmap

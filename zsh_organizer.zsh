@@ -21,7 +21,6 @@ declare -r ZSH_PLUGIN_DIR
 
 export ZSH_COMPLETION_DIR="$ZSH_LIB_DIR/completion"
 declare -r ZSH_COMPLETION_DIR
-fpath=($fpath "$ZSH_COMPLETION_DIR")
 
 export ZSH_FILE_DIR="$ZSH_CONFIG_DIR/files"
 declare -r ZSH_FILE_DIR
@@ -47,9 +46,9 @@ function zsh_config_update {
   echo " "
   cd - 1> /dev/null
 
-  zsh_plugins_update
+  zsh_update_plugins
 
-  zsh_completions_update
+  zsh_update_completions
 
   zsh_reload
 }
@@ -58,19 +57,9 @@ function zsh_config_update {
 ### MODULES
 ##################
 
-set -A ZSH_MODULES_LOADED; ZSH_MODULES_LOADED=()
-function zsh_module_bundle {
+function zsh_bundle_module {
   local module_name=$1
-  if [ "${ZSH_MODULES_LOADED[(r)$module_name]}" != "$module_name" ]; then
-    source "$ZSH_MODULE_DIR/$module_name.zsh"
-    ZSH_MODULES_LOADED+="$module_name"
-  fi
-}
-
-function zsh_module_bundle_all {
-  for module_file in $(find "$ZSH_MODULE_DIR" -type f -name '*.zsh'); do
-    zsh_module_bundle "$(_basename $module_file '.zsh')"
-  done
+  source "$ZSH_MODULE_DIR/$module_name.zsh"
 }
 
 
@@ -78,7 +67,7 @@ function zsh_module_bundle_all {
 ### PLUGINS
 ##################
 
-function zsh_plugin_bundle {
+function zsh_bundle_plugin {
   local repo_url=$1
   local zsh_file=$2
 
@@ -91,10 +80,10 @@ function zsh_plugin_bundle {
     echo
   fi
 
-  zsh_plugin_load $plugin_name $zsh_file
+  zsh_load_plugin $plugin_name $zsh_file
 }
 
-function zsh_plugin_load {
+function zsh_load_plugin {
   local plugin_name=$1
   local plugin_dir="$ZSH_PLUGIN_DIR/$plugin_name"
   local zsh_file=$2
@@ -117,7 +106,7 @@ function zsh_plugin_load {
 
 
 # update plugins
-function zsh_plugins_update {
+function zsh_update_plugins {
   for plugin_dir in $(find "$ZSH_PLUGIN_DIR" -type d -mindepth 1 -maxdepth 1); do
     echo "${fg_bold[blue]}* update plugin $plugin_dir$reset_color";
     cd $plugin_dir;
@@ -132,11 +121,14 @@ function zsh_plugins_update {
   done
 }
 
+
 ##################
 ### COMPLETIONS
 ##################
 
-function zsh_completion_bundle {
+fpath=($fpath "$ZSH_COMPLETION_DIR")
+
+function zsh_bundle_completion {
   local file_url=$1
   local file_name=$(_basename "$file_url")
   local meta_file_name=".$file_name"
@@ -154,7 +146,7 @@ function zsh_completion_bundle {
 }
 
 # update completions
-function zsh_completions_update {
+function zsh_update_completions {
   for completion_file in $(find "$ZSH_COMPLETION_DIR" -name '_*' ); do
     cd $ZSH_COMPLETION_DIR;
     echo "${fg_bold[blue]}* update completion $completion_file$reset_color";
@@ -170,30 +162,6 @@ function zsh_completions_update {
   done
 }
 
-
-##################
-### FUNCTIONS
-##################
-
-#### lazy load functions
-function zsh_function_bundle_all {
-  for function_file in $(find "$ZSH_FUNCTION_DIR" -type f -name '*.zsh' 2>/dev/null); do
-    local function_name="$(_basename "$function_file" '.zsh')"
-    alias $function_name='lazy_function_load '$function_file''
-  done
-}
-
-function lazy_function_load {
-  local function_file="$1"
-  local function_name="$(_basename "$function_file" '.zsh')"
-  source "$function_file"
-  if type -a $function_name | grep -q "$function_file"; then
-    unalias $function_name
-    $function_name \$@
-  else
-    echo "function '$function_name' can not be found within '$function_file'" 1>&2 
-  fi
-}
 
 ##################
 ### APP CONFIGS  

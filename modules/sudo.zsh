@@ -12,6 +12,6 @@ function sudome  {
   local -a args; args=(${@:1:$index})
   local -a cmd; cmd=(${@:$(expr $index + 1)})
 
-  ( export ZSH_UI='no'; sudo -E $args zsh -ic "${cmd}" )
+  ( sudo -E $args zsh -ic "${cmd}" )
 }
 type compdef >/dev/null && compdef _sudo sudome # set default completion

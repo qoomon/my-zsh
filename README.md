@@ -7,7 +7,7 @@
 * install_utils_macos.sh  - install common command line utils (with brew)
 
 ## Commands
-zsh_config_edit - will open config in Atom
+zsh_config_edit - will open config in $Editor
 
 
 ## Zsh Knowledge
