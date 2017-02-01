@@ -25,6 +25,11 @@ git config --global alias.logx $'!git log --color=always --graph --all --date=fo
 # get commit hash for HEAD by default or Branch or Tag
 git config --global alias.hash '!git rev-parse ${1:-HEAD}'
 
+# ignore changes of tracked file(s)
+git config --global alias.assume-unchanged 'update-index --assume-unchanged'
+git config --global alias.skip-worktree 'update-index --skip-worktree'
+
+
 if type idea >/dev/null; then
   git config --global mergetool.intellij.cmd 'idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")'
   git config --global mergetool.intellij.trustExitCode false
