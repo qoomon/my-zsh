@@ -1,18 +1,20 @@
 
 autoload +X -U colors && colors
 
-export ZGEM_DIR=${ZGEM_DIR:-"$HOME/.zgem"}
-declare -r ZGEM_DIR
+declare -rx  ZGEM_DIR=${ZGEM_DIR:-"$HOME/.zgem"}
+
+echo "${fg_bold[yellow]}[zgem]${fg_bold[blue]} gem directory ${reset_color} '$ZGEM_DIR'"
 
 function zgem {
   local cmd=$1
-
+  shift
   case "$cmd" in
-    add)
-      shift && zgem::add $@
+    'add')
+      zgem::add $@
       ;;
-    update)
-      shift && zgem::update $@
+    'update')
+      zgem::update $@
+      zgem::zsh_reload
       ;;
     *)
       echo "Unknown command '$cmd'"
@@ -34,13 +36,13 @@ function zgem::add {
     local param_value="${param[(ws|:|)2]}"
 
     case "$param_key" in
-      from)
+      'from')
         protocol="$param_value"
         ;;
-      use)
+      'use')
         file="$param_value"
         ;;
-      as)
+      'as')
         gem_type="$param_value"
         ;;
       *)
@@ -52,17 +54,17 @@ function zgem::add {
 
   local gem_dir
   case "$protocol" in
-    file)
+    'file')
       file="$(zgem::basename "$location")"
       gem_dir="$(zgem::dirname "$location")"
       ;;
-    http)
+    'http')
       file=$(zgem::basename "$location")
       local gem_name="$file"
       gem_dir="${ZGEM_DIR}/${gem_name}.http"
       zgem::install::http "$location" "$gem_dir"
       ;;
-    git)
+    'git')
       local gem_name="$(zgem::basename "$location")"
       gem_dir="$ZGEM_DIR/${gem_name}.git"
       zgem::install::git "$location" "$gem_dir"
@@ -77,6 +79,50 @@ function zgem::add {
 
 }
 
+function zgem::load {
+  local gem_dir=$1
+  local file=$2
+  local gem_type=$3
+
+  case "$gem_type" in
+    'completion')
+      echo "${fg_bold[yellow]}[zgem]${fg_bold[green]} completion ${reset_color}    '$gem_dir/$file'"
+      fpath=($fpath "$gem_dir")
+      ;;
+    *)
+      echo "${fg_bold[yellow]}[zgem]${fg_bold[green]} source     ${reset_color}    '$gem_dir/$file'"
+      source "$gem_dir/$file"
+      ;;
+  esac
+}
+
+function zgem::update {
+  for gem_dir in $(find "$ZGEM_DIR" -type d -mindepth 1 -maxdepth 1); do
+    echo "${fg_bold[blue]}* update gem${reset_color} $gem_dir";
+
+    local gem_name="$(zgem::basename "$gem_dir")"
+    local protocol="${gem_name##*.}"
+    case "$protocol" in
+      'http')
+        zgem::update::http $gem_dir
+        ;;
+      'git')
+        zgem::update::git $gem_dir
+        ;;
+      *)
+        echo "Unknown protocol '$protocol'"
+        echo "Protocol: {http|git} " >&2
+        return 1 ;;
+    esac
+  done
+}
+
+function zgem::zsh_reload {
+  exec "$SHELL" -l
+}
+
+
+############################# http ############################
 
 function zgem::install::http {
   local http_url="$1"
@@ -108,6 +154,8 @@ function zgem::update::http {
   cd - 1> /dev/null
 }
 
+############################# git #############################
+
 function zgem::install::git {
   local repo_url=$1
   local gem_dir="$2"
@@ -132,61 +180,6 @@ function zgem::update::git {
   echo " "
   cd - 1> /dev/null
 }
-
-function zgem::load {
-  local gem_dir=$1
-  local file=$2
-  local gem_type=$3
-
-  case "$gem_type" in
-    completion)
-      echo "${fg_bold[yellow]}add gem to fpath${reset_color} $gem_dir/$file"
-      fpath=($fpath "$gem_dir")
-      ;;
-    *)
-      echo "${fg_bold[yellow]}source gem${reset_color} $gem_dir/$file"
-      source "$gem_dir/$file"
-      ;;
-  esac
-
-
-}
-
-function zgem::zsh_reload {
-  exec "$SHELL" -l
-}
-
-function zgem::update {
-  # # update self
-  # cd $ZSH_CONFIG_DIR;
-  # echo "${fg_bold[green]}* update config $(pwd)${reset_color}"
-  # git pull
-  # echo " "
-  # cd - 1> /dev/null
-
-  for gem_dir in $(find "$ZGEM_DIR" -type d -mindepth 1 -maxdepth 1); do
-    echo "${fg_bold[blue]}* update gem${reset_color} $gem_dir";
-
-    local gem_name="$(zgem::basename "$gem_dir")"
-    local protocol="${gem_name##*.}"
-    case "$protocol" in
-      http)
-        zgem::update::http $gem_dir
-        ;;
-      git)
-        zgem::update::git $gem_dir
-        ;;
-      *)
-        echo "Unknown protocol '$protocol'"
-        echo "Protocol: {http|git} " >&2
-        return 1 ;;
-    esac
-  done
-
-  zgem::zsh_reload
-}
-
-
 
 
 ##################
