@@ -14,13 +14,17 @@ function zgem {
       ;;
     'update')
       zgem::update $@
-      zgem::zsh_reload
+      zgem::reload
       ;;
     *)
       echo "Unknown command '$cmd'"
       echo "Usage: $0 {add|update} " >&2
       return 1 ;;
   esac
+}
+
+function zgem::reload {
+  exec "$SHELL" -l
 }
 
 function zgem::add {
@@ -117,10 +121,6 @@ function zgem::update {
   done
 }
 
-function zgem::zsh_reload {
-  exec "$SHELL" -l
-}
-
 
 ############################# http ############################
 
@@ -181,46 +181,6 @@ function zgem::update::git {
   cd - 1> /dev/null
 }
 
-
-##################
-### COMPLETIONS
-##################
-
-
-# update completions
-function zsh_update_completions {
-  for completion_file in $(find "$ZSH_COMPLETION_DIR" -name '_*' ); do
-    cd $ZSH_COMPLETION_DIR;
-    echo "${fg_bold[blue]}* update completion $completion_file$reset_color";
-    local completion_file_url=$(cat "$(_dirname $completion_file)/.$(_basename $completion_file)")
-    if [ $(curl -s -L -w %{http_code} -O -z $completion_file $completion_file_url) = '200' ]; then
-      echo "From $completion_file_url"
-      echo "Updated."
-    else
-      echo "File is up to date"
-    fi
-    echo " "
-    cd - 1> /dev/null
-  done
-}
-
-
-##################
-### APP CONFIGS
-##################
-
-function app_config_apply {
-  local appName=$1
-  zsh $APP_CONFIG_DIR/${appName}.zsh
-  echo "$appName config applied"
-}
-
-function app_config_apply_all {
-  for completion_file in $(find "$APP_CONFIG_DIR" -name '*.zsh' ); do
-    app_config_apply $(_basename $completion_file '.zsh')
-  done
-}
-
 ##################
 ### Helper
 ##################
@@ -240,3 +200,42 @@ function zgem::dirname {
   name=${name%/*};
   echo $name
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##################
+### APP CONFIGS
+##################
+
+function app_config_apply {
+  local appName=$1
+  zsh $APP_CONFIG_DIR/${appName}.zsh
+  echo "$appName config applied"
+}
+
+function app_config_apply_all {
+  for completion_file in $(find "$APP_CONFIG_DIR" -name '*.zsh' ); do
+    app_config_apply $(_basename $completion_file '.zsh')
+  done
+}
+
+
