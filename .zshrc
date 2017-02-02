@@ -14,48 +14,55 @@ fi
 ################
 
 export ZSH_CONFIG_DIR=$(dirname $0)
-source "$ZSH_CONFIG_DIR/zsh_organizer.zsh"
+source "$ZSH_CONFIG_DIR/zgem.zsh"
+
+export ZSH_MODUELS_DIR="$ZSH_CONFIG_DIR/modules"
+
+
+function zsh_config {
+  $EDITOR "$ZSH_CONFIG_DIR"
+}
 
 ################
 ### LOAD SOURCES
 ################
 
-zsh_bundle_plugin 'https://github.com/rupa/z.git' 'z.sh'
+zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 # zsh_bundle_plugin 'https://github.com/jimhester/per-directory-history'
-zsh_bundle_plugin 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-zsh_bundle_plugin 'https://github.com/zsh-users/zsh-history-substring-search.git'
+zgem add 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
+zgem add 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'
   HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
   HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
   HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
   bindkey '^[[A' history-substring-search-up     # bind arrow-up
   bindkey '^[[B' history-substring-search-down   # bind arrow-down
-zsh_bundle_plugin 'https://github.com/zsh-users/zsh-completions.git'
+zgem add 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
 
-zsh_bundle_completion 'https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker'
-zsh_bundle_completion 'https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose'
+zgem add 'https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker' from:'http' as:'completion'
+zgem add 'https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose' from:'http' as:'completion'
 
-zsh_bundle_module 'basic'
-zsh_bundle_module 'color'
+zgem add "$ZSH_MODUELS_DIR/basic.zsh"
+zgem add "$ZSH_MODUELS_DIR/color.zsh"
 
-zsh_bundle_module 'benchmark'
-zsh_bundle_module 'completion'
-zsh_bundle_module 'diff'
-zsh_bundle_module 'docker'
-zsh_bundle_module 'find'
-# zsh_bundle_module 'git'
-zsh_bundle_module 'history'
-zsh_bundle_module 'http-server'
-zsh_bundle_module 'man'
-zsh_bundle_module 'maven'
-zsh_bundle_module 'network'
-zsh_bundle_module 'osx'
-# zsh_bundle_module 'pane'
-zsh_bundle_module 'process'
-zsh_bundle_module 'prompt'
-zsh_bundle_module 'random'
-zsh_bundle_module 'ssh'
-zsh_bundle_module 'sudo'
-zsh_bundle_module 'which'
+zgem add "$ZSH_MODUELS_DIR/benchmark.zsh"
+zgem add "$ZSH_MODUELS_DIR/completion.zsh"
+zgem add "$ZSH_MODUELS_DIR/diff.zsh"
+zgem add "$ZSH_MODUELS_DIR/docker.zsh"
+zgem add "$ZSH_MODUELS_DIR/find.zsh"
+# zgem add "$ZSH_MODUELS_DIR/git.zsh"
+zgem add "$ZSH_MODUELS_DIR/history.zsh"
+zgem add "$ZSH_MODUELS_DIR/http-server.zsh"
+zgem add "$ZSH_MODUELS_DIR/man.zsh"
+zgem add "$ZSH_MODUELS_DIR/maven.zsh"
+zgem add "$ZSH_MODUELS_DIR/network.zsh"
+zgem add "$ZSH_MODUELS_DIR/osx.zsh"
+# zgem add "$ZSH_MODUELS_DIR/pane.zsh"
+zgem add "$ZSH_MODUELS_DIR/process.zsh"
+zgem add "$ZSH_MODUELS_DIR/prompt.zsh"
+zgem add "$ZSH_MODUELS_DIR/random.zsh"
+zgem add "$ZSH_MODUELS_DIR/ssh.zsh"
+zgem add "$ZSH_MODUELS_DIR/sudo.zsh"
+zgem add "$ZSH_MODUELS_DIR/which.zsh"
 
 ################ PROFILING ZSHRC FILE - print results
 if [ "$ZSH_PROFILE" = 'yes' ]; then
