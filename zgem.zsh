@@ -3,7 +3,12 @@ autoload +X -U colors && colors
 
 declare -rx  ZGEM_DIR=${ZGEM_DIR:-"$HOME/.zgem"}
 
-echo "${fg_bold[yellow]}[zgem]${fg_bold[blue]} gem directory ${reset_color} '$ZGEM_DIR'"
+ZGEM_VERBOSE="${ZGEM_VERBOSE:-false}"
+function zgem::log {
+  $ZGEM_VERBOSE && echo $@
+}
+
+zgem::log "${fg_bold[yellow]}[zgem]${fg_bold[blue]} gem directory ${reset_color} '$ZGEM_DIR'"
 
 function zgem {
   local cmd=$1
@@ -90,11 +95,11 @@ function zgem::load {
 
   case "$gem_type" in
     'completion')
-      echo "${fg_bold[yellow]}[zgem]${fg_bold[green]} completion ${reset_color}    '$gem_dir/$file'"
+      zgem::log "${fg_bold[yellow]}[zgem]${fg_bold[green]} completion ${reset_color}    '$gem_dir/$file'"
       fpath=($fpath "$gem_dir")
       ;;
     *)
-      echo "${fg_bold[yellow]}[zgem]${fg_bold[green]} source     ${reset_color}    '$gem_dir/$file'"
+      zgem::log "${fg_bold[yellow]}[zgem]${fg_bold[green]} source     ${reset_color}    '$gem_dir/$file'"
       source "$gem_dir/$file"
       ;;
   esac
