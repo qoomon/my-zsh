@@ -15,6 +15,7 @@ function zgem {
       shift && zgem::update $@
       ;;
     *)
+      echo "Unknown command '$cmd'"
       echo "Usage: $0 {add|update} " >&2
       return 1 ;;
   esac
@@ -43,6 +44,7 @@ function zgem::add {
         gem_type="$param_value"
         ;;
       *)
+        echo "Unknown parameter '$param_key'"
         echo "Parameter: {from|use|as} " >&2
         return 1 ;;
     esac
@@ -57,15 +59,16 @@ function zgem::add {
     http)
       file=$(zgem::basename "$location")
       local gem_name="$file"
-      gem_dir="$ZGEM_DIR/$gem_name"
+      gem_dir="${ZGEM_DIR}/${gem_name}.http"
       zgem::install::http "$location" "$gem_dir"
       ;;
     git)
       local gem_name="$(zgem::basename "$location")"
-      gem_dir="$ZGEM_DIR/$gem_name"
+      gem_dir="$ZGEM_DIR/${gem_name}.git"
       zgem::install::git "$location" "$gem_dir"
       ;;
     *)
+      echo "Unknown protocol '$protocol'"
       echo "Protocol: {file|http|git} " >&2
       return 1 ;;
   esac
@@ -164,15 +167,17 @@ function zgem::update {
   for gem_dir in $(find "$ZGEM_DIR" -type d -mindepth 1 -maxdepth 1); do
     echo "${fg_bold[blue]}* update gem${reset_color} $gem_dir";
 
-    local protocol="$(echo "$gem_dir" | sed 's|||')"
+    local gem_name="$(zgem::basename "$gem_dir")"
+    local protocol="${gem_name##*.}"
     case "$protocol" in
       http)
-        zgem::update:http $gem_dir
+        zgem::update::http $gem_dir
         ;;
       git)
-        zgem::update:git $gem_dir
+        zgem::update::git $gem_dir
         ;;
       *)
+        echo "Unknown protocol '$protocol'"
         echo "Protocol: {http|git} " >&2
         return 1 ;;
     esac
