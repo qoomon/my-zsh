@@ -1,13 +1,12 @@
 ####################### zprofile ######################
 
 function zprofile {
-  (zprofile::active true; zsh -ic exit)
-  return 0
+  (zprofile::active true; zsh -ic 'exit 0')
 }
 
 function zprofile::benchmark {
   local repeatCount=${1:-10}
-  repeat $repeatCount time zsh -ic exit
+  repeat $repeatCount time zsh -ic 'exit 0'
 }
 
 function zprofile::active {
