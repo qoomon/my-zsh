@@ -1,31 +1,9 @@
 autoload +X -U colors && colors
 
-ZGEM_VERBOSE="${ZGEM_VERBOSE:-false}"
-function zgem::log {
-  local level="$1"
-  shift
-
-  case "$level" in
-    'error')
-      echo "${fg_bold[red]}[zgem]${reset_color}" $@ >&2
-      ;;
-    'info')
-      echo "${fg_bold[blue]}[zgem]${reset_color}" $@
-      ;;
-    'debug')
-      $ZGEM_VERBOSE && echo "${fg_bold[yellow]}[zgem]${reset_color}" $@
-      ;;
-    *)
-      zgem::log error "Unknown log level '$protocol'"
-      zgem::log error "Log Level: {error|info|debug}"
-      ;;
-  esac
-}
 
 ########################## zgem #########################
 
 declare -rx ZGEM_DIR=${ZGEM_DIR:-"$HOME/.zgem"}
-zgem::log debug "${fg_bold[blue]}home directory${reset_color} '$ZGEM_DIR'"
 
 function zgem {
   local cmd="$1"
@@ -109,10 +87,11 @@ function zgem::add {
       return 1 ;;
   esac
 
-  [ ! -e "$gem_dir" ] \
-    && zgem::log info "${fg_bold[green]}install${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color}    '$location'" \
-    && zgem::install::$protocol "$location" "$gem_dir" \
-    && echo "$protocol" > "$gem_dir/.gem"
+  if [ ! -e "$gem_dir" ]; then
+    zgem::log info "${fg_bold[green]}install${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color}    '$location'"
+    zgem::install::$protocol "$location" "$gem_dir"
+    echo "$protocol" > "$gem_dir/.gem"
+  fi
 
   zgem::load "$gem_dir" "$file" "$gem_type"
 }
@@ -172,6 +151,27 @@ function zgem::dirname {
   echo "$name"
 }
 
+ZGEM_VERBOSE="${ZGEM_VERBOSE:-false}"
+function zgem::log {
+  local level="$1"
+  shift
+
+  case "$level" in
+    'error')
+      echo "${fg_bold[red]}[zgem]${reset_color}" $@ >&2
+      ;;
+    'info')
+      echo "${fg_bold[blue]}[zgem]${reset_color}" $@
+      ;;
+    'debug')
+      $ZGEM_VERBOSE && echo "${fg_bold[yellow]}[zgem]${reset_color}" $@
+      ;;
+    *)
+      zgem::log error "Unknown log level '$protocol'"
+      zgem::log error "Log Level: {error|info|debug}"
+      ;;
+  esac
+}
 
 ############################# http ############################
 
@@ -218,43 +218,4 @@ function zgem::update::git {
     echo "Updated:"
     echo "$changed_files" | sed -e 's/^/  /'
   fi
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##################
-### APP CONFIGS
-##################
-
-function app_config_apply {
-  local appName=$1
-  zsh $APP_CONFIG_DIR/${appName}.zsh
-  echo "$appName config applied"
-}
-
-function app_config_apply_all {
-  for completion_file in $(find "$APP_CONFIG_DIR" -name '*.zsh' ); do
-    app_config_apply $(_basename $completion_file '.zsh')
-  done
 }

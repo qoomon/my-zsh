@@ -83,27 +83,6 @@ function zconfig::edit {
 }
 
 function zconfig::update {
-  zconfig::log debug "${fg_bold[blue]}home directory${reset_color} $SELF_DIR"
+  echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[blue]}home directory${reset_color} $SELF_DIR"
   (cd $SELF_DIR; git pull)
-}
-
-function zconfig::log {
-  local level="$1"
-  shift
-
-  case "$level" in
-    'error')
-      echo "${fg_bold[red]}[zconfig]${reset_color}" $@ >&2
-      ;;
-    'info')
-      echo "${fg_bold[blue]}[zconfig]${reset_color}" $@
-      ;;
-    'debug')
-      $ZCONFIG_VERBOSE && echo "${fg_bold[yellow]}[zconfig]${reset_color}" $@
-      ;;
-    *)
-      zgem::log error "Unknown log level '$protocol'"
-      zgem::log error "Log Level: {error|info|debug}"
-      ;;
-  esac
 }
