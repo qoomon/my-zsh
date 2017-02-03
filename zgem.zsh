@@ -89,19 +89,22 @@ function zgem::add {
     'http')
       file=$(zgem::basename "$location")
       local gem_name="$file"
-      gem_dir="${ZGEM_DIR}/${gem_name}.http"
-      [ ! -e "$gem_dir" ] && zgem::install::http "$location" "$gem_dir"
+      gem_dir="${ZGEM_DIR}/${gem_name}"
       ;;
     'git')
-      local gem_name="$(zgem::basename "$location")"
-      gem_dir="$ZGEM_DIR/${gem_name}.git"
-      [ ! -e "$gem_dir" ] && zgem::install::git "$location" "$gem_dir"
+      local gem_name="$(zgem::basename "$location" '.git')"
+      gem_dir="$ZGEM_DIR/${gem_name}"
       ;;
     *)
       zgem::log error  "Unknown protocol '$protocol'"
       zgem::log error  "Protocol: {file|http|git}"
       return 1 ;;
   esac
+
+  [ ! -e "$gem_dir" ] \
+    && zgem::log info "${fg_bold[green]}install${reset_color}    '$gem_dir'" \
+    && zgem::install::$protocol "$location" "$gem_dir" \
+    && echo "$protocol" > "$gem_dir/.gem"
 
   zgem::load "$gem_dir" "$file" "$gem_type"
 }
@@ -128,7 +131,7 @@ function zgem::update {
     zgem::log info "${fg_bold[green]}update${reset_color} '$gem_dir'";
 
     local gem_name="$(zgem::basename "$gem_dir")"
-    local protocol="${gem_name##*.}"
+    local protocol="${cat "$gem_dir/.gem"}"
     case "$protocol" in
       'http')
         zgem::update::http $gem_dir
@@ -167,7 +170,6 @@ function zgem::install::http {
   local http_url="$1"
   local gem_dir="$2"
 
-  zgem::log info "${fg_bold[green]}install${reset_color}    '$gem_dir'"
   mkdir -p "$gem_dir"
   echo "$http_url" > "$gem_dir/.http" # store url into meta file for allow updating
   zgem::log info "Downloading into '$gem_dir'"
@@ -194,9 +196,8 @@ function zgem::install::git {
   local repo_url="$1"
   local gem_dir="$2"
 
-  zgem::log info "${fg_bold[green]}install${reset_color}    '$gem_dir'"
   mkdir -p "$gem_dir"
-  (cd "$gem_dir"; git clone --depth 1 "$repo_url")
+  (cd "$gem_dir"; git clone --depth 1 "$repo_url" .)
 }
 
 function zgem::update::git {
