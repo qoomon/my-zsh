@@ -1,6 +1,27 @@
 ####################### zprofile ######################
 
 function zprofile {
+  local cmd="$1"
+  [ $# -ge 1 ] && shift
+
+  case "$cmd" in
+    '')
+      zprofile::profile
+      ;;
+    'benchmark')
+      zprofile::benchmark
+      ;;
+    *)
+      zprofile::debug $cmd $@
+      ;;
+  esac
+}
+
+function zprofile::debug {
+  (set -x; $@)
+}
+
+function zprofile::profile {
   (zprofile::active true; zsh -ic 'exit 0')
 }
 

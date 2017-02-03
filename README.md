@@ -1,4 +1,4 @@
-# zsh_config
+# 🐚 zsh_config 🐚
 ## Installation
 * checkout to $HOME/.zsh
 * run install_config.sh - install this config for current user

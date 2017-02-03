@@ -1,3 +1,13 @@
+function alias_colorized {
+  if [ $# -gt 0 ] || ! [ -t 1 ]; then # ! [ -t 1 ] is true if piped
+    \alias $@
+  else
+    \alias | grep -v -e '^alias' | sed -E -e "s|^([^ ]*)=(.*)|${fg_bold[blue]}\1 ${fg[white]}###\2$reset_color|" | column -s '###' -t
+  fi
+}
+type compdef >/dev/null && compdef _alias alias_colorized # set default completion
+alias alias='alias_colorized'
+
 function which_ls {
 
   if [[ "$1" = "--help" ]]; then

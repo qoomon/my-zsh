@@ -38,12 +38,13 @@ function zgem::clean {
 }
 
 function zgem::add {
-  local location=$1
+  local location="$1"
   shift
 
-  local protocol="file"
-  local file=""
-  local gem_type="source"
+  local protocol='file'
+  local file=''
+  local gem_type='script'
+  local lazy_load=''
 
   for param in "$@"; do
     local param_key="${param[(ws|:|)1]}"
@@ -58,6 +59,9 @@ function zgem::add {
         ;;
       'as')
         gem_type="$param_value"
+        ;;
+      'lazy')
+        lazy_load="$param_value"
         ;;
       *)
         zgem::log error "Unknown parameter '$param_key'"
@@ -93,13 +97,14 @@ function zgem::add {
     echo "$protocol" > "$gem_dir/.gem"
   fi
 
-  zgem::load "$gem_dir" "$file" "$gem_type"
+  zgem::load "$gem_dir" "$file" "$gem_type" "$lazy_load"
 }
 
 function zgem::load {
-  local gem_dir=$1
-  local file=$2
-  local gem_type=$3
+  local gem_dir="$1"
+  local file="$2"
+  local gem_type="$3"
+  local lazy_functions="$4"
 
   case "$gem_type" in
     'completion')
@@ -107,8 +112,16 @@ function zgem::load {
       fpath=($fpath "$gem_dir")
       ;;
     *)
-      zgem::log debug "${fg_bold[green]}source    ${reset_color}     '$gem_dir/$file'"
-      source "$gem_dir/$file"
+      if [ -z "$lazy_functions" ]; then
+        zgem::log debug "${fg_bold[green]}source${reset_color}         '$gem_dir/$file'"
+        source "$gem_dir/$file"
+      else
+        zgem::log debug "${fg_bold[green]}source${reset_color}         '$gem_dir/$file' ${fg_bold[blue]}lazy${reset_color} '${lazy_functions}'"
+        for lazy_function in ${(ps:,:)${lazy_functions}}; do
+          lazy_function=$(echo $lazy_function | tr -d ' ') # remove whitespaces
+          eval "$lazy_function() { . \"$gem_dir/$file\" && $lazy_function; }"
+        done
+      fi
       ;;
   esac
 }
