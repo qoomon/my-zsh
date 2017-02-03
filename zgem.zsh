@@ -39,6 +39,9 @@ function zgem {
       zgem::update $@
       zgem::reload
       ;;
+    'clean')
+      zgem::clean
+      ;;
     *)
       zgem::log error "Unknown command '$cmd'"
       zgem::log error "Usage: $0 {add|update}"
@@ -49,6 +52,11 @@ function zgem {
 
 function zgem::reload {
   exec "$SHELL" -l
+}
+
+function zgem::clean {
+  zgem::log info "Press ENTER to remove '$ZGEM_DIR/'..." && read
+  rm -rf "$ZGEM_DIR"
 }
 
 function zgem::add {
@@ -88,11 +96,11 @@ function zgem::add {
       ;;
     'http')
       file=$(zgem::basename "$location")
-      local gem_name="$file"
+      gem_name="$file"
       gem_dir="${ZGEM_DIR}/${gem_name}"
       ;;
     'git')
-      local gem_name="$(zgem::basename "$location" '.git')"
+      gem_name="$(zgem::basename "$location" '.git')"
       gem_dir="$ZGEM_DIR/${gem_name}"
       ;;
     *)
@@ -102,7 +110,7 @@ function zgem::add {
   esac
 
   [ ! -e "$gem_dir" ] \
-    && zgem::log info "${fg_bold[green]}install${reset_color}    '$gem_dir'" \
+    && zgem::log info "${fg_bold[green]}install${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color}    '$location'" \
     && zgem::install::$protocol "$location" "$gem_dir" \
     && echo "$protocol" > "$gem_dir/.gem"
 
@@ -131,7 +139,7 @@ function zgem::update {
     zgem::log info "${fg_bold[green]}update${reset_color} '$gem_dir'";
 
     local gem_name="$(zgem::basename "$gem_dir")"
-    local protocol="${cat "$gem_dir/.gem"}"
+    local protocol="$(cat "$gem_dir/.gem")"
     case "$protocol" in
       'http')
         zgem::update::http $gem_dir
@@ -142,7 +150,8 @@ function zgem::update {
       *)
         zgem::log error "Unknown protocol '$protocol'"
         zgem::log error "Protocol: {http|git}"
-        return 1 ;;
+        return 1
+        ;;
     esac
   done
 }
@@ -172,7 +181,7 @@ function zgem::install::http {
 
   mkdir -p "$gem_dir"
   echo "$http_url" > "$gem_dir/.http" # store url into meta file for allow updating
-  zgem::log info "Downloading into '$gem_dir'"
+  echo "Downloading into '$gem_dir'"
   (cd "$gem_dir"; curl -L -O "$http_url")
 }
 
@@ -197,13 +206,13 @@ function zgem::install::git {
   local gem_dir="$2"
 
   mkdir -p "$gem_dir"
-  (cd "$gem_dir"; git clone --depth 1 "$repo_url" .)
+  git clone --depth 1 "$repo_url" "$gem_dir"
 }
 
 function zgem::update::git {
   local gem_dir="$1"
 
-  local changed_files="$(git diff --name-only ..origin)"
+  local changed_files="$(cd "$gem_dir"; git diff --name-only ..origin)"
   (cd "$gem_dir"; git pull)
   if [ -n "$changed_files" ]; then
     echo "Updated:"
