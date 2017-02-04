@@ -27,6 +27,7 @@ export LC_ALL="en_US.UTF-8"
 # defaut editor
 export VISUAL='vim'
 export EDITOR='vim'
+export PAGER='less'
 
 # colorize file system completion
 export LSCOLORS="Exfxcxdxbxegedabagacad" # used by ls mac
@@ -53,7 +54,7 @@ zgem add 'https://raw.githubusercontent.com/docker/compose/master/contrib/comple
 
 zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
-#zgem add "$SELF_DIR/modules/color.zsh"
+zgem add "$SELF_DIR/modules/color.zsh"
 zgem add "$SELF_DIR/modules/build-in-extension.zsh"
 
 zgem add "$SELF_DIR/modules/history.zsh"
@@ -61,19 +62,19 @@ zgem add "$SELF_DIR/modules/completion.zsh"
 zgem add "$SELF_DIR/modules/prompt.zsh"
 
 zgem add "$SELF_DIR/modules/man.zsh"
-zgem add "$SELF_DIR/modules/diff.zsh"
-#zgem add "$SELF_DIR/modules/find.zsh" lazy:'find_ls'
-#zgem add "$SELF_DIR/modules/network.zsh" lazy:'ip_internal, ip_external'
-#zgem add "$SELF_DIR/modules/process.zsh" lazy:'pid, limits'
-#zgem add "$SELF_DIR/modules/ssh.zsh" lazy:'ssh_tunnel, ssh_key_set, ssh_key_info'
-#zgem add "$SELF_DIR/modules/sudo.zsh" lazy:'sudome'
+zgem add "$SELF_DIR/modules/diff.zsh" 
+#zgem add "$SELF_DIR/modules/find.zsh" 
+zgem add "$SELF_DIR/modules/network.zsh"
+zgem add "$SELF_DIR/modules/process.zsh" 
+#zgem add "$SELF_DIR/modules/ssh.zsh" 
+#zgem add "$SELF_DIR/modules/sudo.zsh" 
 
 #zgem add "$SELF_DIR/modules/git.zsh"
 #zgem add "$SELF_DIR/modules/pane.zsh"
-#zgem add "$SELF_DIR/modules/docker.zsh" lazy:'docker_connect, docker_registry_image_tags'
-#zgem add "$SELF_DIR/modules/http-server.zsh"
-zgem add "$SELF_DIR/modules/maven.zsh"
-#zgem add "$SELF_DIR/modules/osx.zsh" lazy:'notify, man_preview'
+#zgem add "$SELF_DIR/modules/docker.zsh"
+zgem add "$SELF_DIR/modules/http-server.zsh"
+zgem add "$SELF_DIR/modules/maven.zsh" 
+#zgem add "$SELF_DIR/modules/osx.zsh" 
 
 zgem add "$SELF_DIR/modules/alias.zsh"
 

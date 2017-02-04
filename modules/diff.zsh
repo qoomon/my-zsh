@@ -7,6 +7,6 @@ function diff_colorized {
       -e "s|^\(>.*\)|${fg[green]}\1$reset_color|" \
       -e "s|^\([a-z0-9].*\)|${fg_bold[cyan]}\1$reset_color|" \
       -l
-  return $PIPESTATUS
+  return ${pipestatus[1]}
 }
 type compdef >/dev/null && compdef _diff diff_colorized # set default completion

@@ -43,7 +43,7 @@ function zgem::add {
 
   local protocol='file'
   local file=''
-  local gem_type='script'
+  local gem_type='plugin'
   local lazy_load=''
 
   for param in "$@"; do
@@ -118,7 +118,7 @@ function zgem::load {
       else
         zgem::log debug "${fg_bold[green]}source${reset_color}         '$gem_dir/$file' ${fg_bold[blue]}lazy${reset_color} '${lazy_functions}'"
         for lazy_function in ${(ps:,:)${lazy_functions}}; do
-          lazy_function=$(echo $lazy_function | tr -d ' ') # remove whitespaces
+          lazy_function=$(echo $lazy_function | tr -d ' ') # re move whitespaces
           eval "$lazy_function() { . \"$gem_dir/$file\" && $lazy_function; }"
         done
       fi

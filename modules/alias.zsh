@@ -2,6 +2,8 @@
 ### ALIASES
 ################
 
+autoload +X -U colors && colors
+
 alias type="type -a"
 
 alias pick='\fzf -m ' # fuzzy search and select anything

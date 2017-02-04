@@ -8,6 +8,6 @@ function man_colorized {
     LESS_TERMCAP_ue=$(printf "$reset_color") \
     PAGER="${commands[less]:-$PAGER}" \
     _NROFF_U=1 \
-    'man' $@
+  'man' $@
 }
 type compdef >/dev/null && compdef _man man_colorized # set default completion

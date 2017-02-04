@@ -91,7 +91,6 @@ zstyle ':completion:*:killall:*' command 'ps -u $USER -o command'
 ### COMPLETION UTILS
 ################
 
-
 function tab-key-press {
 
   if [[ -z $BUFFER ]]; then # on empty cli

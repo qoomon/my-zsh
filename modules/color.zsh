@@ -1,7 +1,7 @@
 autoload +X -U colors && colors
 
 #print all default colors
-function colors_print {
+function colors::print {
   for k in "${(@k)fg}"; do
     echo "${fg[$k]}\${fg[$k]}$reset_color"
     echo "${fg_bold[$k]}\${fg_bold[$k]}$reset_color"
@@ -9,29 +9,6 @@ function colors_print {
     echo "${bg_bold[$k]}\${bg_bold[$k]}$reset_color"
   done
 }
-
-# import sys
-# import time
-# 
-# try:
-#     lineBuffer = ''
-#     char = 'None'
-#     while char:
-#         char = sys.stdin.read(1)
-#         if char == '\n':
-#             sys.stdout.write('\r=== ')
-#             sys.stdout.write(lineBuffer)
-#             sys.stdout.write('\n')
-#             lineBuffer = ''
-#         else:
-#             sys.stdout.write(char)
-#             lineBuffer += char
-#             # if lineBuffer.endswith(": : "):
-#             #     lineBuffer=''
-#         sys.stdout.flush()
-# except KeyboardInterrupt:
-#     sys.stdout.flush()
-#     pass
 
 ## load colors for bash
 # function colors {
