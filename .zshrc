@@ -21,6 +21,8 @@ bindkey '^[^[[C' forward-word  # alt + rigth
 
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
+export fpath=($fpath "$SELF_DIR/functions")
+
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 

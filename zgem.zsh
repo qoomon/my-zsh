@@ -98,11 +98,9 @@ function zgem::add {
     echo "$protocol" > "$gem_dir/.gem"
   fi
 
-  # fpath=($fpath "$ZGEM_DIR/completions")
   case "$gem_type" in
     'completion')
-      zgem::log debug "${fg_bold[green]}completion${reset_color}     '$gem_dir/$file'"
-      fpath=($fpath "$gem_dir")
+      zgem::load::completion "$gem_dir" "$file"
       ;;
     *)
       zgem::load::plugin "$gem_dir" "$file" "$lazy_load"
@@ -110,6 +108,10 @@ function zgem::add {
   esac
 }
 
+function zgem::load::completion {
+  zgem::log debug "${fg_bold[green]}completion${reset_color}     '$gem_dir/$file'"
+  fpath=($fpath "$gem_dir")
+}
 
 function zgem::load::plugin {
   local gem_dir="$1"
