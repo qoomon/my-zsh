@@ -66,7 +66,8 @@ function zgem::add {
       *)
         zgem::log error "Unknown parameter '$param_key'"
         zgem::log error "Parameter: {from|use|as}"
-        return 1 ;;
+        return 1
+        ;;
     esac
   done
 
@@ -92,38 +93,39 @@ function zgem::add {
   esac
 
   if [ ! -e "$gem_dir" ]; then
-    zgem::log info "${fg_bold[green]}install${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color}    '$location'"
-    zgem::install::$protocol "$location" "$gem_dir"
+    zgem::log info "${fg_bold[green]}download${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color}    '$location'"
+    zgem::download::$protocol "$location" "$gem_dir"
     echo "$protocol" > "$gem_dir/.gem"
   fi
 
-  zgem::load "$gem_dir" "$file" "$gem_type" "$lazy_load"
-}
-
-function zgem::load {
-  local gem_dir="$1"
-  local file="$2"
-  local gem_type="$3"
-  local lazy_functions="$4"
-
+  # fpath=($fpath "$ZGEM_DIR/completions")
   case "$gem_type" in
     'completion')
       zgem::log debug "${fg_bold[green]}completion${reset_color}     '$gem_dir/$file'"
       fpath=($fpath "$gem_dir")
       ;;
     *)
-      if [ -z "$lazy_functions" ]; then
-        zgem::log debug "${fg_bold[green]}source${reset_color}         '$gem_dir/$file'"
-        source "$gem_dir/$file"
-      else
-        zgem::log debug "${fg_bold[green]}source${reset_color}         '$gem_dir/$file' ${fg_bold[blue]}lazy${reset_color} '${lazy_functions}'"
-        for lazy_function in ${(ps:,:)${lazy_functions}}; do
-          lazy_function=$(echo $lazy_function | tr -d ' ') # re move whitespaces
-          eval "$lazy_function() { . \"$gem_dir/$file\" && $lazy_function; }"
-        done
-      fi
+      zgem::load::plugin "$gem_dir" "$file" "$lazy_load"
       ;;
   esac
+}
+
+
+function zgem::load::plugin {
+  local gem_dir="$1"
+  local file="$2"
+  local lazy_functions="$3"
+
+  if [ -z "$lazy_functions" ]; then
+    zgem::log debug "${fg_bold[green]}plugin${reset_color}         '$gem_dir/$file'"
+    source "$gem_dir/$file"
+  else
+    zgem::log debug "${fg_bold[green]}plugin${reset_color}         '$gem_dir/$file' ${fg_bold[blue]}lazy${reset_color} '${lazy_functions}'"
+    for lazy_function in ${(ps:,:)${lazy_functions}}; do
+      lazy_function=$(echo $lazy_function | tr -d ' ') # re move whitespaces
+      eval "$lazy_function() { . \"$gem_dir/$file\" && $lazy_function; }"
+    done
+  fi
 }
 
 function zgem::update {
@@ -188,7 +190,7 @@ function zgem::log {
 
 ############################# http ############################
 
-function zgem::install::http {
+function zgem::download::http {
   local http_url="$1"
   local gem_dir="$2"
 
@@ -214,7 +216,7 @@ function zgem::update::http {
 
 ############################# git #############################
 
-function zgem::install::git {
+function zgem::download::git {
   local repo_url="$1"
   local gem_dir="$2"
 
