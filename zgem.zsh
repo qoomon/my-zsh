@@ -41,11 +41,12 @@ function zgem::add {
   local location="$1"
   shift
 
+  ################ parse parameters ################
+  
   local protocol='file'
   local file=''
   local gem_type='plugin'
   local lazy_load=''
-
   for param in "$@"; do
     local param_key="${param[(ws|:|)1]}"
     local param_value="${param[(ws|:|)2]}"
@@ -71,6 +72,8 @@ function zgem::add {
     esac
   done
 
+  ################ determine gem dir and file ################
+  
   local gem_dir
   case "$protocol" in
     'file')
@@ -92,19 +95,27 @@ function zgem::add {
       return 1 ;;
   esac
 
+  ################ download gem ################
+  
   if [ ! -e "$gem_dir" ]; then
     zgem::log info "${fg_bold[green]}download${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color}    '$location'"
     zgem::download::$protocol "$location" "$gem_dir"
     echo "$protocol" > "$gem_dir/.gem"
   fi
 
+  ################ load gem ################
+  
   case "$gem_type" in
+    'plugin')
+      zgem::load::plugin "$gem_dir" "$file" "$lazy_load"
+      ;;
     'completion')
       zgem::load::completion "$gem_dir" "$file"
       ;;
     *)
-      zgem::load::plugin "$gem_dir" "$file" "$lazy_load"
-      ;;
+      zgem::log error  "Unknown gem type '$protocol'"
+      zgem::log error  "Gem Type: {plugin|completion}"
+      return 1 ;;
   esac
 }
 
