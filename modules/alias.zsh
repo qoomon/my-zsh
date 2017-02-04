@@ -19,18 +19,14 @@ alias glsx='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --hu
 alias grep='\grep --color=auto' # colorize matching parts
 alias less='\less -R' # enable colors
 
+alias aliasx='alias_colorized'
+
 alias mvnx='mvn_colorized'
 
 alias man='man_colorized'
+
 alias diff='diff_colorized'
 
 alias wordcount="tr -s ' ' | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr"
 
 # alias -s jpeg="open" # sufix alias
-
-
-
-
-
-
-
