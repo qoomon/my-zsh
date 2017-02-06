@@ -9,8 +9,9 @@ autoload +X -U colors && colors
 ### PROMPT SETUP
 ################
 
-setopt NOTIFY # Report the status of background jobs immediately, rather than waiting until just before printing a prompt.
-setopt INTERACTIVE_COMMENTS # Allowes to use #-sign as comment within commandline
+setopt notify # Report the status of background jobs immediately, rather than waiting until just before printing a prompt.
+setopt interactive_comments # Allowes to use #-sign as comment within commandline
+setopt prompt_subst # substitude variables within prompt string
 
 _prompt_cli_id=0
 function _prompt_cli_id {
@@ -36,28 +37,27 @@ function _prompt_info {
   local current_branch="$(git branch 2> /dev/null | sed -n '/\* /s///p' | sed 's/^( *//;s/ *)$//;')"
 
   # prompt_info indicator
-  local prompt_info="${fg_bold[grey]}#$reset_color "
+  local prompt_info="${fg_bold[grey]}#${reset_color} "
 
   # current_user & current_host
   if [ "$current_user" = "root" ]; then prompt_info+="${fg_bold[red]}"; else prompt_info+="${fg[cyan]}"; fi
-  prompt_info+="$current_user$reset_color${fg_bold[grey]}@$reset_color${fg[blue]}$current_host$reset_color"
+  prompt_info+="$current_user${reset_color}${fg_bold[grey]}@${reset_color}${fg[blue]}$current_host${reset_color}"
 
   # current_dir
-  prompt_info+=" ${fg_bold[grey]}in$reset_color ${fg[yellow]}$current_dir$reset_color"
+  prompt_info+=" ${fg_bold[grey]}in${reset_color} ${fg[yellow]}$current_dir${reset_color}"
 
   # current_branch
   if [ -n "$current_branch" ]; then
     if [[ "$current_branch" != "detached "* ]]; then
-      prompt_info+=" ${fg_bold[grey]}on$reset_color"
+      prompt_info+=" ${fg_bold[grey]}on${reset_color}"
     fi
-    prompt_info+=" ${fg[green]}$current_branch$reset_color"
+    prompt_info+=" ${fg[green]}$current_branch${reset_color}"
   fi
 
   echo "$prompt_info"
 
 }
 
-setopt promptsubst # substitude variables within prompt string
 PS1='%{$(_prompt_info)%}
 ❯ '
 PS2='▪ '
@@ -78,7 +78,7 @@ _prompt_exit_code_exec_id=0
 function _prompt_exit_code {
   local exit_code=$?
   if [ $exit_code != 0 ] && [ $_prompt_exec_id != $_prompt_exit_code_exec_id ]; then
-    echo "${fg_bold[red]}✖ $exit_code$reset_color"
+    echo "${fg_bold[red]}✖ $exit_code${reset_color}"
   fi
   _prompt_exit_code_exec_id=$_prompt_exec_id
 }

@@ -1,15 +1,15 @@
 ####################### zconfig ######################
 export ZCONFIG_DIR="$(dirname $0)"
 
-# lazy load zprofile plugin
+#### load zprofile plugin [lazy]
 export ZPROFILE="${ZPROFILE:-false}"
 function zprofile { source "$ZCONFIG_DIR/plugins/zprofile.zsh"; zprofile $@; }
 if ${ZPROFILE}; then source "$ZCONFIG_DIR/plugins/zprofile.zsh"; fi
-
 if ${ZPROFILE}; then zprofile::before; fi
 
-#export ZGEM_VERBOSE='true'
-source "$ZCONFIG_DIR/plugins/zgem.zsh"  # load zgem extension manager
+#### load zgem extension manager
+# export ZGEM_VERBOSE='true'
+source "$ZCONFIG_DIR/plugins/zgem.zsh"
 
 ################
 ### CLI
@@ -41,6 +41,15 @@ export LS_COLORS="di=1;34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=
 ################
 ### EXTENSIONS
 ################
+
+############# load async plugin
+source "$ZCONFIG_DIR/plugins/async.zsh"
+async_init
+async_start_worker 'eval_worker'
+function eval_callback { eval "$3"; }
+async_register_callback 'eval_worker' 'eval_callback'
+function async { async_job 'eval_worker' "echo '$@'"; }
+##############
 
 zgem add 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
 
