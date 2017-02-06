@@ -1,10 +1,15 @@
 ####################### zconfig ######################
-
 export SELF_DIR="$(dirname $0)"
-#export ZGEM_VERBOSE='true'
-#export ZCONFIG_VERBOSE='true'
+
 
 source "$SELF_DIR/zprofile.zsh"
+
+#export ZGEM_VERBOSE='true'
+source "$SELF_DIR/zgem.zsh"  # load zgem extension manager
+
+export ZCONFIG_DIR="$SELF_DIR"
+#export ZCONFIG_VERBOSE='true'
+source "$SELF_DIR/zconfig.zsh"
 
 if zprofile::active; then zprofile::before; fi
 
@@ -38,8 +43,6 @@ export LS_COLORS="di=1;34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=
 ################
 ### EXTENSIONS
 ################
-
-source "$SELF_DIR/zgem.zsh"  # load zgem extension manager
 
 zgem add 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
 
@@ -81,48 +84,3 @@ zgem add "$SELF_DIR/modules/maven.zsh"
 zgem add "$SELF_DIR/modules/alias.zsh"
 
 if zprofile::active; then zprofile::after; fi
-
-####################### zconfig ######################
-
-function zconfig {
-  local cmd="$1"
-  shift
-
-  case "$cmd" in
-    '');& 'edit')
-      zconfig::edit $@
-      ;;
-    'update')
-      zconfig::update
-      ;;
-    'upgrade')
-      zconfig::update
-      zgem update
-      ;;
-    'reload')
-      zconfig::reload
-      ;;
-    'profile')
-      zprofile
-      ;;
-    *)
-      echo "${fg_bold[red]}[zconfig]${reset_color}" "Unknown command '$cmd'" >&2
-      echo "${fg_bold[red]}[zconfig]${reset_color}" "Protocol: {edit|update|upgrade|reload|profile}" >&2
-      return 1
-      ;;
-  esac
-}
-
-function zconfig::edit {
-  local editor=${1:-$EDITOR}
-  $editor "$SELF_DIR"
-}
-
-function zconfig::update {
-  echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[blue]}home directory${reset_color} $SELF_DIR"
-  (cd $SELF_DIR; git pull)
-}
-
-function zconfig::reload {
-  exec "$SHELL" -l
-}
