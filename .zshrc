@@ -3,8 +3,8 @@ export ZCONFIG_DIR="$(dirname $0)"
 
 # lazy load zprofile plugin
 export ZPROFILE="${ZPROFILE:-false}"
-function zprofile { source "$ZCONFIG_DIR/plugins/zprofile.zsh"; zprofile $@;};
-if ${ZPROFILE}; then zprofile init; fi
+function zprofile { source "$ZCONFIG_DIR/plugins/zprofile.zsh"; zprofile $@; }
+if ${ZPROFILE}; then source "$ZCONFIG_DIR/plugins/zprofile.zsh"; fi
 
 if ${ZPROFILE}; then zprofile::before; fi
 
