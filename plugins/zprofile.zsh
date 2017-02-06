@@ -53,6 +53,7 @@ function zprofile::active {
 }
 
 function zprofile::before {
+  echo "zprofile::before"
   if $ZPROFILE_VERBOSE; then
     PS4=$'%D{%M%S%.} %N:%i> '
     startlog_file="/tmp/startlog.$$"
@@ -64,6 +65,7 @@ function zprofile::before {
 }
 
 function zprofile::after {
+    echo "zprofile::after"
   if $ZPROFILE_VERBOSE; then
     unsetopt xtrace
     exec 2>&3 3>&-
