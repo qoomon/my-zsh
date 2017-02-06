@@ -4,14 +4,14 @@
 autoload +X -U colors && colors
 
 autoload +X -U compinit
-
 compinit -C # Speed up compinit by not checking cache (-C).
 if [ -z "$(find "${ZDOTDIR:-$HOME}/.zcompdump" -newermt '-1 day')" ]; then
   echo 'Initialize Completions'
+  rm -rf "${ZDOTDIR:-$HOME}/.zcompdump"
   compinit
 fi
 
-#autoload +X -U keeper && keeper
+autoload +X -U keeper 
 
 ################
 ### COMPLETION SETUP

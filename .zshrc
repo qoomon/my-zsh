@@ -57,28 +57,28 @@ zgem add 'https://raw.githubusercontent.com/docker/compose/master/contrib/comple
 
 zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
-zgem add "./modules/color.zsh"
-zgem add "./modules/prompt.zsh"
-zgem add "./modules/completion.zsh"
-zgem add "./modules/history.zsh"
+zgem add "$ZCONFIG_DIR/modules/color.zsh"
+zgem add "$ZCONFIG_DIR/modules/prompt.zsh"
+zgem add "$ZCONFIG_DIR/modules/completion.zsh"
+zgem add "$ZCONFIG_DIR/modules/history.zsh"
 
-#zgem add "./modules/which.zsh"
-zgem add "./modules/man.zsh"
-#zgem add "./modules/diff.zsh" 
-#zgem add "./modules/find.zsh" 
-#zgem add "./modules/network.zsh"
-#zgem add "./modules/process.zsh" 
-#zgem add "./modules/ssh.zsh" 
-#zgem add "./modules/sudo.zsh" 
+zgem add "$ZCONFIG_DIR/modules/which.zsh"
+zgem add "$ZCONFIG_DIR/modules/man.zsh"
+#zgem add "$ZCONFIG_DIR/modules/diff.zsh"
+#zgem add "$ZCONFIG_DIR/modules/find.zsh"
+#zgem add "$ZCONFIG_DIR/modules/network.zsh"
+#zgem add "$ZCONFIG_DIR/modules/process.zsh"
+#zgem add "$ZCONFIG_DIR/modules/ssh.zsh"
+#zgem add "$ZCONFIG_DIR/modules/sudo.zsh"
 
-#zgem add "./modules/git.zsh"
-#zgem add "./modules/pane.zsh"
-#zgem add "./modules/docker.zsh"
-#zgem add "./modules/http-server.zsh"
-#zgem add "./modules/maven.zsh" 
-#zgem add "./modules/osx.zsh" 
+#zgem add "$ZCONFIG_DIR/modules/git.zsh"
+#zgem add "$ZCONFIG_DIR/modules/pane.zsh"
+#zgem add "$ZCONFIG_DIR/modules/docker.zsh"
+#zgem add "$ZCONFIG_DIR/modules/http-server.zsh"
+#zgem add "$ZCONFIG_DIR/modules/maven.zsh"
+#zgem add "$ZCONFIG_DIR/modules/osx.zsh"
 
-zgem add "./modules/alias.zsh"
+zgem add "$ZCONFIG_DIR/modules/alias.zsh"
 
 ####################### functions ######################
 

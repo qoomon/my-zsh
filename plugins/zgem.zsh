@@ -42,7 +42,7 @@ function zgem::add {
   shift
 
   ################ parse parameters ################
-  
+
   local protocol='file'
   local file=''
   local gem_type='plugin'
@@ -73,7 +73,7 @@ function zgem::add {
   done
 
   ################ determine gem dir and file ################
-  
+
   local gem_dir
   case "$protocol" in
     'file')
@@ -96,15 +96,15 @@ function zgem::add {
   esac
 
   ################ download gem ################
-  
-  if [ ! -e "$gem_dir" ]; then
+
+  if [ "$protocol" != 'file' ] && [ ! -e "$gem_dir" ]; then
     zgem::log info "${fg_bold[green]}download${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color}    '$location'"
     zgem::download::$protocol "$location" "$gem_dir"
     echo "$protocol" > "$gem_dir/.gem"
   fi
 
   ################ load gem ################
-  
+
   case "$gem_type" in
     'plugin')
       zgem::load::plugin "$gem_dir" "$file" "$lazy_load"
