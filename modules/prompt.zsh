@@ -111,17 +111,17 @@ function divider { # print online of divider icons
   printf '\e[0K\r\e[0K\r%*s' "$( expr ${COLUMNS:-$(tput cols)} - 2 )" '' | sed "s|$dividerSpaces|$dividerIcon|g"
 }
 
-function _divider { # print online of divider icons
+function _divider_widget { # print online of divider icons
   divider
   echo ''
   zle reset-prompt
 }
-zle -N _divider
-bindkey "^N" _divider
+zle -N _divider_widget
+bindkey "^N" _divider_widget
 
-function _clear_screen { # clear screen without coping last line
+function _clear_screen_widget { # clear screen without coping last line
   printf '\e[0K\r\e[0K\r'
   zle clear-screen
 }
-zle -N _clear_screen
-bindkey "^L" _clear_screen
+zle -N _clear_screen_widget
+bindkey "^L" _clear_screen_widget

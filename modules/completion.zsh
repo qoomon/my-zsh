@@ -3,12 +3,15 @@
 #Layout is :completion:FUNCTION:COMPLETER:COMMAND-OR-MAGIC-CONTEXT:ARGUMENT:TAG
 autoload +X -U colors && colors
 
-autoload -U compinit && compinit -C # Speed up compinit by not checking cache (-C).
+autoload +X -U compinit
+
+compinit -C # Speed up compinit by not checking cache (-C).
 if [ -z "$(find "${ZDOTDIR:-$HOME}/.zcompdump" -newermt '-1 day')" ]; then
+  echo 'Initialize Completions'
   compinit
 fi
 
-#autoload -U keeper && keeper
+#autoload +X -U keeper && keeper
 
 ################
 ### COMPLETION SETUP

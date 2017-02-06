@@ -1,7 +1,7 @@
 autoload +X -U colors && colors
 
 #print all default colors
-function colors::print {
+function colors_ls {
   for k in "${(@k)fg}"; do
     echo "${fg[$k]}\${fg[$k]}$reset_color"
     echo "${fg_bold[$k]}\${fg_bold[$k]}$reset_color"
