@@ -1,16 +1,15 @@
 ####################### zconfig ######################
-cd "$(dirname $0)"
+export ZCONFIG_DIR="$(dirname $0)"
 
-source "./zprofile.zsh"
+# lazy load zprofile plugin
+export ZPROFILE="${ZPROFILE:-false}"
+function zprofile { source "$ZCONFIG_DIR/plugins/zprofile.zsh"; zprofile $@;};
+if ${ZPROFILE}; then zprofile init; fi
+
+if ${ZPROFILE}; then zprofile::before; fi
 
 #export ZGEM_VERBOSE='true'
-source "./zgem.zsh"  # load zgem extension manager
-
-export ZCONFIG_DIR="."
-#export ZCONFIG_VERBOSE='true'
-source "./zconfig.zsh"
-
-if zprofile::active; then zprofile::before; fi
+source "$ZCONFIG_DIR/plugins/zgem.zsh"  # load zgem extension manager
 
 ################
 ### CLI
@@ -59,27 +58,71 @@ zgem add 'https://raw.githubusercontent.com/docker/compose/master/contrib/comple
 zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
 zgem add "./modules/color.zsh"
-zgem add "./modules/build-in-extension.zsh"
-
-zgem add "./modules/history.zsh"
-zgem add "./modules/completion.zsh"
 zgem add "./modules/prompt.zsh"
+zgem add "./modules/completion.zsh"
+zgem add "./modules/history.zsh"
 
+#zgem add "./modules/which.zsh"
 zgem add "./modules/man.zsh"
-zgem add "./modules/diff.zsh" 
+#zgem add "./modules/diff.zsh" 
 #zgem add "./modules/find.zsh" 
-zgem add "./modules/network.zsh"
-zgem add "./modules/process.zsh" 
+#zgem add "./modules/network.zsh"
+#zgem add "./modules/process.zsh" 
 #zgem add "./modules/ssh.zsh" 
 #zgem add "./modules/sudo.zsh" 
 
 #zgem add "./modules/git.zsh"
 #zgem add "./modules/pane.zsh"
 #zgem add "./modules/docker.zsh"
-zgem add "./modules/http-server.zsh"
-zgem add "./modules/maven.zsh" 
+#zgem add "./modules/http-server.zsh"
+#zgem add "./modules/maven.zsh" 
 #zgem add "./modules/osx.zsh" 
 
 zgem add "./modules/alias.zsh"
 
-if zprofile::active; then zprofile::after; fi
+####################### functions ######################
+
+function zconfig {
+  local cmd="$1"
+  shift
+
+  case "$cmd" in
+    '');& 'edit')
+      zconfig::edit $@
+      ;;
+    'update')
+      zconfig::update
+      ;;
+    'upgrade')
+      zconfig::update
+      zgem update
+      ;;
+    'reload')
+      zconfig::reload
+      ;;
+    'profile')
+      zprofile $@
+      ;;
+    *)
+      echo "${fg_bold[red]}[zconfig]${reset_color}" "Unknown command '$cmd'" >&2
+      echo "${fg_bold[red]}[zconfig]${reset_color}" "Protocol: {edit|update|upgrade|reload|profile}" >&2
+      return 1
+      ;;
+  esac
+}
+
+function zconfig::edit {
+  local editor=${1:-$EDITOR}
+  $editor "$ZCONFIG_DIR"
+}
+
+function zconfig::update {
+  echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[blue]}home directory${reset_color} $ZCONFIG_DIR"
+  (cd $ZCONFIG_DIR; git pull)
+}
+
+function zconfig::reload {
+  exec "$SHELL" -l
+}
+
+if ${ZPROFILE}; then zprofile::after; fi

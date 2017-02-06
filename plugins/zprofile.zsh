@@ -8,6 +8,9 @@ function zprofile {
   fi
 
   case "$cmd" in
+    'init');
+      echo 'init'
+      ;;
     '');
       zprofile::profile $@
       ;;
