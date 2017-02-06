@@ -1,15 +1,14 @@
 ####################### zconfig ######################
-export SELF_DIR="$(dirname $0)"
+cd "$(dirname $0)"
 
-
-source "$SELF_DIR/zprofile.zsh"
+source "./zprofile.zsh"
 
 #export ZGEM_VERBOSE='true'
-source "$SELF_DIR/zgem.zsh"  # load zgem extension manager
+source "./zgem.zsh"  # load zgem extension manager
 
-export ZCONFIG_DIR="$SELF_DIR"
+export ZCONFIG_DIR="."
 #export ZCONFIG_VERBOSE='true'
-source "$SELF_DIR/zconfig.zsh"
+source "./zconfig.zsh"
 
 if zprofile::active; then zprofile::before; fi
 
@@ -26,7 +25,7 @@ bindkey '^[^[[C' forward-word  # alt + rigth
 
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
-export fpath=($fpath "$SELF_DIR/functions")
+export fpath=($fpath "./functions")
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -59,28 +58,28 @@ zgem add 'https://raw.githubusercontent.com/docker/compose/master/contrib/comple
 
 zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
-zgem add "$SELF_DIR/modules/color.zsh"
-zgem add "$SELF_DIR/modules/build-in-extension.zsh"
+zgem add "./modules/color.zsh"
+zgem add "./modules/build-in-extension.zsh"
 
-zgem add "$SELF_DIR/modules/history.zsh"
-zgem add "$SELF_DIR/modules/completion.zsh"
-zgem add "$SELF_DIR/modules/prompt.zsh"
+zgem add "./modules/history.zsh"
+zgem add "./modules/completion.zsh"
+zgem add "./modules/prompt.zsh"
 
-zgem add "$SELF_DIR/modules/man.zsh"
-zgem add "$SELF_DIR/modules/diff.zsh" 
-#zgem add "$SELF_DIR/modules/find.zsh" 
-zgem add "$SELF_DIR/modules/network.zsh"
-zgem add "$SELF_DIR/modules/process.zsh" 
-#zgem add "$SELF_DIR/modules/ssh.zsh" 
-#zgem add "$SELF_DIR/modules/sudo.zsh" 
+zgem add "./modules/man.zsh"
+zgem add "./modules/diff.zsh" 
+#zgem add "./modules/find.zsh" 
+zgem add "./modules/network.zsh"
+zgem add "./modules/process.zsh" 
+#zgem add "./modules/ssh.zsh" 
+#zgem add "./modules/sudo.zsh" 
 
-#zgem add "$SELF_DIR/modules/git.zsh"
-#zgem add "$SELF_DIR/modules/pane.zsh"
-#zgem add "$SELF_DIR/modules/docker.zsh"
-zgem add "$SELF_DIR/modules/http-server.zsh"
-zgem add "$SELF_DIR/modules/maven.zsh" 
-#zgem add "$SELF_DIR/modules/osx.zsh" 
+#zgem add "./modules/git.zsh"
+#zgem add "./modules/pane.zsh"
+#zgem add "./modules/docker.zsh"
+zgem add "./modules/http-server.zsh"
+zgem add "./modules/maven.zsh" 
+#zgem add "./modules/osx.zsh" 
 
-zgem add "$SELF_DIR/modules/alias.zsh"
+zgem add "./modules/alias.zsh"
 
 if zprofile::active; then zprofile::after; fi
