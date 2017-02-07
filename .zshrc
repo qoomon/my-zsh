@@ -43,12 +43,11 @@ export LS_COLORS="di=1;34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=
 ################
 
 ############# load async plugin
-source "$ZCONFIG_DIR/plugins/async.zsh"
-async_init
-async_start_worker 'eval_worker'
-function eval_callback { eval "$3"; }
-async_register_callback 'eval_worker' 'eval_callback'
-function async { async_job 'eval_worker' "echo '$@'"; }
+# source "$ZCONFIG_DIR/plugins/async.zsh" && async_init
+# async_start_worker 'eval_worker'
+# function eval_callback { eval "$3"; }
+# async_register_callback 'eval_worker' 'eval_callback'
+# function async { async_job 'eval_worker' "echo '$@'"; }
 ##############
 
 zgem add 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
