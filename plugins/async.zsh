@@ -14,7 +14,7 @@ ASYNC_DEBUG=${ASYNC_DEBUG:-0}
 # Wrapper for jobs executed by the async worker, gives output in parseable format with execution time
 _async_job() {
 	# Disable xtrace as it would mangle the output.
-	setopt localoptions noxtrace
+	setopt noxtrace
 
 	# Store start time as double precision (+E disables scientific notation)
 	float -F duration=$EPOCHREALTIME
@@ -204,7 +204,7 @@ _async_worker() {
 # 	$5 = resulting stderr from execution
 #
 async_process_results() {
-	setopt localoptions noshwordsplit
+	setopt noshwordsplit
 
 	local worker=$1
 	local callback=$2
@@ -262,7 +262,7 @@ async_process_results() {
 
 # Watch worker for output
 _async_zle_watcher() {
-	setopt localoptions noshwordsplit
+	setopt noshwordsplit
 	typeset -gA ASYNC_PTYS ASYNC_CALLBACKS
 	local worker=$ASYNC_PTYS[$1]
 	local callback=$ASYNC_CALLBACKS[$worker]
@@ -279,7 +279,7 @@ _async_zle_watcher() {
 # 	async_job <worker_name> <my_function> [<function_params>]
 #
 async_job() {
-	setopt localoptions noshwordsplit
+	setopt noshwordsplit
 
 	local worker=$1; shift
 
@@ -294,7 +294,7 @@ async_job() {
 
 # This function traps notification signals and calls all registered callbacks
 _async_notify_trap() {
-	setopt localoptions noshwordsplit
+	setopt noshwordsplit
 
 	for k in ${(k)ASYNC_CALLBACKS}; do
 		async_process_results $k ${ASYNC_CALLBACKS[$k]} trap
@@ -309,7 +309,7 @@ _async_notify_trap() {
 # 	async_register_callback <worker_name> <callback_function>
 #
 async_register_callback() {
-	setopt localoptions noshwordsplit nolocaltraps
+	setopt noshwordsplit nolocaltraps
 
 	typeset -gA ASYNC_CALLBACKS
 	local worker=$1; shift
@@ -343,7 +343,7 @@ async_unregister_callback() {
 # 	async_flush_jobs <worker_name>
 #
 async_flush_jobs() {
-	setopt localoptions noshwordsplit
+	setopt noshwordsplit
 
 	local worker=$1; shift
 
@@ -381,7 +381,7 @@ async_flush_jobs() {
 # 	-p pid to notify (defaults to current pid)
 #
 async_start_worker() {
-	setopt localoptions noshwordsplit
+	setopt noshwordsplit
 
 	local worker=$1; shift
 	zpty -t $worker &>/dev/null && return
@@ -440,7 +440,7 @@ async_start_worker() {
 # 	async_stop_worker <worker_name_1> [<worker_name_2>]
 #
 async_stop_worker() {
-	setopt localoptions noshwordsplit
+	setopt noshwordsplit
 
 	local ret=0
 	for worker in $@; do
@@ -484,10 +484,12 @@ async_init() {
 		(( REPLY )) && ASYNC_ZPTY_RETURNS_FD=1
 		zpty -d _async_test
 	}
+	
+	async_start_worker 'eval_worker'
+	function eval_callback { eval "$3" };
+	async_register_callback 'eval_worker' 'eval_callback'
 }
 
-async() {
-	async_init
-}
+function async { async_job 'eval_worker' "echo '${(j: :)@}'" }
 
-async "$@"
+async_init "$@"
