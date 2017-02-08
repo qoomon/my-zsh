@@ -14,7 +14,3 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_VERIFY              # let the user edit the command line after history expansion
 setopt SHARE_HISTORY            # Use the same history file for all sessions
 setopt NO_HIST_BEEP
-
-# HH configuration
-export HISTFILE=$HISTFILE       # ensure history file visibility
-export HH_CONFIG=hicolor        # get more colors

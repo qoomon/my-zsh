@@ -489,10 +489,12 @@ async_init() {
 
 async_init
 
+_eval_queue=()
 async_start_worker '_eval_worker'
-function _eval_callback { eval "$3" }
+function _eval_callback { eval "${_eval_queue[1]}"; shift _eval_queue }
 async_register_callback '_eval_worker' '_eval_callback'
 
 function async {
-  async_job '_eval_worker' "echo '${(j: :)@}'"
+	_eval_queue+="${(j: :)@}"
+	async_job '_eval_worker' "echo"
 }

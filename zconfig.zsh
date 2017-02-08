@@ -5,34 +5,34 @@ source "$SELF_DIR/plugins/zprofile.zsh"
 if zprofile::active; then zprofile::before; fi
 
 #### load zgem extension manager
-# export ZGEM_VERBOSE='true'
+#export ZGEM_VERBOSE='true'
 source "$SELF_DIR/plugins/zgem.zsh"
 
 source "$SELF_DIR/plugins/async.zsh";
 
 zgem add "$SELF_DIR/modules/general.zsh"
 
-zgem add "$SELF_DIR/modules/history.zsh"
-
 zgem add "$SELF_DIR/modules/prompt.zsh"
 
-zgem add "$SELF_DIR/modules/alias.zsh"
+zgem add "$SELF_DIR/modules/history.zsh"
 
-zgem add 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
-zgem add 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'
-  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
-  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
-  HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
-  bindkey '^[[A' history-substring-search-up     # bind arrow-up
-  bindkey '^[[B' history-substring-search-down   # bind arrow-down
+async zgem add "$SELF_DIR/modules/alias.zsh"
+
+async zgem add 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
+async zgem add 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'
+async HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
+async HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
+async HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
+async bindkey '"^[[A"' history-substring-search-up     # bind arrow-up
+async bindkey '"^[[B"' history-substring-search-down   # bind arrow-down
+
+async zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
 async zgem add 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
 async zgem add 'https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker' from:'http' as:'completion'
 async zgem add 'https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose' from:'http' as:'completion'
 async zgem add "$SELF_DIR/modules/completion.zsh"
 async "autoload +X -U compinit && compinit"
-
-async zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
 async zgem add "$SELF_DIR/utils/color.zsh"
 async zgem add "$SELF_DIR/utils/which.zsh"
