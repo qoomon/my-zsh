@@ -31,27 +31,31 @@ preexec_functions=($preexec_functions _prompt_exec_id)
 
 function _prompt_info {
 
-  local current_user="$(whoami)"
-  local current_host="$(hostname -s)"
-  local current_dir="$(pwd | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1…/|g')"
-  local current_branch="$(git branch 2> /dev/null | sed -n '/\* /s///p' | sed 's/^( *//;s/ *)$//;')"
-
   # prompt_info indicator
   local prompt_info="${fg_bold[grey]}#${reset_color} "
 
   # current_user & current_host
+  local current_user="$(whoami)"
+  local current_host="$(hostname -s)"
   if [ "$current_user" = "root" ]; then prompt_info+="${fg_bold[red]}"; else prompt_info+="${fg[cyan]}"; fi
   prompt_info+="$current_user${reset_color}${fg_bold[grey]}@${reset_color}${fg[blue]}$current_host${reset_color}"
 
   # current_dir
+  local current_dir="$(pwd | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1…/|g')"
   prompt_info+=" ${fg_bold[grey]}in${reset_color} ${fg[yellow]}$current_dir${reset_color}"
 
   # current_branch
+  local current_branch="$(git status --porcelain --branch | head -1 | sed  's|^## ||' | sed  's|\.\.\..*$||')"
   if [ -n "$current_branch" ]; then
     if [[ "$current_branch" != "detached "* ]]; then
       prompt_info+=" ${fg_bold[grey]}on${reset_color}"
     fi
     prompt_info+=" ${fg[green]}$current_branch${reset_color}"
+    
+    local branch_file_status="$(git status --porcelain --branch | grep -v -e '^##')"
+    if [ -n "$branch_file_status" ]; then
+      prompt_info+=" *"
+    fi
   fi
 
   echo "$prompt_info"
