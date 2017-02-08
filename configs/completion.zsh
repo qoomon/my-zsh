@@ -105,7 +105,7 @@ function tab-key-press {
     # adds '...' during completion to cli
     echo -n "${fg_bold[cyan]}...$reset_color"
     zle expand-or-complete # default binding
-    zle redisplay
+    #zle redisplay
   fi
 }
 zle -N tab-key-press
