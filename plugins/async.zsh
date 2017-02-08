@@ -496,5 +496,5 @@ async_register_callback '_eval_worker' '_eval_callback'
 
 function async {
 	_eval_queue+="${(j: :)@}"
-	async_job '_eval_worker' "echo"
+	async_job '_eval_worker' ''
 }
