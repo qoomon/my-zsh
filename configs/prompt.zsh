@@ -47,14 +47,14 @@ function _prompt_info {
   # current_branch
   local current_branch="$(git status --porcelain --branch | head -1 | sed  's|^## ||' | sed  's|\.\.\..*$||')"
   if [ -n "$current_branch" ]; then
-    if [[ "$current_branch" != "detached "* ]]; then
+    if [[ "$current_branch" != "HEAD "* ]]; then
       prompt_info+=" ${fg_bold[grey]}on${reset_color}"
     fi
-    prompt_info+=" ${fg[green]}$current_branch${reset_color}"
+    prompt_info+=" ${fg[green]}detached HEAD${reset_color}"
     
     local branch_file_status="$(git status --porcelain --branch | grep -v -e '^##')"
     if [ -n "$branch_file_status" ]; then
-      prompt_info+=" *"
+      prompt_info+="${fg[yellow]}*${reset_color}"
     fi
   fi
 
