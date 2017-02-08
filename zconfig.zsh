@@ -34,6 +34,7 @@ async "autoload +X -U compinit && compinit"
 
 async zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
+async zgem add "$SELF_DIR/utils/color.zsh"
 async zgem add "$SELF_DIR/utils/which.zsh"
 async zgem add "$SELF_DIR/utils/man.zsh"
 async zgem add "$SELF_DIR/utils/diff.zsh"

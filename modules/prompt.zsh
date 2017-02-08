@@ -45,16 +45,16 @@ function _prompt_info {
   prompt_info+=" ${fg_bold[grey]}in${reset_color} ${fg[yellow]}$current_dir${reset_color}"
 
   # current_branch
-  local current_branch="$(2> /dev/null git status --porcelain --branch  | head -1 | sed  's|^## ||' | sed  's|\.\.\..*$||')"
-  if [ -n "$current_branch" ]; then
-    if [[ "$current_branch" == "HEAD "* ]]; then
-        prompt_info+=" ${fg[green]}detached HEAD${reset_color}"
+  #git status | head -1 | sed 's|On branch ||' | sed 's|HEAD detached at ||'
+  local current_branch_status_line="$(2> /dev/null git status | head -1)"
+  if [ -n "$current_branch_status_line" ]; then
+    if [[ "$current_branch_status_line" == "HEAD detached"* ]]; then
+        prompt_info+=" ${fg_bold[grey]}at${reset_color} ${fg_bold[magenta]}${current_branch_status_line##HEAD detached at } [detached]${reset_color}"
     else
-        prompt_info+=" ${fg_bold[grey]}on${reset_color} ${fg[green]}$current_branch${reset_color}"
+        prompt_info+=" ${fg_bold[grey]}on${reset_color} ${fg[green]}${current_branch_status_line##On branch }$current_branch${reset_color}"
     fi
     
-    local branch_file_status="$(2> /dev/null git status --porcelain | head -1 | grep -v -e '^##')"
-    if [ -n "$branch_file_status" ]; then
+    if [ -n "$(2> /dev/null git status --porcelain | head -1)" ]; then
       prompt_info+="${fg[yellow]}*${reset_color}"
     fi
   fi
