@@ -484,12 +484,15 @@ async_init() {
 		(( REPLY )) && ASYNC_ZPTY_RETURNS_FD=1
 		zpty -d _async_test
 	}
-	
-	async_start_worker 'eval_worker'
-	function eval_callback { eval "$3" };
-	async_register_callback 'eval_worker' 'eval_callback'
+
 }
 
-function async { async_job 'eval_worker' "echo '${(j: :)@}'" }
+async_init
 
-async_init "$@"
+async_start_worker '_eval_worker'
+function _eval_callback { eval "$3" }
+async_register_callback '_eval_worker' '_eval_callback'
+
+function async {
+  async_job '_eval_worker' "echo '${(j: :)@}'"
+}
