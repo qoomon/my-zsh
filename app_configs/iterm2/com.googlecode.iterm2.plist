@@ -563,11 +563,11 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>789 508 796 473 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>286 636 570 377 0 0 1920 1177 </string>
+	<string>0 4 1914 1168 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>564 422 570 452 0 0 1920 1177 </string>
+	<string>564 471 570 398 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>644 532 570 452 0 0 1920 1177 </string>
+	<string>644 602 570 377 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>433 489 570 377 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
@@ -1300,7 +1300,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/qoomon/.zsh/iterm2</string>
+	<string>/Users/qoomon/.zsh/app_configs/iterm2</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
@@ -1312,7 +1312,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-02-05T22:58:59Z</date>
+	<date>2017-02-08T08:27:08Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>URLHandlersByGuid</key>
