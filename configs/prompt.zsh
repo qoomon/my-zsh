@@ -45,12 +45,13 @@ function _prompt_info {
   prompt_info+=" ${fg_bold[grey]}in${reset_color} ${fg[yellow]}$current_dir${reset_color}"
 
   # current_branch
-  local current_branch="$(git status --porcelain --branch | head -1 | sed  's|^## ||' | sed  's|\.\.\..*$||')"
+  local current_branch="$(2> /dev/null git status --porcelain --branch  | head -1 | sed  's|^## ||' | sed  's|\.\.\..*$||')"
   if [ -n "$current_branch" ]; then
-    if [[ "$current_branch" != "HEAD "* ]]; then
-      prompt_info+=" ${fg_bold[grey]}on${reset_color}"
+    if [[ "$current_branch" == "HEAD "* ]]; then
+        prompt_info+=" ${fg[green]}detached HEAD${reset_color}"
+    else
+        prompt_info+=" ${fg_bold[grey]}on${reset_color} ${fg[green]}$current_branch${reset_color}"
     fi
-    prompt_info+=" ${fg[green]}detached HEAD${reset_color}"
     
     local branch_file_status="$(git status --porcelain --branch | grep -v -e '^##')"
     if [ -n "$branch_file_status" ]; then
