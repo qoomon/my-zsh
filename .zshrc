@@ -10,11 +10,13 @@ source "$SELF_DIR/plugins/zgem.zsh"
 
 source "$SELF_DIR/plugins/async.zsh";
 
-zgem add "$SELF_DIR/configs/general.zsh"
+zgem add "$SELF_DIR/modules/general.zsh"
 
-zgem add "$SELF_DIR/configs/history.zsh"
+zgem add "$SELF_DIR/modules/history.zsh"
 
-zgem add "$SELF_DIR/configs/prompt.zsh"
+zgem add "$SELF_DIR/modules/prompt.zsh"
+
+zgem add "$SELF_DIR/modules/alias.zsh"
 
 zgem add 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
 zgem add 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'
@@ -24,15 +26,11 @@ zgem add 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'g
   bindkey '^[[A' history-substring-search-up     # bind arrow-up
   bindkey '^[[B' history-substring-search-down   # bind arrow-down
 
-async zgem add "$SELF_DIR/configs/alias.zsh"
-
-async zgem add "$SELF_DIR/configs/completion.zsh"
 async zgem add 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
 async zgem add 'https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker' from:'http' as:'completion'
 async zgem add 'https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose' from:'http' as:'completion'
+async zgem add "$SELF_DIR/modules/completion.zsh"
 async "autoload +X -U compinit && compinit"
-
-
 
 async zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
@@ -44,13 +42,14 @@ async zgem add "$SELF_DIR/utils/network.zsh"
 async zgem add "$SELF_DIR/utils/process.zsh"
 async zgem add "$SELF_DIR/utils/ssh.zsh"
 async zgem add "$SELF_DIR/utils/sudo.zsh"
-
 async zgem add "$SELF_DIR/utils/git.zsh"
-async zgem add "$SELF_DIR/utils/pane.zsh"
 async zgem add "$SELF_DIR/utils/docker.zsh"
+
 async zgem add "$SELF_DIR/utils/http-server.zsh"
 async zgem add "$SELF_DIR/utils/maven.zsh"
+
 async zgem add "$SELF_DIR/utils/osx.zsh"
+async zgem add "$SELF_DIR/utils/pane.zsh"
 
 if zprofile::active; then zprofile::after; fi
 
