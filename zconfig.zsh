@@ -14,7 +14,7 @@ zgem add "$SELF_DIR/modules/general.zsh"
 
 zgem add "$SELF_DIR/modules/prompt.zsh"
 
-zgem add "$SELF_DIR/modules/history.zsh"
+async zgem add "$SELF_DIR/modules/history.zsh"
 
 async zgem add "$SELF_DIR/modules/alias.zsh"
 
@@ -23,8 +23,8 @@ async zgem add 'https://github.com/zsh-users/zsh-history-substring-search.git' f
 async HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
 async HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
 async HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
-async bindkey '"^[[A"' history-substring-search-up     # bind arrow-up
-async bindkey '"^[[B"' history-substring-search-down   # bind arrow-down
+async bindkey "'^[[A'" history-substring-search-up     # bind arrow-up
+async bindkey "'^[[B'" history-substring-search-down   # bind arrow-down
 
 async zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
