@@ -55,7 +55,7 @@ function _prompt_info {
     fi
     
     if [ -n "$(2> /dev/null git status --porcelain | head -1)" ]; then
-      prompt_info+="${fg[yellow]}*${reset_color}"
+      prompt_info+="${fg_bold[yellow]}*${reset_color}"
     fi
   fi
 
