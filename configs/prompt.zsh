@@ -39,7 +39,7 @@ function _prompt_info {
   local current_host="$(hostname -s)"
   if [ "$current_user" = "root" ]; then prompt_info+="${fg_bold[red]}"; else prompt_info+="${fg[cyan]}"; fi
   prompt_info+="$current_user${reset_color}${fg_bold[grey]}@${reset_color}${fg[blue]}$current_host${reset_color}"
-
+  
   # current_dir
   local current_dir="$(pwd | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1…/|g')"
   prompt_info+=" ${fg_bold[grey]}in${reset_color} ${fg[yellow]}$current_dir${reset_color}"
@@ -53,7 +53,7 @@ function _prompt_info {
         prompt_info+=" ${fg_bold[grey]}on${reset_color} ${fg[green]}$current_branch${reset_color}"
     fi
     
-    local branch_file_status="$(git status --porcelain --branch | grep -v -e '^##')"
+    local branch_file_status="$(2> /dev/null git status --porcelain | head -1 | grep -v -e '^##')"
     if [ -n "$branch_file_status" ]; then
       prompt_info+="${fg[yellow]}*${reset_color}"
     fi
@@ -62,13 +62,14 @@ function _prompt_info {
   echo "$prompt_info"
 }
 
-PS1=$'$(_prompt_info)\n❯ '
-PS2=$'▪ '
+### prompt
+precmd_functions=($precmd_functions _prompt_info)
+PS1='❯ '
+PS2='▪ '
 
-## alternative approach
-# precmd_functions=($precmd_functions _prompt_info)
-# PS1='❯ '
-# PS2='▪ '
+### alternative approach
+# PS1=$'$(_prompt_info)\n❯ '
+# PS2=$'▪ '
 
 # right prompt
 # RPROMPT='[%D{%H:%M:%S}]' # date
