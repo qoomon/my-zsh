@@ -10,7 +10,7 @@ ZSHRC_FILE="$HOME/.zshrc"
 
 ZSHCONF_DIR="$(echo "$SELF_DIR" | sed "s|^$HOME|\${HOME}|")"
 
-ZSHRC_FILE_COMMAND="test -e \"$ZSHCONF_DIR/.zshrc\" && source \"$ZSHCONF_DIR/.zshrc\""
+ZSHRC_FILE_COMMAND="test -e \"$ZSHCONF_DIR/zconfig.zsh\" && source \"$ZSHCONF_DIR/zconfig.zsh\""
 
 if grep -xq "$ZSHRC_FILE_COMMAND" "$ZSHRC_FILE" >/dev/null; then
   echo "zsh config already installed within $ZSHRC_FILE"
