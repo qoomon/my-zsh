@@ -5,9 +5,10 @@ source "$SELF_DIR/plugins/zprofile.zsh"
 if zprofile::active; then zprofile::before; fi
 
 #### load zgem extension manager
-# export ZGEM_VERBOSE='true'
+# ZGEM_VERBOSE='true'
 source "$SELF_DIR/plugins/zgem.zsh"
 
+# ASYNC_VERBOSE='true'
 source "$SELF_DIR/plugins/async.zsh";
 
 zgem add "$SELF_DIR/modules/general.zsh"

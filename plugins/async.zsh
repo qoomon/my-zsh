@@ -1,5 +1,7 @@
 zmodload zsh/zpty
 
+ASYNC_VERBOSE="${ASYNC_VERBOSE:-false}"
+
 _async_queue=()
 
 _async_worker_name='async_worker'
@@ -14,7 +16,7 @@ function _async_callback {
   zpty -r "$_async_worker_name"
   local cmd="${_async_queue[1]}"
   shift _async_queue
-  #echo "cmd: $cmd"
+  $ASYNC_VERBOSE && echo "${fg_bold[blue]}[async]${reset_color} $cmd"
   eval "$cmd"
 }
 

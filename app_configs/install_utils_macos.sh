@@ -7,6 +7,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 
 ! brew list zsh >/dev/null && brew install zsh
 
+! brew list vim >/dev/null && brew install vim
 ! brew list fzf >/dev/null && brew install fzf # https://github.com/junegunn/fzf # install shell extensions /usr/local/opt/fzf/install
 ! brew list htop >/dev/null && brew install htop # better top
 ! brew list nmap >/dev/null && brew install nmap

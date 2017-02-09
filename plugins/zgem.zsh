@@ -1,9 +1,10 @@
 autoload +X -U colors && colors
 
-
 ########################## zgem #########################
 
 declare -rx ZGEM_DIR=${ZGEM_DIR:-"$HOME/.zgem"}
+
+ZGEM_VERBOSE="${ZGEM_VERBOSE:-false}"
 
 function zgem {
   local cmd="$1"
@@ -136,7 +137,7 @@ function _zgem::load::plugin {
     _zgem::log debug "${fg_bold[green]}plugin${reset_color}         '$gem_dir/$file' ${fg_bold[blue]}lazy${reset_color} '${lazy_functions}'"
     for lazy_function in ${(ps:,:)${lazy_functions}}; do
       lazy_function=$(echo $lazy_function | tr -d ' ') # re move whitespaces
-      eval "$lazy_function() { . \"$gem_dir/$file\" && $lazy_function; }"
+      eval "$lazy_function() { source '$gem_dir/$file' && $lazy_function; }"
     done
   fi
 }
@@ -179,7 +180,6 @@ function _zgem::dirname {
   echo "$name"
 }
 
-ZGEM_VERBOSE="${ZGEM_VERBOSE:-false}"
 function _zgem::log {
   local level="$1"
   shift
