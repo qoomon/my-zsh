@@ -8,50 +8,46 @@ if zprofile::active; then zprofile::before; fi
 # ZGEM_VERBOSE='true'
 source "$SELF_DIR/plugins/zgem.zsh"
 
-# ASYNC_VERBOSE='true'
-source "$SELF_DIR/plugins/async.zsh";
-
 zgem add "$SELF_DIR/modules/general.zsh"
 
 zgem add "$SELF_DIR/modules/prompt.zsh"
 
-async zgem add "$SELF_DIR/modules/history.zsh"
+zgem add "$SELF_DIR/modules/history.zsh"
 
-async zgem add "$SELF_DIR/modules/alias.zsh"
+zgem add "$SELF_DIR/modules/alias.zsh"
 
-async zgem add 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
-async zgem add 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'
-async HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
-async HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
-async HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
-async bindkey "'^[[A'" history-substring-search-up     # bind arrow-up
-async bindkey "'^[[B'" history-substring-search-down   # bind arrow-down
+zgem add 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
+zgem add 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
+HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
+bindkey '^[[A' history-substring-search-up     # bind arrow-up
+bindkey '^[[B' history-substring-search-down   # bind arrow-down
 
-async zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
+zgem add 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
-async zgem add 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
-async zgem add 'https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker' from:'http' as:'completion'
-async zgem add 'https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose' from:'http' as:'completion'
-async zgem add "$SELF_DIR/modules/completion.zsh"
-async "autoload +X -U compinit && compinit"
+zgem add 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
+zgem add 'https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker' from:'http' as:'completion'
+zgem add 'https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose' from:'http' as:'completion'
+zgem add "$SELF_DIR/modules/completion.zsh"
 
-async zgem add "$SELF_DIR/utils/color.zsh"
-async zgem add "$SELF_DIR/utils/which.zsh"
-async zgem add "$SELF_DIR/utils/man.zsh"
-async zgem add "$SELF_DIR/utils/diff.zsh"
-async zgem add "$SELF_DIR/utils/find.zsh"
-async zgem add "$SELF_DIR/utils/network.zsh"
-async zgem add "$SELF_DIR/utils/process.zsh"
-async zgem add "$SELF_DIR/utils/ssh.zsh"
-async zgem add "$SELF_DIR/utils/sudo.zsh"
-async zgem add "$SELF_DIR/utils/git.zsh"
-async zgem add "$SELF_DIR/utils/docker.zsh"
+zgem add "$SELF_DIR/utils/color.zsh"
+zgem add "$SELF_DIR/utils/which.zsh"
+zgem add "$SELF_DIR/utils/man.zsh"
+zgem add "$SELF_DIR/utils/diff.zsh"
+zgem add "$SELF_DIR/utils/find.zsh"
+zgem add "$SELF_DIR/utils/network.zsh"
+zgem add "$SELF_DIR/utils/process.zsh"
+zgem add "$SELF_DIR/utils/ssh.zsh"
+zgem add "$SELF_DIR/utils/sudo.zsh"
+zgem add "$SELF_DIR/utils/git.zsh"
+zgem add "$SELF_DIR/utils/docker.zsh"
 
-async zgem add "$SELF_DIR/utils/http-server.zsh"
-async zgem add "$SELF_DIR/utils/maven.zsh"
+zgem add "$SELF_DIR/utils/http-server.zsh"
+zgem add "$SELF_DIR/utils/maven.zsh"
 
-async zgem add "$SELF_DIR/utils/osx.zsh"
-async zgem add "$SELF_DIR/utils/pane.zsh"
+zgem add "$SELF_DIR/utils/osx.zsh"
+zgem add "$SELF_DIR/utils/pane.zsh"
 
 if zprofile::active; then zprofile::after; fi
 

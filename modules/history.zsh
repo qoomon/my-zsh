@@ -2,7 +2,7 @@
 HISTFILE=${ZDOTDIR:-$HOME}/.zhistory        # enable history saving on shell exit
 HISTSIZE=10000                  # lines of history to maintain memory
 SAVEHIST=$HISTSIZE              # lines of history to maintain in history file.
-fc -R -I                        # reads the history file $HISTSIZE
+# fc -R -I                        # reads the history file $HISTSIZE
 setopt EXTENDED_HISTORY         # save timestamp and runtime information
 setopt APPEND_HISTORY           # append rather than overwrite history file.
 setopt INC_APPEND_HISTORY       # append to history immediately.
