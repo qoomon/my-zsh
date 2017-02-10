@@ -58,21 +58,15 @@ function zconfig {
 
   case "$cmd" in
     '');& 'edit')
-      _zconfig::edit $@
-      ;;
+      _zconfig::edit $@;;
     'update')
-      _zconfig::update
-      ;;
+      _zconfig::update;;
     'upgrade')
-      _zconfig::update
-      zgem update
-      ;;
+      _zconfig::update && zgem update;;
     'reload')
-      _zconfig::reload
-      ;;
+      _zconfig::reload;;
     'profile')
-      zprofile $@
-      ;;
+      zprofile $@;;
     *)
       echo "${fg_bold[red]}[zconfig]${reset_color}" "Unknown command '$cmd'" >&2
       echo "${fg_bold[red]}[zconfig]${reset_color}" "Protocol: {edit|update|upgrade|reload|profile}" >&2
@@ -82,8 +76,7 @@ function zconfig {
 }
 
 function _zconfig::edit {
-  local editor=${1:-$EDITOR}
-  $editor "$SELF_DIR"
+  ${1:-$EDITOR} "$SELF_DIR"
 }
 
 function _zconfig::update {
@@ -92,5 +85,5 @@ function _zconfig::update {
 }
 
 function _zconfig::reload {
-  exec "$SHELL" -l
+  exec "$SHELL" --login
 }
