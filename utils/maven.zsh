@@ -23,7 +23,7 @@ function mvn_colorized {
       -e "s|^(\[INFO\] )(BUILD FAILURE.*)|${fg_bold[blue]}\1${fg_bold[red]}\2$reset_color|" \
       -e "s|^(.*)|${fg_bold[grey]}\1$reset_color|" \
       -l
-  return $PIPESTATUS
+  return ${pipestatus[1]}
 }
 type compdef >/dev/null && compdef _mvn mvn_colorized # set default completion
 
