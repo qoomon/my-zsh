@@ -39,7 +39,6 @@ zgem add "$SELF_DIR/utils/find.zsh"
 zgem add "$SELF_DIR/utils/network.zsh"
 zgem add "$SELF_DIR/utils/process.zsh"
 zgem add "$SELF_DIR/utils/ssh.zsh"
-zgem add "$SELF_DIR/utils/sudo.zsh"
 zgem add "$SELF_DIR/utils/git.zsh"
 zgem add "$SELF_DIR/utils/docker.zsh"
 

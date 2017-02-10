@@ -37,7 +37,11 @@ function _prompt_info {
   # current_user & current_host
   local current_user="$(whoami)"
   local current_host="$(hostname -s)"
-  if [ "$current_user" = "root" ]; then prompt_info+="${fg_bold[red]}"; else prompt_info+="${fg[cyan]}"; fi
+  if [ "$current_user" = "root" ]; then 
+    prompt_info+="${fg_bold[red]}"
+  else 
+    prompt_info+="${fg[cyan]}"
+  fi
   prompt_info+="$current_user${reset_color}${fg_bold[grey]}@${reset_color}${fg[blue]}$current_host${reset_color}"
   
   # current_dir
