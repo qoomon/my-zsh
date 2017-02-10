@@ -1,13 +1,13 @@
 # 🐚 zsh_config 🐚
 ## Installation
 * checkout to $HOME/.zsh
-* run install_config.sh - install this config for current user
+* run install.sh - install this config for current user
 
 ### Optional
 * install_utils_macos.sh  - install common command line utils (with brew)
 
 ## Commands
-zsh_config_edit - will open config in $Editor
+zconfig edit - will open config in $EDITOR
 
 
 ## Zsh Knowledge

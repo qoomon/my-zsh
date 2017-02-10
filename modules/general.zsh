@@ -1,4 +1,6 @@
-### CLI
+autoload +X -U colors && colors
+
+### keybindings
 
 bindkey -e # -e emacs mode -v for vi mode
 bindkey '^[^[[D' backward-word # alt + left
