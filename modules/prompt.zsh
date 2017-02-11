@@ -37,13 +37,13 @@ function _prompt_info {
   # current_user & current_host
   local current_user="$(whoami)"
   local current_host="$(hostname -s)"
-  if [ "$current_user" = "root" ]; then 
+  if [ "$current_user" = "root" ]; then
     prompt_info+="${fg_bold[red]}"
-  else 
+  else
     prompt_info+="${fg[cyan]}"
   fi
   prompt_info+="$current_user${reset_color}${fg_bold[grey]}@${reset_color}${fg[blue]}$current_host${reset_color}"
-  
+
   # current_dir
   local current_dir="$(pwd | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1…/|g')"
   prompt_info+=" ${fg_bold[grey]}in${reset_color} ${fg[yellow]}$current_dir${reset_color}"
@@ -57,7 +57,7 @@ function _prompt_info {
     else
         prompt_info+=" ${fg_bold[grey]}on${reset_color} ${fg[green]}${current_branch_status_line##On branch }$current_branch${reset_color}"
     fi
-    
+
     if [ -n "$(2> /dev/null git status --porcelain | head -1)" ]; then
       prompt_info+="${fg_bold[magenta]}*${reset_color}"
     fi

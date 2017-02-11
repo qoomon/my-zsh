@@ -13,7 +13,7 @@ zconfig edit - will open config in $EDITOR
 ## Zsh Knowledge
 
 ## Shortcuts
-* pause process: ctrl + z
+* pause process: CTRL + Z
  * 'fg' command: run process again in foreground
  * 'bg' command: run process again in background
 * open man page for current command : esc + h
