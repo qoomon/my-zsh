@@ -41,6 +41,3 @@ function find_ls {
 function find_contains {
   grep -Ril "$1" $2
 }
-
-
-
