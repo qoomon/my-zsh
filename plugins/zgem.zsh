@@ -74,40 +74,42 @@ function _zgem::bundle {
   done
 
   ################ determine gem dir and file ################
-  
   local gem_name
-  if type "_zgem::name::$protocol" > /dev/null; then
-    gem_name="$(_zgem::name::$protocol "$location")"
-  else
-    _zgem::log error "command not found '_zgem::name::$protocol'" && return 1
-  fi
-  
-  local gem_dir="${ZGEM_DIR}/${gem_name}"
+  local gem_dir
+
   if [ "$protocol" = 'file' ]; then
+    gem_name="$(_zgem::basename "$location")"
     gem_dir="$(_zgem::dirname "$location")"
-  fi
-
-  ################ download gem ################
-  
-  if [ ! -e "$gem_dir" ] && [ "$protocol" != 'file' ]; then
-    if ! type "_zgem::download::$protocol" > /dev/null; then
-      _zgem::log error "command not found '_zgem::download::$protocol'" && return 1
+  else
+    ################ download gem ################
+    if type "_zgem::name::$protocol" > /dev/null; then
+      gem_name="$(_zgem::name::$protocol "$location")"
+      gem_dir="${ZGEM_DIR}/${gem_name}"
+    else
+      _zgem::log error "command not found '_zgem::name::$protocol'" && return 1
     fi
-    
-    mkdir -p "$gem_dir"
-    echo "$protocol" > "$gem_dir/.gem"
-    _zgem::log info "${fg_bold[green]}download${reset_color} ${gem_name}${fg_bold[yellow]}\n       into${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color} '$location'"
-    _zgem::download::$protocol "$location" "$gem_dir"
+
+    if [ ! -e "$gem_dir" ]; then
+      if ! type "_zgem::download::$protocol" > /dev/null; then
+        _zgem::log error "command not found '_zgem::download::$protocol'" && return 1
+      fi
+
+      mkdir -p "$gem_dir"
+      echo "$protocol" > "$gem_dir/.gem"
+      _zgem::log info "${fg_bold[green]}download ${fg_bold[magenta]}${gem_name}${reset_color}\n       ${fg_bold[yellow]}into${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color} $protocol '$location'"
+      _zgem::download::$protocol "$location" "$gem_dir"
+    fi
   fi
 
-  ################ load gem ################
-
+  ################ add gem ################
+  local gem_path="$gem_dir/$gem_file"
+  _zgem::log debug "${fg_bold[green]}add ${reset_color}${(r:10:: :)gem_type}${gem_type:10}   ${fg_bold[magenta]}${(r:32:: :)gem_name}${gem_name:32} ${fg_bold[black]}($gem_path)${reset_color}"
   case "$gem_type" in
     'plugin')
-      _zgem::add::plugin "$gem_dir/$gem_file" "$lazy_load"
+      _zgem::add::plugin "$gem_name" "$gem_path" "$lazy_load"
       ;;
     'completion')
-      _zgem::add::completion "$gem_dir/$gem_file"
+      _zgem::add::completion "$gem_path"
       ;;
     *)
       _zgem::log error  "Unknown gem type '$protocol'"
@@ -118,19 +120,18 @@ function _zgem::bundle {
 
 function _zgem::add::completion {
   local path="$1"
-  _zgem::log debug "${fg_bold[green]}completion${reset_color}     '$path'"
   fpath=($fpath "$(_zgem::basename '$path' )")
 }
 
 function _zgem::add::plugin {
-  local gem_file="$1"
-  local lazy_functions="$2"
+  local gem_name="$1"
+  local gem_file="$2"
+  local lazy_functions="$3"
 
   if [ -z "$lazy_functions" ]; then
-    _zgem::log debug "${fg_bold[green]}plugin${reset_color}         '$gem_file'"
     source "$gem_file"
   else
-    _zgem::log debug "${fg_bold[green]}plugin${reset_color}         '$gem_file' ${fg_bold[blue]}lazy${reset_color} '${lazy_functions}'"
+    _zgem::log debug "    ${fg[blue]}lazy${reset_color} ${lazy_functions}"
     for lazy_function in ${(ps:,:)${lazy_functions}}; do
       lazy_function=$(echo $lazy_function | tr -d ' ') # re move whitespaces
       eval "$lazy_function() { source '$gem_file' && $lazy_function; }"
@@ -143,8 +144,8 @@ function _zgem::update {
     local protocol="$(cat "$gem_dir/.gem")"
     if type "_zgem::update::$protocol" > /dev/null; then
       local gem_name="$(_zgem::basename "$gem_dir")"
-      _zgem::log info "${fg_bold[green]}update${reset_color} ${gem_name}\n       ${fg_bold[yellow]}in${reset_color} '$gem_dir'";
-      _zgem::update::$protocol $gem_dir 
+      _zgem::log info "${fg_bold[green]}update ${fg_bold[magenta]}${gem_name} ${fg_bold[black]}($gem_dir)${reset_color}";
+      _zgem::update::$protocol $gem_dir
     else
       _zgem::log error "command not found '_zgem::update::$protocol' gem directory: '${gem_dir}'"
     fi
@@ -187,12 +188,7 @@ function _zgem::log {
       ;;
   esac
 }
-############################# file ############################
 
-function _zgem::name::file {
-  local path="$1"
-  _zgem::basename "$path"
-}
 
 ############################# http ############################
 
@@ -217,13 +213,12 @@ function _zgem::update::http {
   (
     cd "$gem_dir"
     local http_url=$(cat "$gem_dir/.http")
-    local file="$(_zgem::basename "$http_url")"
-    local file_new=".$file.download"
-    curl -L -w %{http_code} -o "$file_new" -z "$file" $http_url | read -r response_code
-    if [ $response_code = '200' ]; then 
-      if ! diff "$file" "$file_new" >/dev/null; then
-        mv "$file" ".$file.old"
-        mv "$file_new" "$file"
+    local file_name="$(_zgem::basename "$http_url")"
+    local cksum_before=$(cksum "$file_name")
+    curl -s -L -w %{http_code} -o "$file_name" -z "$file_name" $http_url | read -r response_code
+    local cksum_after=$(cksum "$file_name")
+    if [ $response_code = '200' ]; then
+      if [ $cksum_after != $cksum_before ]; then
         echo "From $http_url"
         echo "Updated."
       else
@@ -231,7 +226,7 @@ function _zgem::update::http {
       fi
     elif [ $response_code = '304' ]; then
       echo "Current file is up to date"
-    else 
+    else
       _zgem::log error "http update error response code: $response_code from '$http_url'"
     fi
   )
@@ -258,8 +253,11 @@ function _zgem::update::git {
   local gem_dir="$1"
   (
     cd "$gem_dir"
+    local latest_commit_before=$(git rev-parse HEAD)
     git pull # --depth 1
-    local last_commit_hash=$(git reflog | grep -A1 'clone\|pull' | head -2 | tail -1 | cut -d" " -f1)  
-    git diff --name-status $last_commit_hash HEAD
+    local latest_commit_after=$(git rev-parse HEAD)
+    if [ $latest_commit_after != $latest_commit_before ]; then
+      git diff --name-status $latest_commit_before $latest_commit_after
+    fi
   )
 }

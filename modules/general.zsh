@@ -5,6 +5,8 @@ autoload +X -U colors && colors
 bindkey -e # -e emacs mode -v for vi mode
 bindkey '^[^[[D' backward-word # alt + left
 bindkey '^[^[[C' forward-word  # alt + rigth
+bindkey '^[[A' history-substring-search-up     # bind arrow-up
+bindkey '^[[B' history-substring-search-down   # bind arrow-down
 
 ### MISC
 

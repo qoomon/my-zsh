@@ -15,8 +15,6 @@ zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git' from
   HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
   HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
   HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
-  bindkey '^[[A' history-substring-search-up     # bind arrow-up
-  bindkey '^[[B' history-substring-search-down   # bind arrow-down
 }
 
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
@@ -56,7 +54,7 @@ function zconfig {
     'update')
       _zconfig::update;;
     'upgrade')
-      _zconfig::update && zgem update;;
+      _zconfig::update; zgem update;;
     'reload')
       _zconfig::reload;;
     'profile')
@@ -74,7 +72,7 @@ function _zconfig::edit {
 }
 
 function _zconfig::update {
-  echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[blue]}home directory${reset_color} $SELF_DIR"
+  echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[green]}update ${fg_bold[black]}($SELF_DIR)${reset_color}"
   (cd $SELF_DIR; git pull)
 }
 
