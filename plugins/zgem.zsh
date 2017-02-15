@@ -11,8 +11,8 @@ function zgem {
   shift
 
   case "$cmd" in
-    'add')
-      _zgem::add $@
+    'bundle')
+      _zgem::bundle $@
       ;;
     'update')
       _zgem::update $@
@@ -38,14 +38,14 @@ function _zgem::clean {
   rm -rf "$ZGEM_DIR"
 }
 
-function _zgem::add {
+function _zgem::bundle {
   local location="$1"
   shift
 
   ################ parse parameters ################
 
   local protocol='file'
-  local file=''
+  local gem_file="$(_zgem::basename "$location")"
   local gem_type='plugin'
   local lazy_load=''
   for param in "$@"; do
@@ -57,7 +57,7 @@ function _zgem::add {
         protocol="$param_value"
         ;;
       'use')
-        file="$param_value"
+        gem_file="$param_value"
         ;;
       'as')
         gem_type="$param_value"
@@ -74,44 +74,40 @@ function _zgem::add {
   done
 
   ################ determine gem dir and file ################
-
-  local gem_dir
-  case "$protocol" in
-    'file')
-      file="$(_zgem::basename "$location")"
-      gem_dir="$(_zgem::dirname "$location")"
-      ;;
-    'http')
-      file=$(_zgem::basename "$location")
-      gem_name="$file"
-      gem_dir="${ZGEM_DIR}/${gem_name}"
-      ;;
-    'git')
-      gem_name="$(_zgem::basename "$location" '.git')"
-      gem_dir="$ZGEM_DIR/${gem_name}"
-      ;;
-    *)
-      _zgem::log error  "Unknown protocol '$protocol'"
-      _zgem::log error  "Protocol: {file|http|git}"
-      return 1 ;;
-  esac
+  
+  local gem_name
+  if type "_zgem::name::$protocol" > /dev/null; then
+    gem_name="$(_zgem::name::$protocol "$location")"
+  else
+    _zgem::log error "command not found '_zgem::name::$protocol'" && return 1
+  fi
+  
+  local gem_dir="${ZGEM_DIR}/${gem_name}"
+  if [ "$protocol" = 'file' ]; then
+    gem_dir="$(_zgem::dirname "$location")"
+  fi
 
   ################ download gem ################
-
-  if [ "$protocol" != 'file' ] && [ ! -e "$gem_dir" ]; then
-    _zgem::log info "${fg_bold[green]}download${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color}    '$location'"
-    _zgem::download::$protocol "$location" "$gem_dir"
+  
+  if [ ! -e "$gem_dir" ] && [ "$protocol" != 'file' ]; then
+    if ! type "_zgem::download::$protocol" > /dev/null; then
+      _zgem::log error "command not found '_zgem::download::$protocol'" && return 1
+    fi
+    
+    mkdir -p "$gem_dir"
     echo "$protocol" > "$gem_dir/.gem"
+    _zgem::log info "${fg_bold[green]}download${reset_color} ${gem_name}${fg_bold[yellow]}\n       into${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color} '$location'"
+    _zgem::download::$protocol "$location" "$gem_dir"
   fi
 
   ################ load gem ################
 
   case "$gem_type" in
     'plugin')
-      _zgem::load::plugin "$gem_dir" "$file" "$lazy_load"
+      _zgem::add::plugin "$gem_dir/$gem_file" "$lazy_load"
       ;;
     'completion')
-      _zgem::load::completion "$gem_dir" "$file"
+      _zgem::add::completion "$gem_dir/$gem_file"
       ;;
     *)
       _zgem::log error  "Unknown gem type '$protocol'"
@@ -120,47 +116,38 @@ function _zgem::add {
   esac
 }
 
-function _zgem::load::completion {
-  _zgem::log debug "${fg_bold[green]}completion${reset_color}     '$gem_dir/$file'"
-  fpath=($fpath "$gem_dir")
+function _zgem::add::completion {
+  local path="$1"
+  _zgem::log debug "${fg_bold[green]}completion${reset_color}     '$path'"
+  fpath=($fpath "$(_zgem::basename '$path' )")
 }
 
-function _zgem::load::plugin {
-  local gem_dir="$1"
-  local file="$2"
-  local lazy_functions="$3"
+function _zgem::add::plugin {
+  local gem_file="$1"
+  local lazy_functions="$2"
 
   if [ -z "$lazy_functions" ]; then
-    _zgem::log debug "${fg_bold[green]}plugin${reset_color}         '$gem_dir/$file'"
-    source "$gem_dir/$file"
+    _zgem::log debug "${fg_bold[green]}plugin${reset_color}         '$gem_file'"
+    source "$gem_file"
   else
-    _zgem::log debug "${fg_bold[green]}plugin${reset_color}         '$gem_dir/$file' ${fg_bold[blue]}lazy${reset_color} '${lazy_functions}'"
+    _zgem::log debug "${fg_bold[green]}plugin${reset_color}         '$gem_file' ${fg_bold[blue]}lazy${reset_color} '${lazy_functions}'"
     for lazy_function in ${(ps:,:)${lazy_functions}}; do
       lazy_function=$(echo $lazy_function | tr -d ' ') # re move whitespaces
-      eval "$lazy_function() { source '$gem_dir/$file' && $lazy_function; }"
+      eval "$lazy_function() { source '$gem_file' && $lazy_function; }"
     done
   fi
 }
 
 function _zgem::update {
   for gem_dir in $(find "$ZGEM_DIR" -type d -mindepth 1 -maxdepth 1); do
-    _zgem::log info "${fg_bold[green]}update${reset_color} '$gem_dir'";
-
-    local gem_name="$(_zgem::basename "$gem_dir")"
     local protocol="$(cat "$gem_dir/.gem")"
-    case "$protocol" in
-      'http')
-        _zgem::update::http $gem_dir
-        ;;
-      'git')
-        _zgem::update::git $gem_dir
-        ;;
-      *)
-        _zgem::log error "Unknown protocol '$protocol'"
-        _zgem::log error "Protocol: {http|git}"
-        return 1
-        ;;
-    esac
+    if type "_zgem::update::$protocol" > /dev/null; then
+      local gem_name="$(_zgem::basename "$gem_dir")"
+      _zgem::log info "${fg_bold[green]}update${reset_color} ${gem_name}\n       ${fg_bold[yellow]}in${reset_color} '$gem_dir'";
+      _zgem::update::$protocol $gem_dir 
+    else
+      _zgem::log error "command not found '_zgem::update::$protocol' gem directory: '${gem_dir}'"
+    fi
   done
 }
 
@@ -200,50 +187,79 @@ function _zgem::log {
       ;;
   esac
 }
+############################# file ############################
+
+function _zgem::name::file {
+  local path="$1"
+  _zgem::basename "$path"
+}
 
 ############################# http ############################
+
+function _zgem::name::http {
+  local http_url="$1"
+  _zgem::basename "$http_url"
+}
 
 function _zgem::download::http {
   local http_url="$1"
   local gem_dir="$2"
-
-  mkdir -p "$gem_dir"
-  echo "$http_url" > "$gem_dir/.http" # store url into meta file for allow updating
-  echo "Downloading into '$gem_dir'"
-  (cd "$gem_dir"; curl -L -O "$http_url")
+  (
+    cd "$gem_dir"
+    echo "$http_url" > ".http" # store url into meta file for allow updating
+    echo "Downloading into '$gem_dir'"
+    curl -L -O "$http_url"
+  )
 }
 
 function _zgem::update::http {
   local gem_dir="$1"
-
-  local http_url=$(cat "$gem_dir/.http")
-  local file="$(_zgem::basename "$http_url")"
-
-  if [ $(cd "$gem_dir"; curl -s -L -w %{http_code} -O -z "$file" "$http_url") = '200' ]; then
-    echo "From $http_url"
-    echo "Updated."
-  else
-    echo "File is up to date"
-  fi
+  (
+    cd "$gem_dir"
+    local http_url=$(cat "$gem_dir/.http")
+    local file="$(_zgem::basename "$http_url")"
+    local file_new=".$file.download"
+    curl -L -w %{http_code} -o "$file_new" -z "$file" $http_url | read -r response_code
+    if [ $response_code = '200' ]; then 
+      if ! diff "$file" "$file_new" >/dev/null; then
+        mv "$file" ".$file.old"
+        mv "$file_new" "$file"
+        echo "From $http_url"
+        echo "Updated."
+      else
+        echo "Current file is up to date"
+      fi
+    elif [ $response_code = '304' ]; then
+      echo "Current file is up to date"
+    else 
+      _zgem::log error "http update error response code: $response_code from '$http_url'"
+    fi
+  )
 }
 
 ############################# git #############################
 
+function _zgem::name::git {
+  local repo_url="$1"
+  _zgem::basename "$repo_url" '.git'
+}
+
 function _zgem::download::git {
   local repo_url="$1"
   local gem_dir="$2"
-
-  mkdir -p "$gem_dir"
-  git clone --depth 1 "$repo_url" "$gem_dir"
+  (
+    cd "$gem_dir"
+    local clone_dir="git_repo"
+    git clone --depth 1 "$repo_url" "$clone_dir" && mv "$clone_dir/"*(DN) . && rmdir "$clone_dir"
+  )
 }
 
 function _zgem::update::git {
   local gem_dir="$1"
-
-  local changed_files="$(cd "$gem_dir"; git diff --name-only ..origin)"
-  (cd "$gem_dir"; git pull)
-  if [ -n "$changed_files" ]; then
-    echo "Updated:"
-    echo "$changed_files" | sed -e 's/^/  /'
-  fi
+  (
+    cd "$gem_dir"
+    git pull # --depth 1
+    local last_commit_hash=$(git reflog | grep -A1 'clone\|pull' | head -2 | tail -1 | cut -d" " -f1)  
+    git diff --name-status $last_commit_hash HEAD
+  )
 }
