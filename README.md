@@ -1,7 +1,8 @@
 # 🐚 zsh_config 🐚
 ## Installation
-* checkout to $HOME/.zsh
-* run install.sh - install this config for current user
+* git clone --depth 1 https://github.com/qoomon/zsh_config.git "$HOME/.zsh"
+* $HOME/.zsh/install.sh
+  * install this config for current user
 
 ### Optional
 * install_utils_macos.sh  - install common command line utils (with brew)
