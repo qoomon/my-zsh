@@ -35,8 +35,8 @@ function _prompt_info {
   local prompt_info="${fg_bold[grey]}#${reset_color} "
 
   # current_user & current_host
-  local current_user="$(whoami)"
-  local current_host="$(hostname -s)"
+  local current_user="$USER" # "$(whoami)"
+  local current_host="$HOST" # "$(hostname -s)"
   if [ "$current_user" = "root" ]; then
     prompt_info+="${fg_bold[red]}"
   else
@@ -50,15 +50,16 @@ function _prompt_info {
 
   # current_branch
   #git status | head -1 | sed 's|On branch ||' | sed 's|HEAD detached at ||'
-  local current_branch_status_line="$(2> /dev/null git status | head -1)"
+  local current_branch_status_line="$(git status --short --branch --porcelain 2>/dev/null | head -1)"
   if [ -n "$current_branch_status_line" ]; then
-    if [[ "$current_branch_status_line" == "HEAD detached"* ]]; then
-        prompt_info+=" ${fg_bold[grey]}at${reset_color} ${fg[green]}${current_branch_status_line##HEAD detached at } [detached]${reset_color}"
+    if [[ "$current_branch_status_line" == *"(no branch)"* ]]; then
+        prompt_info+=" ${fg_bold[grey]}at${reset_color} ${fg[green]}detached HEAD${reset_color}"
     else
-        prompt_info+=" ${fg_bold[grey]}on${reset_color} ${fg[green]}${current_branch_status_line##On branch }$current_branch${reset_color}"
+        local branch_name="$current_branch_status_line" && branch_name="${branch_name#* }" && branch_name="${branch_name%%...*}"
+        prompt_info+=" ${fg_bold[grey]}on${reset_color} ${fg[green]}${branch_name}$current_branch${reset_color}"
     fi
 
-    if [ -n "$(2> /dev/null git status --porcelain | head -1)" ]; then
+    if [ -n "$( git status --short --porcelain 2>/dev/null | head -1)" ]; then
       prompt_info+="${fg_bold[magenta]}*${reset_color}"
     fi
   fi
