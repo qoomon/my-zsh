@@ -36,7 +36,6 @@ zgem bundle "$ZCONFIG_HOME/modules/prompt.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/common.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
-zgem bundle "$ZCONFIG_HOME/modules/keybinding.zsh"
 
 if zprofile::active; then zprofile::after; fi
 
