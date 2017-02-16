@@ -17,23 +17,24 @@ zgem bundle 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'z
 zgem bundle 'https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker' from:'http' as:'completion'
 zgem bundle 'https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose' from:'http' as:'completion'
 
-zgem bundle "$ZCONFIG_HOME/utils/which.zsh"
-zgem bundle "$ZCONFIG_HOME/utils/find.zsh"
 zgem bundle "$ZCONFIG_HOME/utils/network.zsh"
-zgem bundle "$ZCONFIG_HOME/utils/process.zsh"
-zgem bundle "$ZCONFIG_HOME/utils/ssh.zsh"
-zgem bundle "$ZCONFIG_HOME/utils/git.zsh"
-zgem bundle "$ZCONFIG_HOME/utils/docker.zsh"
 zgem bundle "$ZCONFIG_HOME/utils/http-server.zsh"
+# zgem bundle "$ZCONFIG_HOME/utils/which.zsh"
+# zgem bundle "$ZCONFIG_HOME/utils/find.zsh"
+# zgem bundle "$ZCONFIG_HOME/utils/process.zsh"
+# zgem bundle "$ZCONFIG_HOME/utils/ssh.zsh"
+# zgem bundle "$ZCONFIG_HOME/utils/git.zsh"
+# zgem bundle "$ZCONFIG_HOME/utils/docker.zsh"
 
 zgem bundle "$ZCONFIG_HOME/utils/maven.zsh"
-zgem bundle "$ZCONFIG_HOME/utils/osx.zsh"
-zgem bundle "$ZCONFIG_HOME/utils/pane.zsh"
+# zgem bundle "$ZCONFIG_HOME/utils/osx.zsh"
+# zgem bundle "$ZCONFIG_HOME/utils/pane.zsh"
 
 zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/history.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/prompt.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/common.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/keybinding.zsh"
 

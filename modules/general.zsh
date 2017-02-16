@@ -1,5 +1,7 @@
 autoload +X -U colors && colors
 
+autoload +X -U keeper
+
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 ### MISC
