@@ -1,44 +1,41 @@
-SELF_DIR="${0:A:h}"
+local ZCONFIG_HOME="${0:A:h}"
 
 #### load zprofile plugin [lazy]
-source "$SELF_DIR/plugins/zprofile.zsh"
+source "$ZCONFIG_HOME/plugins/zprofile.zsh"
 if zprofile::active; then zprofile::before; fi
 
 #### load zgem extension manager
 # ZGEM_VERBOSE='true'
-source "$SELF_DIR/plugins/zgem.zsh"
+source "$ZCONFIG_HOME/plugins/zgem.zsh"
 
 zgem bundle 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 
 zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
-zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh' && {
-  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
-  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
-  HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
-}
+zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'
 
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
 zgem bundle 'https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker' from:'http' as:'completion'
 zgem bundle 'https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose' from:'http' as:'completion'
 
-zgem bundle "$SELF_DIR/modules/general.zsh"
-zgem bundle "$SELF_DIR/modules/history.zsh"
-zgem bundle "$SELF_DIR/modules/prompt.zsh"
-zgem bundle "$SELF_DIR/modules/completion.zsh"
-zgem bundle "$SELF_DIR/modules/alias.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/which.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/find.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/network.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/process.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/ssh.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/git.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/docker.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/http-server.zsh"
 
-zgem bundle "$SELF_DIR/utils/which.zsh"
-zgem bundle "$SELF_DIR/utils/find.zsh"
-zgem bundle "$SELF_DIR/utils/network.zsh"
-zgem bundle "$SELF_DIR/utils/process.zsh"
-zgem bundle "$SELF_DIR/utils/ssh.zsh"
-zgem bundle "$SELF_DIR/utils/git.zsh"
-zgem bundle "$SELF_DIR/utils/docker.zsh"
-zgem bundle "$SELF_DIR/utils/http-server.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/maven.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/osx.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/pane.zsh"
 
-zgem bundle "$SELF_DIR/utils/maven.zsh"
-zgem bundle "$SELF_DIR/utils/osx.zsh"
-zgem bundle "$SELF_DIR/utils/pane.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/history.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/prompt.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/keybinding.zsh"
 
 if zprofile::active; then zprofile::after; fi
 
@@ -68,12 +65,12 @@ function zconfig {
 }
 
 function _zconfig::edit {
-  ${1:-$EDITOR} "$SELF_DIR"
+  ${1:-$EDITOR} "$ZCONFIG_HOME"
 }
 
 function _zconfig::update {
-  echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[green]}update ${fg_bold[black]}($SELF_DIR)${reset_color}"
-  (cd $SELF_DIR; git pull)
+  echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[green]}update ${fg_bold[black]}($ZCONFIG_HOME)${reset_color}"
+  (cd $ZCONFIG_HOME; git pull)
 }
 
 function _zconfig::reload {

@@ -17,8 +17,9 @@ setopt HIST_VERIFY              # let the user edit the command line after histo
 setopt NO_HIST_BEEP
 
 
-# "persistent history"
+# "predefined history"
 # just write important commands you always need to ~/.important_commands
 # if [[ -r ~/.important_commands ]] ; then
 #     fc -R ~/.important_commands
 # fi
+

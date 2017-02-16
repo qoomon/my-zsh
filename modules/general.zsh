@@ -1,17 +1,8 @@
 autoload +X -U colors && colors
 
-### keybindings
-
-bindkey -e # -e emacs mode -v for vi mode
-bindkey '^[^[[D' backward-word # alt + left
-bindkey '^[^[[C' forward-word  # alt + rigth
-bindkey '^[[A' history-substring-search-up     # bind arrow-up
-bindkey '^[[B' history-substring-search-down   # bind arrow-down
-
-### MISC
-
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
+### MISC
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
@@ -28,3 +19,8 @@ export LS_COLORS="di=1;34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=
 LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
 LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
 LESS_TERMCAP_ue=$(printf "$reset_color")
+
+### HISTORY SUBSTRING SEARCH ###
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
+HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
