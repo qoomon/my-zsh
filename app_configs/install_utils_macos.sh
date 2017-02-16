@@ -1,9 +1,14 @@
-#!/bin/sh -x
+#!/bin/zsh
+
+SELF_DIR="${0:A:h}"
+cd "$SELF_DIR"
 
 # install homebrew
 command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 ! brew list coreutils >/dev/null && brew install coreutils # http://www.gnu.org/software/coreutils/manual/coreutils.pdf
+
+! brew list git >/dev/null && brew install git
 
 ! brew list zsh >/dev/null && brew install zsh
 

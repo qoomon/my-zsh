@@ -1,3 +1,6 @@
+SELF_DIR="${0:A:h}"
+cd "$SELF_DIR"
+
 # see $HOME/.gitconfig
 
 # git global config
