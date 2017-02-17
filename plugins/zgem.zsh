@@ -19,7 +19,7 @@ function zgem {
       _zgem::reload
       ;;
     'clean')
-      _zgem::clean
+      _zgem::clean $@
       ;;
     *)
       _zgem::log error "Unknown command '$cmd'"
@@ -34,8 +34,15 @@ function _zgem::reload {
 }
 
 function _zgem::clean {
-  _zgem::log info "Press ENTER to remove '$ZGEM_DIR/'..." && read
-  rm -rf "$ZGEM_DIR"
+  local gem_name="$1"
+  
+  if [ -z "$gem_name" ]; then
+    _zgem::log info "Press ENTER to remove all gems from '$ZGEM_DIR/'..." && read
+  else
+    _zgem::log info "Press ENTER to remove gem '$gem_name' from '$ZGEM_DIR/$gem_name'..." && read
+  fi
+  
+  rm -rf "$ZGEM_DIR/$gem_name"
 }
 
 function _zgem::bundle {
