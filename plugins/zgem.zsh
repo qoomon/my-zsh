@@ -119,8 +119,8 @@ function _zgem::bundle {
 }
 
 function _zgem::add::completion {
-  local path="$1"
-  fpath=($fpath "$(_zgem::basename '$path' )")
+  local file="$1"
+  fpath=($fpath "$(_zgem::dirname "$file")")
 }
 
 function _zgem::add::plugin {
