@@ -41,3 +41,48 @@ function diff_colorized {
   return ${pipestatus[1]}
 }
 type compdef >/dev/null && compdef _diff diff_colorized # set default completion
+
+function ip_internal {
+  if [ -n "$1" ]; then
+    local interface=$1
+    local ip=$(ipconfig getifaddr $interface)
+    if [ $? -eq 0 ]; then
+      echo $ip
+    else
+      return 1
+    fi
+  else
+    local -a interface_list; interface_list=($(ifconfig -l))
+    for interface in $interface_list; do
+        ip=$(ipconfig getifaddr $interface)
+        if [ -n "$ip" ]; then
+          echo "$interface: $ip"
+        fi
+    done
+  fi
+}
+
+
+# ipinfo.io/ip;   ipinfo.io/json
+# ifconfig.co/ip;   ifconfig.co/json
+# api.ipify.org
+function ip_external {
+  local interface="$1"
+  local interface_param
+  if [ -n "$interface" ]; then
+    interface_param=(--interface $interface)
+  fi
+  
+  curl $interface_param ipinfo.io/ip
+}
+function ip_external_info {
+  local interface="$1"
+  local interface_param
+  if [ -n "$interface" ]; then
+    interface_param=(--interface $interface)
+  fi
+  # ipinfo.io/ip;   ipinfo.io/json
+  # ifconfig.co/ip;   ifconfig.co/json
+  # api.ipify.org
+  curl $interface_param ipinfo.io
+}
