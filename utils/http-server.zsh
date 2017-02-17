@@ -18,8 +18,3 @@
 # brew install dnsmasq --- e.g. wildcard dns server *.localhost
 
 # install OSX: sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ~/.ssl/localhost.pem
-
-alias http-server='command http-server -p 8080 -o'
-# alias http-server='docker run --rm --name nginx-volatile -v "$PWD":/usr/share/nginx/html:ro -p 80:80 nginx'
-alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZSH_FILE_DIR/localhost.pem --key $ZSH_FILE_DIR/localhost.pem"
-alias https-server='http-server-ssl'

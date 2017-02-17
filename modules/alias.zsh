@@ -27,6 +27,11 @@ alias aliasx='alias_colorized'
 
 alias mvnx='mvn_colorized'
 
+alias http-server='command http-server -p 8080 -o'
+# alias http-server='docker run --rm --name nginx-volatile -v "$PWD":/usr/share/nginx/html:ro -p 80:80 nginx'
+alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZSH_FILE_DIR/localhost.pem --key $ZSH_FILE_DIR/localhost.pem"
+alias https-server='http-server-ssl'
+
 alias man='() {
 env \
   LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
