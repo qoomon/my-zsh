@@ -17,8 +17,8 @@ function find_ls {
     echo 0;
   }
 
-  local -a find_args; find_args=($@)
-  local -a ls_args
+  local find_args=($@)
+  local ls_args
 
   local ls_args_seperator_index=$(index "--" $@)
   if [ $ls_args_seperator_index -gt 0 ]; then

@@ -42,47 +42,95 @@ function diff_colorized {
 }
 type compdef >/dev/null && compdef _diff diff_colorized # set default completion
 
-function ip_internal {
-  if [ -n "$1" ]; then
-    local interface=$1
-    local ip=$(ipconfig getifaddr $interface)
-    if [ $? -eq 0 ]; then
-      echo $ip
-    else
+# ipinfo.io/ip;   ipinfo.io/json
+# ifconfig.co/ip;   ifconfig.co/json
+# api.ipify.org
+function ip {
+  local cmd="$1"
+  [[ $# > 0 ]] && shift
+
+  case "$cmd" in
+    'internal'|'int'|'i')
+      _ip::internal $@
+      ;;
+    'external'|'ext'|'e')
+      _ip::external $@
+      ;;
+    *)
+      _zgem::log error "Unknown command '$cmd'"
+      _zgem::log error "Usage: $0 {internal|external}"
       return 1
-    fi
-  else
-    local -a interface_list; interface_list=($(ifconfig -l))
+      ;;
+  esac
+}
+
+function _ip::internal {
+  local interface=""
+  
+  while [[ $# > 0 ]] ; do
+    local param_key="$1"
+    shift
+    
+    case "$param_key" in
+      '--interface'|'-i')
+        interface="$1"
+        shift
+        ;;
+      *)
+        _zgem::log error "Unknown parameter '$param_key'"
+        _zgem::log error "Parameter: {--interface <name>}"
+        return 1
+        ;;
+    esac
+  done
+  
+  if [ -z "$interface" ]; then
+    local interface_list=($(ifconfig -l))
     for interface in $interface_list; do
-        ip=$(ipconfig getifaddr $interface)
+        local ip=$(ipconfig getifaddr $interface)
         if [ -n "$ip" ]; then
           echo "$interface: $ip"
         fi
     done
+  else
+    echo $(ipconfig getifaddr $interface)
   fi
 }
 
-
-# ipinfo.io/ip;   ipinfo.io/json
-# ifconfig.co/ip;   ifconfig.co/json
-# api.ipify.org
-function ip_external {
-  local interface="$1"
+function _ip::external {
+  
+  local interface=""
+  local details=false
+  
+  while [[ $# > 0 ]] ; do
+    local param_key="$1"
+    shift
+    
+    case "$param_key" in
+      '--interface'|'-i')
+        interface="$1"
+        shift
+        ;;
+      '--details'|'-d')
+        details="true"
+        ;;
+      *)
+        _zgem::log error "Unknown parameter '$param_key'"
+        _zgem::log error "Parameter: {--details|--interface <name>}"
+        return 1
+        ;;
+    esac
+  done
+  
   local interface_param
   if [ -n "$interface" ]; then
     interface_param=(--interface $interface)
   fi
   
-  curl $interface_param ipinfo.io/ip
-}
-function ip_external_info {
-  local interface="$1"
-  local interface_param
-  if [ -n "$interface" ]; then
-    interface_param=(--interface $interface)
+  local address="ipinfo.io/ip"
+  if $details; then
+    address="ipinfo.io/json"
   fi
-  # ipinfo.io/ip;   ipinfo.io/json
-  # ifconfig.co/ip;   ifconfig.co/json
-  # api.ipify.org
-  curl $interface_param ipinfo.io
+
+  curl $interface_param $address
 }
