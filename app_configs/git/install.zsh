@@ -6,7 +6,7 @@ cd "$SELF_DIR"
 # git global config
 git config --global color.ui true
 git config --global merge.ff false
-git config --global pull.rebase true
+git config --global pull.rebase 'preserve'
 git config --global rebase.autoStash true
 git config --global push.followTags true
 git config --global tag.sort version:refname
@@ -33,27 +33,27 @@ git config --global alias.assume-unchanged 'update-index --assume-unchanged'
 git config --global alias.skip-worktree 'update-index --skip-worktree'
 
 
-if type idea >/dev/null; then
-  git config --global mergetool.intellij.cmd 'idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")'
-  git config --global mergetool.intellij.trustExitCode false
-  git config --global merge.tool intellij
 
-  git config --global difftool.intellij.cmd 'idea diff $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE")'
-  git config --global difftool.intellij.trustExitCode false
-  git config --global diff.tool intellij
-fi
+
+git config --global merge.tool 'vimdiff'
+git config --global diff.tool 'vimdiff'
+git config --global merge.conflictstyle 'diff3'
+git config --global mergetool.prompt false
+
+# if type idea >/dev/null; then
+#   git config --global mergetool.idea.cmd 'idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")'
+#   git config --global mergetool.idea.trustExitCode true
+#   git config --global merge.tool idea
+#
+#   git config --global difftool.idea.cmd 'idea diff $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE")'
+#   git config --global diff.tool idea
+# fi
 
 
 ## seach for changes
 # git log --follow -G'<SEARCH_STRING>' --patch [ -- <FILE_PATH> ]
 ## show file in spesific version
 # git show <COMMIT>:<FILE_PATH>
-
-# npm install --global commitizen
-# npm install --global cz-conventional-changelog
-# echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
-# npm install --global conventional-changelog-cli
-# npm install --global conventional-recommended-bump
 
 #################
 ### sourcetree
