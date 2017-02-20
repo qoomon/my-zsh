@@ -45,7 +45,7 @@ function _prompt_info {
   prompt_info+="$current_user${reset_color}${fg_bold[grey]}@${reset_color}${fg[blue]}$current_host${reset_color}"
 
   # current_dir
-  local current_dir="$(pwd | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1…/|g')"
+  local current_dir="$(echo $PWD | sed -e "s|^$HOME|~|" -e 's|\([^~/.]\)[^/]*/|\1/|g')"
   prompt_info+=" ${fg_bold[grey]}in${reset_color} ${fg[yellow]}$current_dir${reset_color}"
 
   # current_branch

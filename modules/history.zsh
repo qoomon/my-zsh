@@ -22,4 +22,3 @@ setopt NO_HIST_BEEP
 # if [[ -r ~/.important_commands ]] ; then
 #     fc -R ~/.important_commands
 # fi
-
