@@ -3,10 +3,17 @@ cd "$SELF_DIR"
 
 cp -i config.json $HOME/.docker/config.json
 
+# install zsh completions
 DOCKER_APP_COMPLETION_PATH='/Applications/Docker.app/Contents/Resources/etc'
 if [ -e "$DOCKER_APP_COMPLETION_PATH" ]; then
   ZSH_SITE_FUNCTIONS_DIR='/usr/local/share/zsh/site-functions'
-  test ! -e "$ZSH_SITE_FUNCTIONS_DIR/_docker"         && ln -s "$DOCKER_APP_COMPLETION_PATH/docker.zsh-completion"         "$ZSH_SITE_FUNCTIONS_DIR/_docker"
-  test ! -e "$ZSH_SITE_FUNCTIONS_DIR/_docker-compose" && ln -s "$DOCKER_APP_COMPLETION_PATH/docker-compose.zsh-completion" "$ZSH_SITE_FUNCTIONS_DIR/_docker-compose"
-  test ! -e "$ZSH_SITE_FUNCTIONS_DIR/_docker-machine" && ln -s "$DOCKER_APP_COMPLETION_PATH/docker-machine.zsh-completion" "$ZSH_SITE_FUNCTIONS_DIR/_docker-machine"
+  for comp_file in '/Applications/Docker.app/Contents/Resources/etc/'*'.zsh-completion'; do
+    comp_target_file="$comp_file"
+    comp_target_file="${comp_target_file##*/}"
+    comp_target_file="${comp_target_file%.zsh-completion}"
+    comp_target_file="$ZSH_SITE_FUNCTIONS_DIR/_${comp_target_file}"
+    if [ ! -e "$comp_target_file" ]; then
+      ln -s "$comp_file" "$comp_target_file"
+    fi
+  done
 fi
