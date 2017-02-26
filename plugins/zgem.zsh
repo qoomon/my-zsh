@@ -35,13 +35,13 @@ function _zgem::reload {
 
 function _zgem::clean {
   local gem_name="$1"
-  
+
   if [ -z "$gem_name" ]; then
     _zgem::log info "Press ENTER to remove all gems from '$ZGEM_DIR/'..." && read
   else
     _zgem::log info "Press ENTER to remove gem '$gem_name' from '$ZGEM_DIR/$gem_name'..." && read
   fi
-  
+
   rm -rf "$ZGEM_DIR/$gem_name"
 }
 
@@ -141,7 +141,7 @@ function _zgem::add::plugin {
     _zgem::log debug "    ${fg[blue]}lazy${reset_color} ${lazy_functions}"
     for lazy_function in ${(ps:,:)${lazy_functions}}; do
       lazy_function=$(echo $lazy_function | tr -d ' ') # re move whitespaces
-      eval "$lazy_function() { source '$gem_file' && $lazy_function; }"
+      eval " $lazy_function() { source '$gem_file' && $lazy_function; }"
     done
   fi
 }

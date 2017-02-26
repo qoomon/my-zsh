@@ -13,7 +13,7 @@ function ssh_key_set {
 }
 
 function ssh_key_info {
-   ssh-keygen -l -f "$HOME/.ssh/$1"
+   ssh-keygen -l -f "$HOME/.ssh/${1:-id_rsa}"
 }
 
 

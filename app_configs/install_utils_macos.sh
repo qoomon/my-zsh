@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-SELF_DIR="${0:A:h}"
+SELF_DIR="$(dirname "${0:A}")"
 cd "$SELF_DIR"
 
 # install homebrew
@@ -23,6 +23,8 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list watch >/dev/null && brew install watch
 
 ! brew list tree >/dev/null && brew install tree
+! brew list pstree >/dev/null && brew install pstree
+
 ! brew list ifstat >/dev/null && brew install ifstat
 
 ! brew list httpie >/dev/null && brew install httpie # better alternative to curl

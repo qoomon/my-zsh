@@ -1,4 +1,4 @@
-SELF_DIR="${0:A:h}"
+SELF_DIR="$(dirname "${0:A}")"
 cd "$SELF_DIR"
 
 # install vim-plug plugin manager
