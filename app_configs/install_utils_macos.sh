@@ -1,6 +1,5 @@
 #!/bin/zsh
-
-SELF_DIR="$(dirname "${0:A}")"
+SELF_DIR="$(dirname "$0")"
 cd "$SELF_DIR"
 
 # install homebrew

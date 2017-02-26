@@ -1,4 +1,7 @@
 #!/bin/zsh
+SELF_DIR="$(dirname "$0")"
+cd "$SELF_DIR"
+
 autoload +X -U colors && colors
 
 function ask {
@@ -6,11 +9,9 @@ function ask {
   [[ $response == "y" || $response == "Y" || $response == "yes" || $response == "Yes" ]]
 }
 
-SELF_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-
 ZSHRC_FILE="$HOME/.zshrc"
 
-ZSHCONF_DIR="$(echo "$SELF_DIR" | sed "s|^$HOME|\${HOME}|")"
+ZSHCONF_DIR="$(pwd | sed "s|^$HOME|\${HOME}|")"
 
 ZSHRC_FILE_COMMAND="test -e \"$ZSHCONF_DIR/zconfig.zsh\" && source \"$ZSHCONF_DIR/zconfig.zsh\""
 

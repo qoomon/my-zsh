@@ -1,5 +1,4 @@
-SELF_DIR="$(dirname "${0:A}")"
-
+SELF_DIR="$(dirname "$0")"
 local ZCONFIG_HOME="$SELF_DIR"
 
 #### load zprofile plugin [lazy]

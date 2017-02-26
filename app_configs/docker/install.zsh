@@ -1,4 +1,5 @@
-SELF_DIR="$(dirname "${0:A}")"
+#!/bin/zsh
+SELF_DIR="$(dirname "$0")"
 cd "$SELF_DIR"
 
 cp -i config.json $HOME/.docker/config.json
