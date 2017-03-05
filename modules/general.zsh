@@ -28,6 +28,12 @@ bindkey -e # -e emacs mode -v for vi mode
 bindkey '^[^[[D' backward-word # alt + left
 bindkey '^[^[[C' forward-word  # alt + rigth
 
+### fzf configuration
+export FZF_DEFAULT_OPTS='
+  --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
+  --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
+'
+
 ### Plugin Config - history-substring-search ###
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'

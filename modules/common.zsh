@@ -10,6 +10,18 @@ function colors_ls {
   done
 }
 
+# z with fzf
+function j () {
+  local dir_query="$1"
+  local dir="$(z -l | awk '{ print $2 }' | uniq | fzf --query "$dir_query" --select-1 --exit-0)"
+  if [ -n "$dir" ]; then
+    cd "$dir"
+  else
+    echo "no file or directory matches: $dir_query"
+    return 1
+  fi
+}
+
 function alias_colorized {
   if [ $# -gt 0 ] || ! [ -t 1 ]; then # ! [ -t 1 ] is true if piped
     \alias $@
@@ -66,11 +78,11 @@ function ip {
 
 function _ip::internal {
   local interface=""
-  
+
   while [[ $# > 0 ]] ; do
     local param_key="$1"
     shift
-    
+
     case "$param_key" in
       '--interface'|'-i')
         interface="$1"
@@ -83,7 +95,7 @@ function _ip::internal {
         ;;
     esac
   done
-  
+
   if [ -z "$interface" ]; then
     local interface_list=($(ifconfig -l))
     for interface in $interface_list; do
@@ -98,14 +110,14 @@ function _ip::internal {
 }
 
 function _ip::external {
-  
+
   local interface=""
   local details=false
-  
+
   while [[ $# > 0 ]] ; do
     local param_key="$1"
     shift
-    
+
     case "$param_key" in
       '--interface'|'-i')
         interface="$1"
@@ -121,16 +133,21 @@ function _ip::external {
         ;;
     esac
   done
-  
+
   local interface_param
   if [ -n "$interface" ]; then
     interface_param=(--interface $interface)
   fi
-  
+
   local address="ipinfo.io/ip"
   if $details; then
     address="ipinfo.io/json"
   fi
 
   curl $interface_param $address
+}
+
+function gauth {
+  local secretBase32=$1
+  watch -n1 'echo $(oathtool --totp --base32 '$secretBase32') $(expr 30 - $(date +%s) % 30)s'
 }

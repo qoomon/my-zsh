@@ -8,7 +8,7 @@ alias sush="sudo $SHELL"
 
 alias type="'type' -a"
 
-alias pick='fzf -m ' # fuzzy search and select anything
+alias pick='fzf -m --ansi' # fuzzy search and select anything
 
 alias mv='command mv -i' # ask before overwrite file
 alias cp='command cp -i' # ask before overwrite file
@@ -16,6 +16,7 @@ alias rm='command rm -i' # ask before remove file
 
 alias ls='command ls -G' # G - colorize types,
 alias lsx='ls -lhTA' # l - long format, h - human readable, A - list all except . and ..
+# CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
 alias gls='command gls --color'
 alias glsx='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --human-readable -l' # l - long format
