@@ -12,47 +12,47 @@ function zgem {
 
   case "$cmd" in
     'bundle')
-      _zgem::bundle $@
+      __zgem::bundle $@
       ;;
     'update')
-      _zgem::update $@
-      _zgem::reload
+      __zgem::update $@
+      __zgem::reload
       ;;
     'clean')
-      _zgem::clean $@
+      __zgem::clean $@
       ;;
     *)
-      _zgem::log error "Unknown command '$cmd'"
-      _zgem::log error "Usage: $0 {add|update}"
+      __zgem::log error "Unknown command '$cmd'"
+      __zgem::log error "Usage: $0 {add|update}"
       return 1
       ;;
   esac
 }
 
-function _zgem::reload {
+function __zgem::reload {
   exec "$SHELL" -l
 }
 
-function _zgem::clean {
+function __zgem::clean {
   local gem_name="$1"
 
   if [ -z "$gem_name" ]; then
-    _zgem::log info "Press ENTER to remove all gems from '$ZGEM_DIR/'..." && read
+    __zgem::log info "Press ENTER to remove all gems from '$ZGEM_DIR/'..." && read
   else
-    _zgem::log info "Press ENTER to remove gem '$gem_name' from '$ZGEM_DIR/$gem_name'..." && read
+    __zgem::log info "Press ENTER to remove gem '$gem_name' from '$ZGEM_DIR/$gem_name'..." && read
   fi
 
   rm -rf "$ZGEM_DIR/$gem_name"
 }
 
-function _zgem::bundle {
+function __zgem::bundle {
   local location="$1"
   shift
 
   ################ parse parameters ################
 
   local protocol='file'
-  local gem_file="$(_zgem::basename "$location")"
+  local gem_file="$(__zgem::basename "$location")"
   local gem_type='plugin'
   local lazy_load=''
   for param in "$@"; do
@@ -73,8 +73,8 @@ function _zgem::bundle {
         lazy_load="$param_value"
         ;;
       *)
-        _zgem::log error "Unknown parameter '$param_key'"
-        _zgem::log error "Parameter: {from|use|as}"
+        __zgem::log error "Unknown parameter '$param_key'"
+        __zgem::log error "Parameter: {from|use|as}"
         return 1
         ;;
     esac
@@ -85,52 +85,52 @@ function _zgem::bundle {
   local gem_dir
 
   if [ "$protocol" = 'file' ]; then
-    gem_name="$(_zgem::basename "$location")"
-    gem_dir="$(_zgem::dirname "$location")"
+    gem_name="$(__zgem::basename "$location")"
+    gem_dir="$(__zgem::dirname "$location")"
   else
     ################ download gem ################
-    if type "_zgem::name::$protocol" > /dev/null; then
-      gem_name="$(_zgem::name::$protocol "$location")"
+    if type "__zgem::name::$protocol" > /dev/null; then
+      gem_name="$(__zgem::name::$protocol "$location")"
       gem_dir="${ZGEM_DIR}/${gem_name}"
     else
-      _zgem::log error "command not found '_zgem::name::$protocol'" && return 1
+      __zgem::log error "command not found '__zgem::name::$protocol'" && return 1
     fi
 
     if [ ! -e "$gem_dir" ]; then
-      if ! type "_zgem::download::$protocol" > /dev/null; then
-        _zgem::log error "command not found '_zgem::download::$protocol'" && return 1
+      if ! type "__zgem::download::$protocol" > /dev/null; then
+        __zgem::log error "command not found '__zgem::download::$protocol'" && return 1
       fi
 
       mkdir -p "$gem_dir"
       echo "$protocol" > "$gem_dir/.gem"
-      _zgem::log info "${fg_bold[green]}download ${fg_bold[magenta]}${gem_name}${reset_color}\n       ${fg_bold[yellow]}into${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color} $protocol '$location'"
-      _zgem::download::$protocol "$location" "$gem_dir"
+      __zgem::log info "${fg_bold[green]}download ${fg_bold[magenta]}${gem_name}${reset_color}\n       ${fg_bold[yellow]}into${reset_color} '$gem_dir'\n       ${fg_bold[yellow]}from${reset_color} $protocol '$location'"
+      __zgem::download::$protocol "$location" "$gem_dir"
     fi
   fi
 
   ################ add gem ################
   local gem_path="$gem_dir/$gem_file"
-  _zgem::log debug "${fg_bold[green]}add ${reset_color}${(r:10:: :)gem_type}${gem_type:10}   ${fg_bold[magenta]}${(r:32:: :)gem_name}${gem_name:32} ${fg_bold[black]}($gem_path)${reset_color}"
+  __zgem::log debug "${fg_bold[green]}add ${reset_color}${(r:10:: :)gem_type}${gem_type:10}   ${fg_bold[magenta]}${(r:32:: :)gem_name}${gem_name:32} ${fg_bold[black]}($gem_path)${reset_color}"
   case "$gem_type" in
     'plugin')
-      _zgem::add::plugin "$gem_name" "$gem_path" "$lazy_load"
+      __zgem::add::plugin "$gem_name" "$gem_path" "$lazy_load"
       ;;
     'completion')
-      _zgem::add::completion "$gem_path"
+      __zgem::add::completion "$gem_path"
       ;;
     *)
-      _zgem::log error  "Unknown gem type '$protocol'"
-      _zgem::log error  "Gem Type: {plugin|completion}"
+      __zgem::log error  "Unknown gem type '$protocol'"
+      __zgem::log error  "Gem Type: {plugin|completion}"
       return 1 ;;
   esac
 }
 
-function _zgem::add::completion {
+function __zgem::add::completion {
   local file="$1"
-  fpath=($fpath "$(_zgem::dirname "$file")")
+  fpath=($fpath "$(__zgem::dirname "$file")")
 }
 
-function _zgem::add::plugin {
+function __zgem::add::plugin {
   local gem_name="$1"
   local gem_file="$2"
   local lazy_functions="$3"
@@ -138,7 +138,7 @@ function _zgem::add::plugin {
   if [ -z "$lazy_functions" ]; then
     source "$gem_file"
   else
-    _zgem::log debug "    ${fg[blue]}lazy${reset_color} ${lazy_functions}"
+    __zgem::log debug "    ${fg[blue]}lazy${reset_color} ${lazy_functions}"
     for lazy_function in ${(ps:,:)${lazy_functions}}; do
       lazy_function=$(echo $lazy_function | tr -d ' ') # re move whitespaces
       eval " $lazy_function() { source '$gem_file' && $lazy_function; }"
@@ -146,21 +146,21 @@ function _zgem::add::plugin {
   fi
 }
 
-function _zgem::update {
+function __zgem::update {
   for gem_dir in $(find "$ZGEM_DIR" -type d -mindepth 1 -maxdepth 1); do
     local protocol="$(cat "$gem_dir/.gem")"
-    if type "_zgem::update::$protocol" > /dev/null; then
-      local gem_name="$(_zgem::basename "$gem_dir")"
-      _zgem::log info "${fg_bold[green]}update ${fg_bold[magenta]}${gem_name} ${fg_bold[black]}($gem_dir)${reset_color}";
-      _zgem::update::$protocol $gem_dir
+    if type "__zgem::update::$protocol" > /dev/null; then
+      local gem_name="$(__zgem::basename "$gem_dir")"
+      __zgem::log info "${fg_bold[green]}update ${fg_bold[magenta]}${gem_name} ${fg_bold[black]}($gem_dir)${reset_color}";
+      __zgem::update::$protocol $gem_dir
     else
-      _zgem::log error "command not found '_zgem::update::$protocol' gem directory: '${gem_dir}'"
+      __zgem::log error "command not found '__zgem::update::$protocol' gem directory: '${gem_dir}'"
     fi
   done
 }
 
 #### faster than basename command
-function _zgem::basename {
+function __zgem::basename {
   local name="$1"
   local sufix="$2"
   name="${name##*/}"
@@ -169,13 +169,13 @@ function _zgem::basename {
 }
 
 #### faster than dirname command
-function _zgem::dirname {
+function __zgem::dirname {
   local name="$1"
   name="${name%/*}"
   echo "$name"
 }
 
-function _zgem::log {
+function __zgem::log {
   local level="$1"
   shift
 
@@ -190,8 +190,8 @@ function _zgem::log {
       $ZGEM_VERBOSE && echo "${fg_bold[yellow]}[zgem]${reset_color}" $@
       ;;
     *)
-      _zgem::log error "Unknown log level '$protocol'"
-      _zgem::log error "Log Level: {error|info|debug}"
+      __zgem::log error "Unknown log level '$protocol'"
+      __zgem::log error "Log Level: {error|info|debug}"
       ;;
   esac
 }
@@ -199,12 +199,12 @@ function _zgem::log {
 
 ############################# http ############################
 
-function _zgem::name::http {
+function __zgem::name::http {
   local http_url="$1"
-  _zgem::basename "$http_url"
+  __zgem::basename "$http_url"
 }
 
-function _zgem::download::http {
+function __zgem::download::http {
   local http_url="$1"
   local gem_dir="$2"
   (
@@ -215,12 +215,12 @@ function _zgem::download::http {
   )
 }
 
-function _zgem::update::http {
+function __zgem::update::http {
   local gem_dir="$1"
   (
     cd "$gem_dir"
     local http_url=$(cat "$gem_dir/.http")
-    local file_name="$(_zgem::basename "$http_url")"
+    local file_name="$(__zgem::basename "$http_url")"
     local cksum_before=$(cksum "$file_name")
     curl -s -L -w %{http_code} -o "$file_name" -z "$file_name" $http_url | read -r response_code
     local cksum_after=$(cksum "$file_name")
@@ -234,19 +234,19 @@ function _zgem::update::http {
     elif [ $response_code = '304' ]; then
       echo "Current file is up to date"
     else
-      _zgem::log error "http update error response code: $response_code from '$http_url'"
+      __zgem::log error "http update error response code: $response_code from '$http_url'"
     fi
   )
 }
 
 ############################# git #############################
 
-function _zgem::name::git {
+function __zgem::name::git {
   local repo_url="$1"
-  _zgem::basename "$repo_url" '.git'
+  __zgem::basename "$repo_url" '.git'
 }
 
-function _zgem::download::git {
+function __zgem::download::git {
   local repo_url="$1"
   local gem_dir="$2"
   (
@@ -256,7 +256,7 @@ function _zgem::download::git {
   )
 }
 
-function _zgem::update::git {
+function __zgem::update::git {
   local gem_dir="$1"
   (
     cd "$gem_dir"

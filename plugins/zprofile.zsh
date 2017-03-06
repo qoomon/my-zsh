@@ -9,27 +9,27 @@ function zprofile {
 
   case "$cmd" in
     '');
-      _zprofile::profile $@
+      __zprofile::profile $@
       ;;
     'benchmark')
-      _zprofile::benchmark
+      __zprofile::benchmark
       ;;
     *)
-      _zprofile::debug $cmd $@
+      __zprofile::debug $cmd $@
       ;;
   esac
 }
 
-function _zprofile::debug {
+function __zprofile::debug {
   (set -x; $@)
 }
 
-function _zprofile::benchmark {
+function __zprofile::benchmark {
   local repeatCount=${1:-10}
   repeat $repeatCount time zsh -ic 'exit 0'
 }
 
-function _zprofile::profile {
+function __zprofile::profile {
   local verbose='false'
   if [ "$1" = "-v" ]; then
     verbose='true'

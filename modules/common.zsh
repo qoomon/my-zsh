@@ -10,15 +10,13 @@ function colors_ls {
   done
 }
 
-
-
-function _cd {
+function __cd {
   local cmd="$1"
   case "$cmd" in
     '.')
       shift;
       local dir_query="$@"
-      local dir="$(ls -a | fzf --query "$dir_query" --select-1 --exit-0)"
+      local dir="$(find . -type d -maxdepth 1 -mindepth 1 | sed 's|^\./\(.*\)|\1|' | fzf --query "$dir_query" --tac --select-1 --exit-0)"
       if [ -n "$dir" ]; then
         cd "$dir"
       else
@@ -51,7 +49,7 @@ function _cd {
       ;;
   esac
 }
-#alias cd="_cd"
+alias j="__cd"
 
 function alias_colorized {
   if [ $# -gt 0 ] || ! [ -t 1 ]; then # ! [ -t 1 ] is true if piped
@@ -94,20 +92,20 @@ function ip {
 
   case "$cmd" in
     'internal'|'int'|'i')
-      _ip::internal $@
+      __ip::internal $@
       ;;
     'external'|'ext'|'e')
-      _ip::external $@
+      __ip::external $@
       ;;
     *)
-      _zgem::log error "Unknown command '$cmd'"
-      _zgem::log error "Usage: $0 {internal|external}"
+      echo "Unknown command '$cmd'" >&2
+      echo "Usage: $0 {internal|external}" >&2
       return 1
       ;;
   esac
 }
 
-function _ip::internal {
+function __ip::internal {
   local interface=""
 
   while [[ $# > 0 ]] ; do
@@ -120,8 +118,8 @@ function _ip::internal {
         shift
         ;;
       *)
-        _zgem::log error "Unknown parameter '$param_key'"
-        _zgem::log error "Parameter: {--interface <name>}"
+        echo "Unknown parameter '$param_key'" >&2
+        echo  "Parameter: {--interface <name>}" >&2
         return 1
         ;;
     esac
@@ -140,7 +138,7 @@ function _ip::internal {
   fi
 }
 
-function _ip::external {
+function __ip::external {
 
   local interface=""
   local details=false
@@ -158,8 +156,8 @@ function _ip::external {
         details="true"
         ;;
       *)
-        _zgem::log error "Unknown parameter '$param_key'"
-        _zgem::log error "Parameter: {--details|--interface <name>}"
+        echo "Unknown parameter '$param_key'" >&2
+        echo "Parameter: {--details|--interface <name>}" >&2
         return 1
         ;;
     esac
