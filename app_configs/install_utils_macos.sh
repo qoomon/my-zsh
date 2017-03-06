@@ -13,6 +13,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 
 ! brew list vim >/dev/null && brew install vim
 ! brew list fzf >/dev/null && brew install fzf # https://github.com/junegunn/fzf # install shell extensions /usr/local/opt/fzf/install
+# ! brew list fzy >/dev/null && brew tap jhawthorn/fzy && brew install fzy # https://github.com/jhawthorn/fzy
 ! brew list htop >/dev/null && brew install htop # better top
 ! brew list nmap >/dev/null && brew install nmap
 ! brew list mtr >/dev/null && brew install mtr # ping and trace combined : http://www.bitwizard.nl/mtr/

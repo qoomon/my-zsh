@@ -10,17 +10,48 @@ function colors_ls {
   done
 }
 
-# z with fzf
-function j () {
-  local dir_query="$1"
-  local dir="$(z -l | awk '{ print $2 }' | uniq | fzf --query "$dir_query" --select-1 --exit-0)"
-  if [ -n "$dir" ]; then
-    cd "$dir"
-  else
-    echo "no file or directory matches: $dir_query"
-    return 1
-  fi
+
+
+function _cd {
+  local cmd="$1"
+  case "$cmd" in
+    '.')
+      shift;
+      local dir_query="$@"
+      local dir="$(ls -a | fzf --query "$dir_query" --select-1 --exit-0)"
+      if [ -n "$dir" ]; then
+        cd "$dir"
+      else
+        echo "no file or directory matches: $dir_query"
+        return 1
+      fi
+      ;;
+    '..')
+      shift; cd .. $@
+      ;;
+    '...')
+      shift; echo $cmd $@
+      ;;
+    '-')
+      shift; cd - $@ >/dev/null
+      ;;
+    '--')
+      shift;
+      local dir_query="$@"
+      local dir="$(z -l | awk '{ print $2 }' | fzf --query "$dir_query" --select-1 --exit-0)"
+      if [ -n "$dir" ]; then
+        cd "$dir"
+      else
+        echo "no file or directory matches: $dir_query"
+        return 1
+      fi
+      ;;
+    *)
+      cd $@
+      ;;
+  esac
 }
+#alias cd="_cd"
 
 function alias_colorized {
   if [ $# -gt 0 ] || ! [ -t 1 ]; then # ! [ -t 1 ] is true if piped
