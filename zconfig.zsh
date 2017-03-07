@@ -21,8 +21,10 @@ zgem bundle "$ZCONFIG_HOME/modules/prompt.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/common.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
-#
-# zgem bundle "$ZCONFIG_HOME/utils/maven.zsh"
+
+zgem bundle "$ZCONFIG_HOME/utils/j.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/ip.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/maven.zsh"
 
 if zprofile::active; then zprofile::after; fi
 
