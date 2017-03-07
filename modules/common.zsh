@@ -10,7 +10,9 @@ function colors_ls {
   done
 }
 
-function __cd {
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+function j {
   local cmd="$1"
   case "$cmd" in
     '.')
@@ -18,38 +20,54 @@ function __cd {
       local dir_query="$@"
       local dir="$(find . -type d -maxdepth 1 -mindepth 1 | sed 's|^\./\(.*\)|\1|' | fzf --query "$dir_query" --tac --select-1 --exit-0)"
       if [ -n "$dir" ]; then
-        cd "$dir"
+        builtin cd "$dir"
       else
-        echo "no file or directory matches: $dir_query"
+        echo "no directory matches"
         return 1
       fi
       ;;
     '..')
-      shift; cd .. $@
+      shift;
+      builtin cd .. $@
       ;;
     '...')
-      shift; echo $cmd $@
+      shift;
+      local pwd_list=('/' ${(s:/:)PWD%/*})
+      local indexed_pwd_list=()
+      for pwd_part_index in $(seq 1 ${#pwd_list}); do
+          indexed_pwd_list[$pwd_part_index]="$pwd_part_index $pwd_list[$pwd_part_index]"
+      done
+      local pwd_index="$(printf "%s\n" "${indexed_pwd_list[@]}" | fzf --tac --with-nth=2.. | awk '{print $1}')"
+      if [ -n "$pwd_index" ]; then
+        local dir_list=(${pwd_list:0:$pwd_index})
+        local dir="${(j:/:)dir_list}"
+        builtin cd "$dir"
+      else
+        echo "no directory matches"
+        return 1
+      fi
       ;;
     '-')
-      shift; cd - $@ >/dev/null
+      shift;
+      builtin cd - $@ >/dev/null
       ;;
     '--')
       shift;
       local dir_query="$@"
-      local dir="$(z -l | awk '{ print $2 }' | fzf --query "$dir_query" --select-1 --exit-0)"
+      local dir="$(cdr -l | awk '{$1=""; print $0}' | fzf --tac --query "$dir_query" --select-1 --exit-0)"
       if [ -n "$dir" ]; then
-        cd "$dir"
+        eval "builtin cd ${dir}"
       else
-        echo "no file or directory matches: $dir_query"
+        echo "no directory matches"
         return 1
       fi
       ;;
     *)
-      cd $@
+      builtin cd $@
       ;;
   esac
 }
-alias j="__cd"
+
 
 function alias_colorized {
   if [ $# -gt 0 ] || ! [ -t 1 ]; then # ! [ -t 1 ] is true if piped

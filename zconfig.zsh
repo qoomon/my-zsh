@@ -9,7 +9,7 @@ if zprofile::active; then zprofile::before; fi
 # ZGEM_VERBOSE='true'
 source "$ZCONFIG_HOME/plugins/zgem.zsh"
 
-zgem bundle 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
+# zgem bundle 'https://github.com/rupa/z.git' from:'git' use:'z.sh'
 zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
 zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'

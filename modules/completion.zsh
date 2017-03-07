@@ -82,16 +82,16 @@ zstyle ':completion:hist-complete:*' completer _history
 zstyle ':completion:hist-complete:*' force-list always
 bindkey '^H' hist-complete # ctrl + H
 
+
 ################
 ### COMPLETION UTILS
 ################
 
-function tab-key-press {
-
+function __completion-widget {
   if [[ -z $BUFFER ]]; then # on empty cli
     # complete executables for current direcotry
     BUFFER+="./"
-    CURSOR+=2
+    CURSOR+=${#BUFFER}
     zle list-choices
   else
     # adds '...' during completion to cli
@@ -100,5 +100,5 @@ function tab-key-press {
     zle reset-prompt
   fi
 }
-zle -N tab-key-press
-bindkey '^I' tab-key-press # '^I' is <Tab>
+zle -N __completion-widget
+bindkey '^I' __completion-widget # '^I' is <Tab>
