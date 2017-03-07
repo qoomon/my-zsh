@@ -58,7 +58,7 @@ function j {
     '--')
       shift;
       local dir_query="$@"
-      local dir="$(cdr -l | awk '{$1=""; print $0}' | fzf --height 10 --reverse --tac --query "$dir_query" --select-1 --exit-0)"
+      local dir="$(cdr -l | awk '{$1=""; print $0}' | fzf --height 10 --reverse --query "$dir_query" --select-1 --exit-0)"
       if [ -n "$dir" ]; then
         eval "builtin cd ${dir}"
       else
