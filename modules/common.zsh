@@ -22,7 +22,7 @@ function j {
     '.')
       shift;
       local dir_query="$*"
-      local dir="$(find . -type d -maxdepth 1 -mindepth 1 | sed 's|^\./\(.*\)|\1|' | fzf --query "$dir_query" --tac --select-1 --exit-0)"
+      local dir="$(find . -type d -maxdepth 1 -mindepth 1 | sed 's|^\./\(.*\)|\1|' | fzf --height 10 --reverse --tac --query "$dir_query" --select-1 --exit-0)"
       if [ -n "$dir" ]; then
         builtin cd "$dir"
       else
@@ -41,7 +41,7 @@ function j {
       for pwd_part_index in $(seq 1 ${#pwd_list}); do
           indexed_pwd_list[$pwd_part_index]="$pwd_part_index $pwd_list[$pwd_part_index]"
       done
-      local pwd_index="$(printf "%s\n" "${indexed_pwd_list[@]}" | fzf --tac --with-nth=2.. | awk '{print $1}')"
+      local pwd_index="$(printf "%s\n" "${indexed_pwd_list[@]}" | fzf --height 10 --reverse --tac --with-nth=2.. | awk '{print $1}')"
       if [ -n "$pwd_index" ]; then
         local dir_list=(${pwd_list:0:$pwd_index})
         local dir="${(j:/:)dir_list}"
@@ -58,7 +58,7 @@ function j {
     '--')
       shift;
       local dir_query="$@"
-      local dir="$(cdr -l | awk '{$1=""; print $0}' | fzf --tac --query "$dir_query" --select-1 --exit-0)"
+      local dir="$(cdr -l | awk '{$1=""; print $0}' | fzf --height 10 --reverse --tac --query "$dir_query" --select-1 --exit-0)"
       if [ -n "$dir" ]; then
         eval "builtin cd ${dir}"
       else

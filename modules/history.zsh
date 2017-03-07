@@ -24,7 +24,7 @@ setopt NO_HIST_BEEP
 
 if type fzf >/dev/null; then
   function __history-widget {
-    local cmd=$(history -n 0 | fzf --tac --exact --no-sort --query=${LBUFFER} )
+    local cmd=$(history -n 0 | fzf --height 10 --reverse --tac --exact --no-sort --query=${LBUFFER} )
     if [ -n "$cmd" ]; then
       BUFFER="$cmd"
       CURSOR+=${#BUFFER}
