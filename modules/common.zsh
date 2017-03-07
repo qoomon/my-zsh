@@ -10,6 +10,10 @@ function colors_ls {
   done
 }
 
+function calc { 
+  awk "BEGIN{ print $* }"
+}
+
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 function j {
@@ -17,7 +21,7 @@ function j {
   case "$cmd" in
     '.')
       shift;
-      local dir_query="$@"
+      local dir_query="$*"
       local dir="$(find . -type d -maxdepth 1 -mindepth 1 | sed 's|^\./\(.*\)|\1|' | fzf --query "$dir_query" --tac --select-1 --exit-0)"
       if [ -n "$dir" ]; then
         builtin cd "$dir"

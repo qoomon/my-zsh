@@ -46,6 +46,7 @@ zconfig edit - will open config in $EDITOR
 * !abc:p	Print last command in history beginning with abc
 
 ### sources
+* http://www.rayninfo.co.uk/tips/zshtips.html
 * http://grml.org/zsh/zsh-lovers.html
 * http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 * http://www.geekmind.net/2011/01/shortcuts-to-improve-your-bash-zsh.html
