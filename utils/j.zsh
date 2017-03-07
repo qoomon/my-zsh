@@ -38,10 +38,6 @@ function j {
       ;;
     '-')
       shift;
-      builtin cd - $@ >/dev/null
-      ;;
-    '--')
-      shift;
       local dir_query="$@"
       local dir="$(cdr -l | awk '{$1=""; print $0}' | fzf --height 10 --reverse --query "$dir_query" --select-1 --exit-0)"
       if [ -n "$dir" ]; then

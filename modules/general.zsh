@@ -37,12 +37,12 @@ export FZF_DEFAULT_OPTS='
 ### Plugin Config - history-substring-search ###
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
-HISTORY_SUBSTRING_SEARCH_FUZZY_MATCHING='given_order'
+HISTORY_SUBSTRING_SEARCH_METHOD='given_order'
 
-# tested with macOS  
+# tested with macOS
 bindkey '^[[A' history-substring-search-up     # bind arrow-up
 bindkey '^[[B' history-substring-search-down   # bind arrow-down
 
-# tested with ubuntu  
+# tested with ubuntu
 bindkey '^[OA' history-substring-search-up     # bind arrow-up
 bindkey '^[OB' history-substring-search-down   # bind arrow-down
