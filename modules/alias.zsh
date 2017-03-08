@@ -35,6 +35,11 @@ alias http-server='command http-server -p 8080 -o'
 alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZSH_FILE_DIR/localhost.pem --key $ZSH_FILE_DIR/localhost.pem"
 alias https-server='http-server-ssl'
 
+# save pipe output to given variable e.g. echo foo | to bar; echo $bar 
+alias to='read -r'
+
+alias sum="awk '{ sum += \$1 } END { print sum }'"
+
 alias man='() {
 env \
   LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
