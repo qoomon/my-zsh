@@ -24,15 +24,17 @@ git config --global alias.alias "\!git config --get-regexp alias | sort | sed -E
 # amend last commit
 git config --global alias.commend 'commit --amend --no-edit'
 
-git config --global alias.uncommit 'reset HEAD^'
+# undo last commmit
+git config --global alias.retract 'reset HEAD^'
 
+# force push with lease
 git config --global alias.punch 'push --force-with-lease'
 
 # open ignore file with $EDITOR
 git config --global alias.ignore $'!sh -c "if [ -n \'$1\' ]; then echo \'$1\' >> .gitignore; else $EDITOR .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi;"'
 
 # ignore changes of tracked file(s)
-git config --global alias.ignore-change = 'update-index --assume-unchanged'
+git config --global alias.ignore-change 'update-index --assume-unchanged'
 
 # colorized log
 git config --global alias.graph $'!git log --color=always --graph --all --date=format:\'%a %Y-%m-%d %H:%M\' --pretty=tformat:\' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)\' -m'
