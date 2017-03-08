@@ -6,7 +6,7 @@ autoload +X -U colors && colors
 
 alias sush="sudo $SHELL"
 alias home="cd $HOME"
-alias cdx="jump"
+alias j="jump"
 
 alias type="'type' -a"
 
