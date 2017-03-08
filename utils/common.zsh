@@ -10,9 +10,10 @@ function colors_ls {
   done
 }
 
-function calc { 
+function calc {
   awk "BEGIN{ print $* }"
 }
+
 
 function alias_colorized {
   if [ $# -gt 0 ] || ! [ -t 1 ]; then # ! [ -t 1 ] is true if piped
@@ -35,6 +36,7 @@ function man_colorized {
 }
 type compdef >/dev/null && compdef _man man_colorized # set default completion
 
+
 function diff_colorized {
   local opt="\{0,1\}"
   'diff' $@ | sed \
@@ -45,7 +47,6 @@ function diff_colorized {
   return ${pipestatus[1]}
 }
 type compdef >/dev/null && compdef _diff diff_colorized # set default completion
-
 
 
 function gauth {
