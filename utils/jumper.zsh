@@ -12,9 +12,8 @@ function jump {
   case "$cmd" in
     '.')
       shift;
-      local findExcludeRegex="\( -regex '.*/\.git/.*' -or  -regex '.*\.app/.*' \)"
       local dir_query="$*"
-      local dir=$(find . -mindepth 1 -type d -and -not -path '*/.*/*' -and -not -path '*.app/*' 2>&1 | sed 's|^\./\(.*\)|\1|' | fzf --tac --height 10 --reverse --prompt='  ' --query "$dir_query" --exact --select-1 --exit-0)
+      local dir=$(find . -mindepth 1 \( -type f -o -path '*/.*/*' \) -prune -o -print 2>&1 | sed 's|^\./\(.*\)|\1|' | fzf --tac --height 10 --reverse --prompt='  ' --query "$dir_query" --exact --select-1 --exit-0)
       if [ -n "$dir" ]; then
         builtin cd "$dir"
       else
