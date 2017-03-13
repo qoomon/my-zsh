@@ -22,7 +22,6 @@ zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
 ZGEM_UTILS_DIR="$ZCONFIG_HOME/utils"
 zgem bundle "common"
 zgem bundle "jumper"
-zgem bundle "ip"
 
 if zprofile::active; then zprofile::after; fi
 
