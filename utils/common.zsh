@@ -12,6 +12,9 @@ function colors_ls {
 
 function calc {
   awk "BEGIN{ print $* }"
+}
+
+function sum {
   awk '{ sum += $1 } END { print sum }'
 }
 
