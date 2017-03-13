@@ -4,6 +4,8 @@ autoload +X -U colors && colors
 
 declare -rx ZGEM_DIR=${ZGEM_DIR:-"$HOME/.zgem"}
 
+ZGEM_UTILS_DIR=${UTILS_DIR:-"$HOME"}
+
 ZGEM_VERBOSE="${ZGEM_VERBOSE:-false}"
 
 function zgem {
@@ -23,7 +25,7 @@ function zgem {
       ;;
     *)
       __zgem::log error "Unknown command '$cmd'"
-      __zgem::log error "Usage: $0 {add|update}"
+      __zgem::log error "Usage: $0 {bundle|source|update|clean}"
       return 1
       ;;
   esac
@@ -46,9 +48,14 @@ function __zgem::clean {
 }
 
 function __zgem::bundle {
+
+  if [[ "$1" != */* ]]; then
+    source "$ZGEM_UTILS_DIR/$1.zsh"
+    return $status
+  fi
+
   local location="$1"
   shift
-
   ################ parse parameters ################
 
   local protocol='file'
