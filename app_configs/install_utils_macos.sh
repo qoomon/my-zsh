@@ -21,6 +21,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list the_silver_searcher >/dev/null && brew install the_silver_searcher # command: ag; better find https://github.com/ggreer/the_silver_searcher
 ! brew list irssi >/dev/null && brew install irssi # https://github.com/irssi/irssi
 ! brew list watch >/dev/null && brew install watch
+! brew list watchman >/dev/null && brew install watchman # https://facebook.github.io/watchman 
 
 ! brew list tree >/dev/null && brew install tree
 ! brew list pstree >/dev/null && brew install pstree
