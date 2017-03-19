@@ -10,17 +10,6 @@ function jump {
 
   local cmd="$1"
   case "$cmd" in
-    '.')
-      shift;
-      local dir_query="$*"
-      local dir=$(find . -mindepth 1 \( -type f -o -path '*/.*/*' \) -prune -o -print 2>&1 | sed 's|^\./\(.*\)|\1|' | fzf --tac --height 10 --reverse --prompt='  ' --query "$dir_query" --exact --select-1 --exit-0)
-      if [ -n "$dir" ]; then
-        builtin cd "$dir"
-      else
-        echo "no directory matches" >&2
-        return 1
-      fi
-      ;;
     '..')
       shift;
       local pwd_list=('/' ${(s:/:)PWD%/*})
@@ -38,9 +27,16 @@ function jump {
         return 1
       fi
       ;;
-    '-')
+    '.')
       shift;
-      builtin cd -
+      local dir_query="$*"
+      local dir=$(find . -mindepth 1 \( -type f -o -path '*/.*/*' \) -prune -o -print 2>&1 | sed 's|^\./\(.*\)|\1|' | fzf --tac --height 10 --reverse --prompt='  ' --query "$dir_query" --exact --select-1 --exit-0)
+      if [ -n "$dir" ]; then
+        builtin cd "$dir"
+      else
+        echo "no directory matches" >&2
+        return 1
+      fi
       ;;
     *)
       local dir_query="$@"
@@ -54,3 +50,13 @@ function jump {
       ;;
   esac
 }
+
+# TODO not woring after first argument
+# _jump() {
+#   local query=${(j:.*:)words[@]:1}
+#   local directories=()
+#   cdr -l | sed 's|^[0-9 ]*||' | grep -i "$query" | while read dir; do directories+=${dir}; done;
+#   directories=(${${(q)directories[@]}//\\~/\~})
+#   _wanted strings expl 'history directory' compadd -Q -a directories
+# }
+# compdef _jump jump
