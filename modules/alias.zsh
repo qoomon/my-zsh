@@ -31,6 +31,7 @@ alias less='command less -R -M -X' # -R : enable colors, -M : shows more detaile
 alias aliasx='alias_colorized'
 
 alias mvnx='mvn_colorized'
+alias gourcex='gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 5 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling'
 
 alias http-server='command http-server -p 8080 -o'
 # alias http-server='docker run --rm --name nginx-volatile -v "$PWD":/usr/share/nginx/html:ro -p 80:80 nginx'

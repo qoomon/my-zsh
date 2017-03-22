@@ -50,6 +50,9 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 
 ! brew list node >/dev/null && brew install node # js runtime evironment
 
+! brew list gource >/dev/null && brew install gource # software version control visualization http://gource.io
+
+
 npm install --global http-server # http server to serve current directory
 npm install --global localtunnel
 
