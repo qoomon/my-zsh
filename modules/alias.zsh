@@ -8,6 +8,8 @@ alias sush="sudo $SHELL"
 alias home="cd $HOME"
 alias j="jump"
 
+alias preview='() { qlmanage -p $@ &>/dev/null}'
+
 alias type="'type' -a"
 
 alias pick='fzf -m --ansi' # fuzzy search and select anything
