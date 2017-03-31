@@ -52,7 +52,7 @@ function jump {
 }
 
 #enhanced cd
-function jump_cd {
+function jump::cd {
   if [ "$1" = ':' ]; then #  historyfolder selection
     shift
     jump $@

@@ -5,37 +5,37 @@
 autoload +X -U colors && colors
 
 alias sush="sudo $SHELL"
-alias cd="jump_cd"
+alias cd="jump::cd"
 alias j="jump"
 
 alias preview='() { qlmanage -p $@ &>/dev/null}'
 
-alias type="'type' -a"
+alias type="type -a"
 
 alias pick='fzf -m --ansi' # fuzzy search and select anything
 
-alias mv='command mv -i' # ask before overwrite file
-alias cp='command cp -i' # ask before overwrite file
-alias rm='command rm -i' # ask before remove file
+alias mv='mv -i' # ask before overwrite file
+alias cp='cp -i' # ask before overwrite file
+alias rm='rm -i' # ask before remove file
 
-alias ls='command ls -G' # G - colorize types,
+alias ls='ls -G' # G - colorize types,
 alias lsx='ls -lhTA' # l - long format, h - human readable, A - list all except . and ..
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
-alias gls='command gls --color'
+alias gls='gls --color'
 alias glsx='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --human-readable -l' # l - long format
 
-alias grep='command grep --color=auto' # colorize matching parts
-alias less='command less -R -M -X' # -R : enable colors, -M : shows more detailed prompt, including file position -N : shows line number -X : supresses the terminal clearing at exit
+alias grep='grep --color=auto' # colorize matching parts
+alias less='less -R -M -X' # -R : enable colors, -M : shows more detailed prompt, including file position -N : shows line number -X : supresses the terminal clearing at exit
 
 alias aliasx='alias_colorized'
 
 alias mvnx='mvn_colorized'
 alias gourcex='gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 5 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling'
 
-alias http-server='command http-server -p 8080 -o'
+alias http-server='http-server -p 8080 -o'
 # alias http-server='docker run --rm --name nginx-volatile -v "$PWD":/usr/share/nginx/html:ro -p 80:80 nginx'
-alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZSH_FILE_DIR/localhost.pem --key $ZSH_FILE_DIR/localhost.pem"
+alias http-server-ssl="http-server -p 8443 -o --ssl --cert $ZSH_FILE_DIR/localhost.pem --key $ZSH_FILE_DIR/localhost.pem"
 alias https-server='http-server-ssl'
 
 # save pipe output to given variable e.g. echo foo | to bar; echo $bar
