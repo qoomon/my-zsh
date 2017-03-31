@@ -51,12 +51,18 @@ function jump {
   esac
 }
 
-# TODO not woring after first argument
-# _jump() {
-#   local query=${(j:.*:)words[@]:1}
-#   local directories=()
-#   cdr -l | sed 's|^[0-9 ]*||' | grep -i "$query" | while read dir; do directories+=${dir}; done;
-#   directories=(${${(q)directories[@]}//\\~/\~})
-#   _wanted strings expl 'history directory' compadd -Q -a directories
-# }
-# compdef _jump jump
+#enhanced cd
+function jump_cd {
+  if [ "$1" = ':' ]; then #  historyfolder selection
+    shift
+    jump $@
+  elif [ "$1" = '...' ]; then # parent folder selection
+    shift
+    jump .. $@
+  elif [ "$1" = '.' ]; then # subfolder selection
+    shift
+    jump . $@
+  else
+    builtin cd $@ >/dev/null # suppress stdout
+  fi
+}

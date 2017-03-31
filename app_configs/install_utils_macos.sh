@@ -21,7 +21,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list the_silver_searcher >/dev/null && brew install the_silver_searcher # command: ag; better find https://github.com/ggreer/the_silver_searcher
 ! brew list irssi >/dev/null && brew install irssi # https://github.com/irssi/irssi
 ! brew list watch >/dev/null && brew install watch
-! brew list watchman >/dev/null && brew install watchman # https://facebook.github.io/watchman 
+! brew list watchman >/dev/null && brew install watchman # https://facebook.github.io/watchman
 
 ! brew list tree >/dev/null && brew install tree
 ! brew list pstree >/dev/null && brew install pstree
@@ -34,6 +34,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 
 ! brew list oath-toolkit >/dev/null && brew install oath-toolkit # generate OTP Codes
 ! brew list zbar >/dev/null && brew install zbar # read qr-code images e.g. command: zbarimg qr.png
+! brew list tesseract >/dev/null && brew install tesseract --with-all-languages # ocr https://github.com/tesseract-ocr/tesseract
 
 ! brew list siege >/dev/null && brew install siege # benchmark http # https://github.com/JoeDog/siege
 ! brew list vegeta >/dev/null && brew install vegeta # benchmark http # https://github.com/tsenart/vegeta
