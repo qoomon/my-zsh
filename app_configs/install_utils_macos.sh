@@ -47,7 +47,9 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list dnsmasq >/dev/null && brew install dnsmasq # e.g. wildcard dns server *.localhost
 ! brew list socat >/dev/null && brew install socat # e.g. wildcard dns server *.localhost
 
-! brew list docker-clean >/dev/null && brew install docker-clean #  docker cleanup script
+# ! brew list docker-clean >/dev/null && brew install docker-clean #  docker cleanup script
+! brew list ctop >/dev/null && brew install ctop #  docker cleanup script
+
 
 ! brew list node >/dev/null && brew install node # js runtime evironment
 
