@@ -7,7 +7,11 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 
 ! brew list coreutils >/dev/null && brew install coreutils # http://www.gnu.org/software/coreutils/manual/coreutils.pdf
 
+! brew list calc >/dev/null && brew install calc # http://www.isthe.com/chongo/tech/comp/calc/
+
 ! brew list git >/dev/null && brew install git
+
+! brew list tldr >/dev/null && brew install tldr # https://github.com/tldr-pages/tldr
 
 ! brew list zsh >/dev/null && brew install zsh
 

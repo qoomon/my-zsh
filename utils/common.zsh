@@ -10,15 +10,6 @@ function colors_ls {
   done
 }
 
-function calc {
-  awk "BEGIN{ print $* }"
-}
-
-function sum {
-  awk '{ sum += $1 } END { print sum }'
-}
-
-
 function alias_colorized {
   if [ $# -gt 0 ] || ! [ -t 1 ]; then # ! [ -t 1 ] is true if piped
     \alias $@

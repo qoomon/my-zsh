@@ -6,7 +6,6 @@ autoload +X -U colors && colors
 
 alias sush="sudo $SHELL"
 alias cd='jump::cd'
-alias j='jump'
 alias commands='echo ${commands/%/\\n} | fzf'
 
 alias preview='() { qlmanage -p $@ &>/dev/null}'
