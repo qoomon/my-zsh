@@ -1,13 +1,13 @@
-SELF_DIR="$(dirname "$0")"
-local ZCONFIG_HOME="$SELF_DIR"
-
-#### load zprofile plugin [lazy]
-source "$ZCONFIG_HOME/plugins/zprofile.zsh"
-if zprofile::active; then zprofile::before; fi
+ZCONFIG_HOME="$(dirname "$0")"
 
 #### load zgem extension manager
-# ZGEM_VERBOSE='true'
-source "$ZCONFIG_HOME/plugins/zgem.zsh"
+ZGEM_HOME="$HOME/.zgem"
+ZGEM_UTILS_DIR="$ZCONFIG_HOME/utils"
+test ! -e "$ZGEM_HOME" && git clone 'https://github.com/qoomon/zgem.git' "$ZGEM_HOME"
+source "$ZGEM_HOME/zgem.zsh" # && ZGEM_VERBOSE='true'
+
+# zgem bundle 'https://github.com/qoomon/zprofile.git' from:'git' use:'zprofile.zsh'
+# if zprofile::active; then zprofile::before; fi
 
 zgem bundle 'https://github.com/qoomon/zsh-jumper.git' from:'git' use:'jumper.zsh'
 zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
@@ -20,28 +20,29 @@ zgem bundle "$ZCONFIG_HOME/modules/prompt.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
 
-ZGEM_UTILS_DIR="$ZCONFIG_HOME/utils"
-zgem bundle "common"
+# if zprofile::active; then zprofile::after; fi
 
-if zprofile::active; then zprofile::after; fi
-
-############## zconfig util function
+############## zconfig function
 
 function zconfig {
   local cmd="$1"
   shift
 
   case "$cmd" in
-    '');& 'edit')
-      _zconfig::edit $@;;
+    'edit')
+      _zconfig::edit $@
+      ;;
     'update')
-      _zconfig::update;;
+      _zconfig::update
+      _zconfig::reload
+      ;;
     'upgrade')
-      _zconfig::update; zgem update;;
+      _zconfig::update
+      zgem upgrade
+      ;;
     'reload')
-      _zconfig::reload;;
-    'profile')
-      zprofile $@;;
+      _zconfig::reload
+      ;;
     *)
       echo "${fg_bold[red]}[zconfig]${reset_color}" "Unknown command '$cmd'" >&2
       echo "${fg_bold[red]}[zconfig]${reset_color}" "Protocol: {edit|update|upgrade|reload|profile}" >&2
