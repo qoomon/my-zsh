@@ -9,6 +9,7 @@ if zprofile::active; then zprofile::before; fi
 # ZGEM_VERBOSE='true'
 source "$ZCONFIG_HOME/plugins/zgem.zsh"
 
+zgem bundle 'https://github.com/qoomon/zsh-jumper.git' from:'git' use:'jumper.zsh'
 zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
 zgem bundle 'https://github.com/qoomon/zsh-history-substring-search' from:'git' use:'zsh-history-substring-search.zsh'  # origin 'https://github.com/zsh-users/zsh-history-substring-search.git'
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
@@ -21,7 +22,6 @@ zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
 
 ZGEM_UTILS_DIR="$ZCONFIG_HOME/utils"
 zgem bundle "common"
-zgem bundle "jumper"
 
 if zprofile::active; then zprofile::after; fi
 
