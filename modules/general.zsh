@@ -23,6 +23,9 @@ LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
 LESS_TERMCAP_ue=$(printf "$reset_color")
 
 
+setopt multios  # enable multi output streams
+
+
 ### General Keybindings ###
 bindkey -e # -e emacs mode -v for vi mode
 bindkey '^[^[[D' backward-word # alt + left
@@ -37,7 +40,7 @@ export FZF_DEFAULT_OPTS='
 ### Plugin Config - history-substring-search ###
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
-HISTORY_SUBSTRING_SEARCH_METHOD='given_order'
+HISTORY_SUBSTRING_SEARCH_METHOD='fuzzy_words'
 
 # tested with macOS
 bindkey '^[[A' history-substring-search-up     # bind arrow-up
