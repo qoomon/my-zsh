@@ -22,9 +22,7 @@ LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
 LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
 LESS_TERMCAP_ue=$(printf "$reset_color")
 
-
 setopt multios  # enable multi output streams
-
 
 ### General Keybindings ###
 bindkey -e # -e emacs mode -v for vi mode
@@ -37,15 +35,16 @@ export FZF_DEFAULT_OPTS='
   --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
 '
 
+### Plugin Config - zsh-syntax-highlighting ###
+ZSH_HIGHLIGHT_MAXLENGTH=300
+
 ### Plugin Config - history-substring-search ###
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
 HISTORY_SUBSTRING_SEARCH_METHOD='fuzzy_words'
-
 # tested with macOS
 bindkey '^[[A' history-substring-search-up     # bind arrow-up
 bindkey '^[[B' history-substring-search-down   # bind arrow-down
-
 # tested with ubuntu
 bindkey '^[OA' history-substring-search-up     # bind arrow-up
 bindkey '^[OB' history-substring-search-down   # bind arrow-down
