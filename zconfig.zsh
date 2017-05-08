@@ -10,21 +10,6 @@ source "$ZGEM_HOME/zgem.zsh" # && ZGEM_VERBOSE='true'
 # zgem bundle 'https://github.com/qoomon/zprofile.git' from:'git' use:'zprofile.zsh'
 # if zprofile::active; then zprofile::before; fi
 
-##### load extensions
-zgem bundle 'https://github.com/qoomon/zsh-jumper.git' from:'git' use:'jumper.zsh'
-zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
-zgem bundle 'https://github.com/qoomon/zsh-history-substring-search' from:'git' use:'zsh-history-substring-search.zsh'  # origin 'https://github.com/zsh-users/zsh-history-substring-search.git'
-zgem bundle 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
-
-zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
-zgem bundle "$ZCONFIG_HOME/modules/history.zsh"
-zgem bundle "$ZCONFIG_HOME/modules/prompt.zsh"
-zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
-zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
-
-# # uncomment to load profiling extension
-# if zprofile::active; then zprofile::after; fi
-
 ##### zconfig function
 
 function zconfig {
@@ -71,3 +56,21 @@ function _zconfig::upgrade {
 function _zconfig::reload {
   exec "$SHELL" --login
 }
+
+##### load bundles
+
+zgem bundle 'https://github.com/qoomon/zsh-jumper.git' from:'git' use:'jumper.zsh'
+zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
+zgem bundle 'https://github.com/qoomon/zsh-history-substring-search' from:'git' use:'zsh-history-substring-search.zsh'  # origin 'https://github.com/zsh-users/zsh-history-substring-search.git'
+zgem bundle 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
+
+zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/history.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/prompt.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
+
+# # uncomment to load profiling extension
+# if zprofile::active; then zprofile::after; fi
+
+
