@@ -46,8 +46,8 @@ zconfig edit - will open config in $EDITOR
 
 
 ## Commands
-* `vared <VARIABLE>` On-the-fly editing of variable
-* `!!`	              Execute last command in history
+* `vared <VARIABLE>` On-the-fly editing of `<VARIABLE>`
+* `!!`	              Execute last command in history
 * `!<PEFIX>`	        Execute last command in history beginning with `<PEFIX>`
 * `!<PEFIX>:p`      	Print last command in history beginning with `<PEFIX>`
 
