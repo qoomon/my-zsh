@@ -20,6 +20,10 @@ setopt auto_list
 setopt auto_menu         # show completion menu on succesive tab press
 setopt complete_in_word
 setopt always_to_end
+# setopt extended_glob
+setopt numeric_glob_sort
+setopt no_case_glob # Case insensitive globbing
+# setopt no_clobber # disable overwrite file with redirection '>' force ovewrite with '>|'
 
 WORDCHARS=''
 LISTMAX=0 # Only ask before displaying completions if doing so would scroll.
