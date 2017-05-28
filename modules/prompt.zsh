@@ -14,18 +14,14 @@ setopt interactive_comments # Allowes to use #-sign as comment within commandlin
 setopt prompt_subst # substitude variables within prompt string
 
 _prompt_cli_id=0
-function _prompt_cli_id {
-  _prompt_cli_id=$(expr $_prompt_cli_id + 1)
-}
-# run before prompt
-precmd_functions=($precmd_functions _prompt_cli_id)
+# increment before prompt
+function _prompt_cli_id_increment { ((_prompt_cli_id++)) }
+precmd_functions=(_prompt_cli_id_increment $precmd_functions)
 
 _prompt_exec_id=0
-function _prompt_exec_id {
-  _prompt_exec_id=$(expr $_prompt_exec_id + 1)
-}
-# run before execute command
-preexec_functions=($preexec_functions _prompt_exec_id)
+# increment before execute command
+function _prompt_exec_id_increment { ((_prompt_exec_id++)) }
+preexec_functions=(_prompt_exec_id_increment $preexec_functions)
 
 ###### Command Line ############################################################
 
@@ -116,7 +112,7 @@ function divider { # print online of divider icons
   local dividerSpaces="$(echo $dividerIcon | sed 's|.| |g')"
 
   #zle clear-screen
-  printf '\e[0K\r\e[0K\r%*s' "$( expr ${COLUMNS:-$(tput cols)} - 2 )" '' | sed "s|$dividerSpaces|$dividerIcon|g"
+  printf '\e[0K\r\e[0K\r%*s' "$((${COLUMNS:-$(tput cols)} - 2))" '' | sed "s|$dividerSpaces|$dividerIcon|g"
 }
 
 function _divider_widget { # print online of divider icons

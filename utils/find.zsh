@@ -8,7 +8,7 @@ function find_ls {
   function index {
     local index=0;
     for arg in ${@:2}; do
-      index=$(expr $index + 1)
+      index=$(($index + 1))
       if [[ "$arg" = "$1" ]]; then
         echo $index;
         return
@@ -22,8 +22,8 @@ function find_ls {
 
   local ls_args_seperator_index=$(index "--" $@)
   if [ $ls_args_seperator_index -gt 0 ]; then
-    find_args=(${@:1:$(expr $ls_args_seperator_index - 1)})
-    ls_args=(${@:$(expr $ls_args_seperator_index + 1)})
+    find_args=(${@:1:$(($ls_args_seperator_index - 1))})
+    ls_args=(${@:$(($ls_args_seperator_index + 1))})
   fi
 
   'find' $find_args | while read -r file; do
