@@ -93,9 +93,7 @@ precmd_functions=(_prompt_exit_code $precmd_functions)
 ###### REZIZE TERMINAL WINDOW ##################################################
 # Ensure that the prompt is redrawn when the terminal size changes.
 function TRAPWINCH {
-  if [ $_prompt_cli_id -gt 1 ]; then # prevent segmentation fault
-    zle && zle reset-prompt && zle -R
-  fi
+  zle && zle -R
 }
 
 ################

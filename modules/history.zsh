@@ -16,7 +16,7 @@ setopt HIST_IGNORE_SPACE        # Do not include lines beginning with a space in
 setopt HIST_VERIFY              # let the user edit the command line after history expansion
 setopt NO_HIST_BEEP
 
-alias history_edit='$EDITOR $HISTFILE'
+alias history_edit='$EDITOR $HISTFILE && fc -R'
 
 # "predefined history"
 # just write important commands you always need to ~/.important_commands
@@ -25,7 +25,7 @@ alias history_edit='$EDITOR $HISTFILE'
 # fi
 
 if type fzf >/dev/null; then
-  function __history-widget {
+  function _history_widget {
     local cmd=$(history -n 0 | fzf --height 10 --reverse --tac --exact --no-sort --query=${LBUFFER} )
     if [ -n "$cmd" ]; then
       BUFFER="$cmd"
@@ -33,6 +33,6 @@ if type fzf >/dev/null; then
     fi
     zle redisplay
   }
-  zle -N __history-widget
-  bindkey '^R' __history-widget
+  zle -N _history_widget
+  bindkey '^R' _history_widget
 fi

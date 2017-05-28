@@ -14,6 +14,8 @@ function alias_colorized {
 type compdef >/dev/null && compdef _alias alias_colorized # set default completion
 alias aliasx='alias_colorized'
 
+alias clearx='clear && echo -en "\e[3J"'
+
 alias sudo='sudo' # make allias work with sudo
 alias sush="sudo $SHELL"
 
