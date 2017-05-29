@@ -75,7 +75,6 @@ PS2='▪ '
 # right prompt
 # RPROMPT='[%D{%H:%M:%S}]' # date
 
-
 ###### EXIT CODE ###############################################################
 # print exit code on error
 _prompt_exit_code_exec_id=0
@@ -93,7 +92,7 @@ precmd_functions=(_prompt_exit_code $precmd_functions)
 ###### REZIZE TERMINAL WINDOW ##################################################
 # Ensure that the prompt is redrawn when the terminal size changes.
 function TRAPWINCH {
-  zle && zle -R
+  zle && { zle reset-prompt; zle -R }
 }
 
 ################

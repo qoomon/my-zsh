@@ -19,7 +19,7 @@ alias clearx='clear && echo -en "\e[3J"'
 alias sudo='sudo' # make allias work with sudo
 alias sush="sudo $SHELL"
 
-alias cd='j::cd'
+alias cd='j'
 
 alias commands='echo ${commands/%/\\n} | fzf'
 
