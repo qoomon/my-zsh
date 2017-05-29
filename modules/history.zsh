@@ -29,7 +29,7 @@ if type fzf >/dev/null; then
     local cmd=$(history -n 0 | fzf --height 10 --reverse --tac --exact --no-sort --query=${LBUFFER} )
     if [ -n "$cmd" ]; then
       BUFFER="$cmd"
-      CURSOR+=${#BUFFER}
+      CURSOR=${#BUFFER}
     fi
     zle redisplay
   }

@@ -21,7 +21,8 @@ alias sush="sudo $SHELL"
 
 alias cd='j'
 
-alias commands='echo ${commands/%/\\n} | fzf'
+alias commands='echo ${(F)commands}' # print $commands
+alias path='echo ${(F)${(s.:.)PATH}}' # print $PATH
 
 alias preview='() { qlmanage -p $@ &>/dev/null}'
 
@@ -42,8 +43,6 @@ alias glsx='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --hu
 
 alias grep='grep --color=auto' # colorize matching parts
 alias less='less -R -M -X' # -R : enable colors, -M : shows more detailed prompt, including file position -N : shows line number -X : supresses the terminal clearing at exit
-
-
 
 alias mvnx='mvn_colorized'
 alias gourcex='gource --time-scale 2.0 --file-idle-time 0 --seconds-per-day 5 --auto-skip-seconds 1 --camera-mode overview --bloom-multiplier 2.0 --bloom-intensity 0.1 --multi-sampling'
