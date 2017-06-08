@@ -19,8 +19,6 @@ alias clearx='clear && echo -en "\e[3J"'
 alias sudo='sudo' # make allias work with sudo
 alias sush="sudo $SHELL"
 
-alias cd='j'
-
 alias commands='echo ${(F)commands}' # print $commands
 alias path='echo ${(F)${(s.:.)PATH}}' # print $PATH
 
