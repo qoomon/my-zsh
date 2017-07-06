@@ -5,7 +5,7 @@ cd "$SELF_DIR"
 # install homebrew
 command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-! brew list coreutils >/dev/null && brew install coreutils # http://www.gnu.org/software/coreutils/manual/coreutils.pdf
+# ! brew list coreutils >/dev/null && brew install coreutils # http://www.gnu.org/software/coreutils/manual/coreutils.pdf
 
 ! brew list calc >/dev/null && brew install calc # http://www.isthe.com/chongo/tech/comp/calc/
 
@@ -40,7 +40,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 
 ! brew list oath-toolkit >/dev/null && brew install oath-toolkit # generate OTP Codes
 ! brew list zbar >/dev/null && brew install zbar # read qr-code images e.g. command: zbarimg qr.png
-! brew list tesseract >/dev/null && brew install tesseract --with-all-languages # ocr https://github.com/tesseract-ocr/tesseract
+# ! brew list tesseract >/dev/null && brew install tesseract --with-all-languages # ocr https://github.com/tesseract-ocr/tesseract
 
 ! brew list siege >/dev/null && brew install siege # benchmark http # https://github.com/JoeDog/siege
 ! brew list vegeta >/dev/null && brew install vegeta # benchmark http # https://github.com/tsenart/vegeta

@@ -5,9 +5,19 @@ cd "$SELF_DIR"
 autoload +X -U colors && colors
 
 function ask {
-  read -p "$1 " response
+  echo -n "$1 "
+  local response && read response
   [[ $response == "y" || $response == "Y" || $response == "yes" || $response == "Yes" ]]
 }
+
+function usershell {
+  if [[ "$(uname)" == "Darwin" ]]; then
+    dscl . -read /Users/${USER:-$(whoami)} | grep UserShell: | cut -d' ' -f2
+  else
+    getent passwd ${USER:-$(whoami)} | cut -d':' -f7
+  fi
+}
+
 
 ZSHRC_FILE="$HOME/.zshrc"
 
@@ -22,14 +32,9 @@ else
   {echo "$ZSHRC_FILE_COMMAND\n"; cat "$ZSHRC_FILE"} | tee "$ZSHRC_FILE" >/dev/null;
 fi
 
-USER=${USER:-$(whoami)}
-if [ "$(uname)" = "Darwin" ]; then
-  CURRENT_USER_SHELL=$(dscl . -read /Users/$USER | grep UserShell | cut -d' ' -f2)
-else
-  CURRENT_USER_SHELL=$(getent passwd $USER | cut -d':' -f7)
-fi
-if [ "$CURRENT_USER_SHELL" = "/bin/zsh" ]; then
-  echo "user shell already is /bin/zsh"
+
+if [[ $(usershell) = "/bin/zsh" ]]; then
+  echo "user shell already set to /bin/zsh"
 elif ask "Want to change shell for current user?"; then
   if ! grep -xq "/bin/zsh" "/etc/shells"; then
     echo "/bin/zsh" >> "/etc/shells"
