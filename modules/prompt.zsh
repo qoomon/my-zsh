@@ -55,6 +55,15 @@ function _prompt_info {
     if [ -n "$(git status --short --porcelain 2>/dev/null)" ]; then
       prompt_info+="${fg_bold[magenta]}*${reset_color}"
     fi
+    
+    prompt_info+=' '
+    if [[ "$current_branch_status_line" == *"ahead"* ]]; then
+      prompt_info+="${fg_bold[magenta]}⇡${reset_color}"
+    fi
+    
+    if [[ "$current_branch_status_line" == *"behind"* ]]; then
+      prompt_info+="${fg_bold[magenta]}⇣${reset_color}"
+    fi
   fi
 
   echo "$prompt_info"
