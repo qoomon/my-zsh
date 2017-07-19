@@ -52,9 +52,6 @@ alias https-server='http-server-ssl'
 
 alias qrcode='qrencode -l Q -m 1 -t ANSI -o-'
 
-# save pipe output to given variable e.g. echo foo | to bar; echo $bar
-alias to='read -r'
-
 alias sum="awk '{ sum += \$1 } END { print sum }'"
 
 alias man='() {
