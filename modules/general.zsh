@@ -29,6 +29,9 @@ bindkey -e # -e emacs mode -v for vi mode
 bindkey '^[^[[D' backward-word # alt + left
 bindkey '^[^[[C' forward-word  # alt + rigth
 
+### mvn
+MAVEN_OPTS='-XX:+TieredCompilation -XX:TieredStopAtLevel=1' # speedup maven builds
+
 ### fzf configuration
 export FZF_DEFAULT_OPTS='
   --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5

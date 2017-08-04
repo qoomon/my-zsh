@@ -16,6 +16,8 @@ alias aliasx='alias_colorized'
 
 alias clearx='clear && echo -en "\e[3J"'
 
+alias observe='tee "$(tty)"'
+
 alias sudo='sudo' # make allias work with sudo
 alias sush="sudo $SHELL"
 
