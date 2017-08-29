@@ -25,7 +25,8 @@ function mvn_colorized {
       -l
   return ${pipestatus[1]}
 }
-type compdef >/dev/null && compdef _mvn mvn_colorized # set default completion
+
+compdef _mvn mvn_colorized # set default completion
 
 function mvn_project_version {
   'mvn' exec:exec -Dexec.executable='echo' -Dexec.args='${project.version}' --quiet --non-recursive

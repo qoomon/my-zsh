@@ -26,7 +26,9 @@ alias history_edit='$EDITOR $HISTFILE && fc -R'
 
 if type fzf >/dev/null; then
   function _history_widget {
-    local cmd=$(history -n 0 | fzf --height 10 --reverse --tac --exact --no-sort --query=${LBUFFER} )
+    local query=${LBUFFER}}
+    local cmd=$(history -n 0 | \
+        fzf --height 10 --reverse --tac --exact --no-sort --query=${query})
     if [ -n "$cmd" ]; then
       BUFFER="$cmd"
       CURSOR=${#BUFFER}
@@ -35,4 +37,26 @@ if type fzf >/dev/null; then
   }
   zle -N _history_widget
   bindkey '^R' _history_widget
+fi
+
+if type fzf >/dev/null; then
+  function _history_argument_widget {
+
+    local last_argument=${${${(z)${:-_ ${LBUFFER}}}[-1]}#_}
+    if [[ ${LBUFFER} == *' ' ]] && [[ ! ${last_argument} == *' ' ]]; then
+      last_argument=''
+    fi
+    
+    local query=${last_argument}
+    
+    local argument=$(history -n 0 | (while read line; do echo ${(j:\n:)${(z)line}}; done) | nl | sort -k2 -u | sort -k1 -n | cut -f2- | \
+        fzf --tac --no-sort --reverse --height=20 --query=${query})
+    if [ -n "$argument" ]; then
+      BUFFER="${LBUFFER%$last_argument}$argument"
+      CURSOR=${#BUFFER}
+    fi
+    zle redisplay
+  }
+  zle -N _history_argument_widget
+  bindkey '^H' _history_argument_widget
 fi

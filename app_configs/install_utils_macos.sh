@@ -2,6 +2,8 @@
 SELF_DIR="$(dirname "$0")"
 cd "$SELF_DIR"
 
+sudo -v # ask for password
+
 # install homebrew
 command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
@@ -12,6 +14,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list git >/dev/null && brew install git
 
 ! brew list tldr >/dev/null && brew install tldr # https://github.com/tldr-pages/tldr
+! brew list cheat >/dev/null && brew install cheat
 
 ! brew list zsh >/dev/null && brew install zsh
 
@@ -33,6 +36,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list pstree >/dev/null && brew install pstree
 
 ! brew list ifstat >/dev/null && brew install ifstat
+! brew list ipcalc >/dev/null && brew install ipcalc
 
 ! brew list httpie >/dev/null && brew install httpie # better alternative to curl
 ! brew list httpry >/dev/null && brew install httpry # http sniffer https://github.com/jbittel/httpry
@@ -46,12 +50,13 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list vegeta >/dev/null && brew install vegeta # benchmark http # https://github.com/tsenart/vegeta
 
 ! brew list jq >/dev/null && brew install jq # json parser
-! brew list cheat >/dev/null && brew install cheat
 
 ! brew list gotty >/dev/null && brew install yudai/gotty/gotty
 
 ! brew list dnsmasq >/dev/null && brew install dnsmasq # e.g. wildcard dns server *.localhost
-! brew list socat >/dev/null && brew install socat # e.g. wildcard dns server *.localhost
+sudo mkdir -p /etc/resolver && sudo tee /etc/resolver/localhost <<< 'nameserver 127.0.0.1' >/dev/null # add dnsmasq as resolver
+
+! brew list socat >/dev/null && brew install socat
 
 # ! brew list docker-clean >/dev/null && brew install docker-clean #  docker cleanup script
 ! brew list ctop >/dev/null && brew install ctop #  docker cleanup script

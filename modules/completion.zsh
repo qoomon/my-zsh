@@ -81,12 +81,6 @@ zstyle ':completion:*:*:*:*:processes-names' command  'ps -c -u ${USER} -o comma
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:killall:*' command 'ps -u $USER -o command'
 
-zle -C hist-complete complete-word _generic
-zstyle ':completion:hist-complete:*' completer _history
-zstyle ':completion:hist-complete:*' force-list always
-bindkey '^H' hist-complete # ctrl + H
-
-
 ################
 ### COMPLETION UTILS
 ################

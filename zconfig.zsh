@@ -59,10 +59,10 @@ function _zconfig::reload {
 
 ##### load bundles
 
-zgem bundle 'https://github.com/qoomon/zsh-jumper.git' from:'git' use:'jumper.zsh'
 zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
 zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'  # origin 'https://github.com/zsh-users/zsh-history-substring-search.git'
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
+zgem bundle 'https://github.com/qoomon/zsh-jumper.git' from:'git' use:'jumper.zsh'
 
 zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/history.zsh"
