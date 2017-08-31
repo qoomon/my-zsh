@@ -93,7 +93,7 @@ function __completion-widget {
     zle list-choices
   else
     # adds '...' during completion to cli
-    echo -n "${fg_bold[cyan]}...$reset_color"
+    echo -n "${fg_bold[magenta]}…$reset_color"
     zle expand-or-complete # default binding
     zle reset-prompt
   fi

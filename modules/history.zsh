@@ -1,4 +1,7 @@
+autoload +X -U colors && colors
+
 # History ######################################################################
+
 HISTFILE=${ZDOTDIR:-$HOME}/.zhistory        # enable history saving on shell exit
 HISTSIZE=10000                  # lines of history to maintain memory
 SAVEHIST=$HISTSIZE              # lines of history to maintain in history file.
@@ -26,13 +29,27 @@ alias history_edit='$EDITOR $HISTFILE && fc -R'
 
 if type fzf >/dev/null; then
   function _history_widget {
-    local query=${LBUFFER}}
+    
+    local BUFFER_ORIGIN=${BUFFER}
+    local CURSOR_ORIGIN=${CURSOR}
+   
+    BUFFER=''
+    zle -Rc
+    echo -n "${fg_bold[magenta]}…${reset_color}"
+   
+    local query=${BUFFER_ORIGIN} # whole command
+  
     local cmd=$(history -n 0 | \
-        fzf --height 10 --reverse --tac --exact --no-sort --query=${query})
-    if [ -n "$cmd" ]; then
-      BUFFER="$cmd"
+        fzf --height 10 --reverse --tac --exact --no-sort --query=${query} --select-1)
+    
+    if [ -n ${cmd} ]; then
+      BUFFER="${cmd}"
       CURSOR=${#BUFFER}
+    else
+      BUFFER=${BUFFER_ORIGIN}
+      CURSOR=${CURSOR_ORIGIN}
     fi
+    
     zle redisplay
   }
   zle -N _history_widget
@@ -41,22 +58,34 @@ fi
 
 if type fzf >/dev/null; then
   function _history_argument_widget {
-
-    local last_argument=${${${(z)${:-_ ${LBUFFER}}}[-1]}#_}
-    if [[ ${LBUFFER} == *' ' ]] && [[ ! ${last_argument} == *' ' ]]; then
-      last_argument=''
+    
+    BUFFER_ORIGIN=${BUFFER}
+    CURSOR_ORIGIN=${CURSOR}
+    LBUFFER_ORIGIN=${LBUFFER}
+    RBUFFER_ORIGIN=${RBUFFER}
+    
+    BUFFER=''
+    zle -Rc
+    echo -n "${LBUFFER_ORIGIN%${query}}${fg_bold[magenta]}…${reset_color}${RBUFFER_ORIGIN}"
+    
+    local query=${${${(z)${:-_ ${LBUFFER_ORIGIN}}}[-1]}#_} # left cursor side argument
+    if [[ ${LBUFFER_ORIGIN} == *' ' ]] && [[ ! ${query} == *' ' ]]; then
+      query=''
     fi
     
-    local query=${last_argument}
+    local argument=$(history -n 0 | (while read line; do echo ${(j:\n:)${(z)line}}; done) | nl | sort -r | sort -k2 -u | sort -k1 -n | cut -f2- | \
+        fzf --height 10 --reverse --tac --exact --no-sort --query=${query} --select-1)
     
-    local argument=$(history -n 0 | (while read line; do echo ${(j:\n:)${(z)line}}; done) | nl | sort -k2 -u | sort -k1 -n | cut -f2- | \
-        fzf --tac --no-sort --reverse --height=20 --query=${query})
-    if [ -n "$argument" ]; then
-      BUFFER="${LBUFFER%$last_argument}$argument"
-      CURSOR=${#BUFFER}
+    if [ -n ${argumen} ]; then
+      BUFFER="${LBUFFER_ORIGIN%$query}${argument}${RBUFFER_ORIGIN}"
+      CURSOR=${#${:-"${LBUFFER_ORIGIN%${query}}${argument}"}}
+    else
+      BUFFER=${BUFFER_ORIGIN}
+      CURSOR=${CURSOR_ORIGIN}
     fi
+    
     zle redisplay
   }
   zle -N _history_argument_widget
-  bindkey '^H' _history_argument_widget
+  bindkey '^@' _history_argument_widget
 fi

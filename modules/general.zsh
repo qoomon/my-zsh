@@ -52,3 +52,7 @@ bindkey '^[[B' history-substring-search-down   # bind arrow-down
 # tested with ubuntu
 bindkey '^[OA' history-substring-search-up     # bind arrow-up
 bindkey '^[OB' history-substring-search-down   # bind arrow-down
+
+
+
+compctl -U -K _no_completion j
