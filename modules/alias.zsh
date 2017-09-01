@@ -16,7 +16,7 @@ alias aliasx='alias_colorized'
 
 alias clearx='clear && echo -en "\e[3J"'
 
-alias observe='tee "$(tty)"'
+alias observe='tee /dev/tty'
 
 alias sudo='sudo' # make allias work with sudo
 alias sush="sudo $SHELL"
@@ -53,6 +53,9 @@ alias http-server-ssl="http-server -p 8443 -o --ssl --cert $ZSH_FILE_DIR/localho
 alias https-server='http-server-ssl'
 
 alias qrcode='qrencode -l Q -m 1 -t ANSI -o-'
+
+# save pipe output to given variable e.g. echo foo | to bar; echo $bar
+alias to='() { local buffer=''; while read -r line; do buffer+="$line\n"; done; typeset -g $1="$(echo -n $buffer)"; }'
 
 alias sum="awk '{ sum += \$1 } END { print sum }'"
 
