@@ -1,10 +1,10 @@
 function ssh_tunnel {
+  
+  local local_port=$1
+  local remote_host=$2
+  local remote_target_host=$3
 
-  local remote_host=$1
-  local remote_port=$2
-  local local_port=$3
-
-  ssh -L ${local_port}:localhost:${remote_port} ${remote_host}
+  ssh -N -L ${local_port}:${remote_target_host} ${remote_host}
 }
 
 function ssh_key_set {
