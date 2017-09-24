@@ -2,3 +2,4 @@ lib/
 .zcompdump
 .zhistory
 completion
+.DS_Store

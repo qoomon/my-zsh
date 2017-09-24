@@ -1,5 +1,13 @@
+// Future versions of Hyper may add additional config options,
+// which will not automatically be merged into this file.
+// See https://hyper.is#cfg for all currently supported options.
+
 module.exports = {
   config: {
+    // Choose either "stable" for receiving highly polished,
+    // or "canary" for less polished but more frequent updates
+    updateChannel: 'canary',
+
     // default font size in pixels for all tabs
     fontSize: 12,
 
@@ -7,28 +15,40 @@ module.exports = {
     fontFamily: 'Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-    cursorColor: 'rgba(248,28,229,0.8)',
+    cursorColor: '#DB64FF',
 
     // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
-    cursorShape: 'BEAM',
+    cursorShape: 'UNDERLINE',
+
+    // set to true for blinking cursor
+    cursorBlink: true,
 
     // color of the text
-    foregroundColor: '#fff',
+    foregroundColor: '#D0D0D0',
 
     // terminal background color
-    backgroundColor: '#000',
+    backgroundColor: '#292A2B',
 
     // border color (window, tabs)
     borderColor: '#333',
 
     // custom css to embed in the main window
-    css: '',
+    css: `
+      .tabs_borderShim {
+        border: 0;
+      }
+      .tab_tab {
+        background: #333 !important;
+      }
+      .tab_textActive {
+        background: #292A2B !important;
+      }
+    `,
 
     // custom css to embed in the terminal window
     termCSS: '',
 
-    // set to `true` if you're using a Linux set up
-    // that doesn't shows native menus
+    // set to `true` (without backticks) if you're using a Linux setup that doesn't show native menus
     // default: `false` on Linux, `true` on Windows (ignored on macOS)
     showHamburgerMenu: '',
 
@@ -45,25 +65,35 @@ module.exports = {
     // an array here instead of a color map object
     colors: {
       black: '#000000',
-      red: '#ff0000',
-      green: '#33ff00',
-      yellow: '#ffff00',
-      blue: '#0066ff',
-      magenta: '#cc00ff',
-      cyan: '#00ffff',
-      white: '#d0d0d0',
       lightBlack: '#808080',
-      lightRed: '#ff0000',
-      lightGreen: '#33ff00',
-      lightYellow: '#ffff00',
-      lightBlue: '#0066ff',
-      lightMagenta: '#cc00ff',
-      lightCyan: '#00ffff',
-      lightWhite: '#ffffff'
+      red: '#FF2C6D',
+      lightRed: '#FF2C6D',
+      green: '#49E171',
+      lightGreen: '#49E171',
+      yellow: '#FFB949',
+      lightYellow: '#FFB949',
+      blue: '#409DEF',
+      lightBlue: '#409DEF',
+      magenta: '#DB64FF',
+      lightMagenta: '#DB64FF',
+      cyan: '#57D1CC',
+      lightCyan: '#57D1CC',
+      white: '#F1F1F1',
+      lightWhite: '#F1F1F1'
     },
 
-    // the shell to run when spawning a new session (i.e. /usr/local/
-    //LINE left empty, your system's login shell will be used by default
+    // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
+    // if left empty, your system's login shell will be used by default
+    //
+    // Windows
+    // - Make sure to use a full path if the binary name doesn't work
+    // - Remove `--login` in shellArgs
+    //
+    // Bash on Windows
+    // - Example: `C:\\Windows\\System32\\bash.exe`
+    //
+    // Powershell on Windows
+    // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
     shell: '',
 
     // for setting shell arguments (i.e. for using interactive shellArgs: ['-i'])
@@ -77,12 +107,19 @@ module.exports = {
     bell: 'SOUND',
 
     // if true, selected text will automatically be copied to the clipboard
-    copyOnSelect: false
+    copyOnSelect: false,
+
+    // if true, on right click selected text will be copied or pasted if no
+    // selection is present (true by default on Windows)
+    // quickEdit: true
 
     // URL to custom bell
     // bellSoundURL: 'http://example.com/bell.mp3',
 
     // for advanced config flags please refer to https://hyper.is/#cfg
+    hypercwd: {
+      initialWorkingDirectory: '~'
+    }
   },
 
   // a list of plugins to fetch and install from npm
@@ -91,18 +128,28 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
+  //
+  // plugin manager
+  // npm install -g hpm-cli
   plugins: [
-    'hyperpower',
-    'hyperlinks',
-    'hyperterm-dibdabs',
-    // 'hyperline',
+    'hypercwd', // Opens new tabs with the same directory as the current tab
     // 'hyper-statusline',
-    'hyperterm-atom-dark',
-    'hypercwd'
+    'hyper-tab-icons',
+    // 'hyper-tabs-enhanced',
+    // 'hyperterm-tabs',
+    // 'hyperterm-dibdabs',
+    'hyper-search',
+    'hyperpower',
+    'hyper-alt-click'
   ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
-  localPlugins: []
+  localPlugins: [],
+
+  keymaps: {
+    // Example
+    // 'window:devtools': 'cmd+alt+o',
+  }
 };
