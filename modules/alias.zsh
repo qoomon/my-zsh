@@ -17,7 +17,7 @@ alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
 
 alias ls='command ls -G' # G - colorize types,
-alias lsx='ls -lhTAp' # l - long format, h - human readable, A - list all except . and ..
+alias lsx='ls -1hTAp' # 1 - list files, h - human readable, A - list all except . and ..
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
 alias gls='command gls --color'

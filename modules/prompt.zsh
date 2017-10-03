@@ -71,12 +71,8 @@ function _prompt_info {
 
 ### prompt
 precmd_functions=($precmd_functions _prompt_info)
-PS1='❯ '
-PS2='▪ '
-
-### alternative approach
-# PS1=$'$(_prompt_info)\n❯ '
-# PS2=$'▪ '
+PS1='‣ '
+PS2='• '
 
 # right prompt
 # RPROMPT='[%D{%H:%M:%S}]' # date
