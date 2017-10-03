@@ -17,10 +17,11 @@ fi
 ## Options
 # see http://www.cs.elte.hu/zsh-manual/zsh_16.html
 setopt auto_list
-setopt auto_menu         # show completion menu on succesive tab press
+setopt auto_menu # show completion menu on succesive tab press
 setopt complete_in_word
 setopt always_to_end
 # setopt extended_glob
+setopt null_glob # prevents an error in case a glob does not match any name
 setopt numeric_glob_sort
 setopt no_case_glob # Case insensitive globbing
 # setopt no_clobber # disable overwrite file with redirection '>' force ovewrite with '>|'
