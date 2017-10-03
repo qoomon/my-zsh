@@ -23,7 +23,7 @@ function which_ls {
   local ls_args_seperator_index=$(index "--" $@)
   if [ $ls_args_seperator_index -gt 0 ]; then
     which_args=(${@:1:$(($ls_args_seperator_index - 1))})
-    ls_args=(${@:$($((ls_args_seperator_index + 1))})
+    ls_args=(${@:$((ls_args_seperator_index + 1))})
   fi
 
   ls $ls_args $('which' -p $which_args)
