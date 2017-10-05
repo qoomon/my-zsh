@@ -4,7 +4,13 @@ function ssh_tunnel {
   local remote_host=$2
   local remote_target_host=$3
 
-  ssh -N -L ${local_port}:${remote_target_host} ${remote_host}
+  ssh -N -L "$local_port":"$remote_target_host" "$remote_host"
+}
+
+function ssh_jump {
+  local jump_host=$1
+  local target_host=$2
+  ssh -o ProxyCommand="ssh -W %h:%p '$jump_host'"  "$target_host"
 }
 
 function ssh_key_set {
