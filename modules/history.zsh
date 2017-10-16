@@ -19,7 +19,7 @@ setopt HIST_IGNORE_SPACE        # Do not include lines beginning with a space in
 setopt HIST_VERIFY              # let the user edit the command line after history expansion
 setopt NO_HIST_BEEP
 
-alias history_edit='$EDITOR $HISTFILE && fc -R'
+alias history_edit='(){ ${1:-$EDITOR} $HISTFILE && fc -R }'
 
 # "predefined history"
 # just write important commands you always need to ~/.important_commands
