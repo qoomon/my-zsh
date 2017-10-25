@@ -13,9 +13,9 @@ setopt notify # Report the status of background jobs immediately, rather than wa
 setopt interactive_comments # Allowes to use #-sign as comment within commandline
 setopt prompt_subst # substitude variables within prompt string
 
-_prompt_cli_id=0
-function _prompt_cli_id_increment { ((_prompt_cli_id++)) }
-precmd_functions=(_prompt_cli_id_increment $precmd_functions) # increment before prompt
+_prompt_cmd_id=0
+function _prompt_cmd_id_increment { ((_prompt_cmd_id++)) }
+precmd_functions=(_prompt_cmd_id_increment $precmd_functions) # increment before prompt
 
 _prompt_exec_id=0
 function _prompt_exec_id_increment { ((_prompt_exec_id++)) }
@@ -108,14 +108,32 @@ bindkey "^X^E" edit-command-line
 
 function annotation { # print online annotation with comment 
   local comment=$1
-  local annotation_fix_part="—— $comment "
-  printf $annotation_fix_part
-  printf '—%.0s' {1..$(($COLUMNS - ${#annotation_fix_part}))}
+  echo
+  echo "${bg[grey]}${fg_bold[default]}\e[2K  ⇛ ${comment}${reset_color}"
+  echo
 }
 
+
 function _clear_screen_widget { # clear screen without coping last line
-  printf '\e[0K\r\e[0K\r'
-  zle clear-screen
+  tput clear
+  local precmd
+  for precmd in $precmd_functions; do
+      $precmd
+  done
+  zle reset-prompt
 }
 zle -N _clear_screen_widget
 bindkey "^L" _clear_screen_widget
+
+
+function zle-line-init { # make it possible to undo abort cmd line
+  if [[ -n $ZLE_LINE_ABORTED ]]; then
+    local buffer_save="$BUFFER"
+    local cursor_save="$CURSOR"
+    BUFFER="$ZLE_LINE_ABORTED" 
+    CURSOR="${#BUFFER}" 
+    zle split-undo
+    BUFFER="$buffer_save" CURSOR="$cursor_save" 
+  fi
+}
+zle -N zle-line-init
