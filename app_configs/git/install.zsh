@@ -12,7 +12,7 @@ git config --global rebase.autoStash true
 git config --global push.followTags true
 git config --global tag.sort version:refname
 git config --global core.editor "$EDITOR"
-git config --global core.pager 'less -R'
+git config --global core.pager 'less -R -M'
 # git config --global commit.template ~/git_commit_template.txt
 if [ "$(uname)" = "Darwin" ]; then
   git config --global credential.helper osxkeychain

@@ -4,9 +4,10 @@
 
 autoload +X -U colors && colors
 
+alias aliasx="alias | sort | sed -E -e 's|^([^=]*)=(.*)|${fg_bold[blue]}\1###${fg[white]}\2$reset_color|' | column -s '###' -t"
+
 alias sush="sudo $SHELL"
 alias home="cd $HOME"
-
 
 alias type="'type' -a"
 
@@ -26,10 +27,6 @@ alias glsx='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --hu
 alias grep='command grep --color=auto' # colorize matching parts
 alias less='command less -R -M -X' # -R : enable colors, -M : shows more detailed prompt, including file position -N : shows line number -X : supresses the terminal clearing at exit
 
-alias aliasx='alias_colorized'
-
-alias mvnx='mvn_colorized'
-
 alias https="http --default-scheme https"
 
 alias http-server='command http-server -p 8080 -o'
@@ -38,6 +35,8 @@ alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZSH_FILE_DIR
 alias https-server='http-server-ssl'
 
 alias pwgen='pwgen -scnyB1'
+
+alias assume-role='function(){eval $(command assume-role $@);}'
 
 # save pipe output to given variable e.g. echo foo | to bar; echo $bar 
 alias to='read -r'

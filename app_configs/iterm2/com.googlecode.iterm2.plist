@@ -379,20 +379,14 @@
 	<true/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
-	<key>NSColorPanelMode</key>
-	<string>1</string>
-	<key>NSColorPickerPreferredRGBEntryMode</key>
-	<integer>2</integer>
-	<key>NSColorPickerSlidersDefaults</key>
-	<string>1</string>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/.zsh/app_configs/iterm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
+	<key>NSNavPanelExpandedStateForSaveMode</key>
+	<true/>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -401,11 +395,6 @@
 	<false/>
 	<key>NSScrollViewShouldScrollUnderTitlebar</key>
 	<false/>
-	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
-	<array>
-		<string>0.000000, 0.000000, 224.000000, 263.000000, NO, NO</string>
-		<string>0.000000, 264.000000, 224.000000, 43.000000, NO, NO</string>
-	</array>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
@@ -413,7 +402,7 @@
 	gAKACoAN0xAJChEVGVdOUy5rZXlzoxITFIADgASABaMWFxiABoAHgAiACVpJZGVudGlm
 	aWVyVVdpZHRoVkhpZGRlblEwI0BowAAAAAAACNIhIiMkWiRjbGFzc25hbWVYJGNsYXNz
 	ZXNcTlNEaWN0aW9uYXJ5oiMlWE5TT2JqZWN00xAJCicrGaMSExSAA4AEgAWjLC0YgAuA
-	DIAIgAlRMSNAc7AAAAAAANIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
+	DIAIgAlRMSNAc7Gdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
 	TlNLZXllZEFyY2hpdmVy0Tg5VUFycmF5gAEACAARABoAIwAtADIANwBGAEwAUQBcAGMA
 	ZgBoAGoAbABzAHsAfwCBAIMAhQCJAIsAjQCPAJEAnACiAKkAqwC0ALUAugDFAM4A2wDe
 	AOcA7gDyAPQA9gD4APwA/gEAAQIBBAEGAQ8BFAEjAScBLwFBAUQBSgAAAAAAAAIBAAAA
@@ -434,26 +423,16 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
-	<key>NSWindow Frame NSColorPanel</key>
-	<string>191 258 224 244 0 0 1440 877 </string>
-	<key>NSWindow Frame NSFontPanel</key>
-	<string>624 204 445 77 0 0 1440 877 </string>
-	<key>NSWindow Frame Preferences</key>
-	<string>269 400 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>410 363 620 392 0 0 1440 877 </string>
+	<string>970 769 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 139 606 456 0 0 1440 877 </string>
+	<string>780 416 606 456 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>326 379 796 473 0 0 1440 877 </string>
+	<string>1046 1032 918 381 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1440 877 0 0 1440 877 </string>
+	<string>0 1027 585 377 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>181 46 585 377 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>0 4 1439 860 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 3</key>
-	<string>0 4 1439 860 0 0 1440 877 </string>
+	<string>0 1040 585 377 0 0 2560 1417 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -773,16 +752,16 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.96544981002807617</real>
+				<real>0.16880610585212708</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.96543341875076294</real>
+				<real>0.16466060280799866</real>
 				<key>Red Component</key>
-				<real>0.96546226739883423</real>
+				<real>0.16064375638961792</real>
 			</dict>
 			<key>Cursor Type</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
@@ -1362,30 +1341,24 @@
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
-	<key>NoSyncConfirmBeta</key>
-	<true/>
-	<key>NoSyncConfirmShellIntegrationCommand</key>
-	<true/>
-	<key>NoSyncConfirmShellIntegrationCommand_selection</key>
-	<integer>0</integer>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
 	<true/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
 	<integer>0</integer>
-	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt</key>
+	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
-	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt_selection</key>
-	<integer>1</integer>
 	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
+	<true/>
+	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallUtilitiesPackage</key>
 	<true/>
 	<key>NoSyncInstallUtilitiesPackage_selection</key>
 	<integer>0</integer>
 	<key>NoSyncInstallationId</key>
-	<string>8541E370-0446-4765-B88B-EB80BF8C5375</string>
+	<string>FEC5D2E0-1581-41F6-8E88-F48F1B635EC0</string>
 	<key>NoSyncLastTipTime</key>
-	<real>482858035.26665401</real>
+	<real>521627843.62671798</real>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1397,7 +1370,7 @@
 	<key>NoSyncSuppressBroadcastInputWarning_selection</key>
 	<integer>0</integer>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>476143897.92426699</real>
+	<real>520765958.56681103</real>
 	<key>NoSyncTipsDisabled</key>
 	<true/>
 	<key>NoSyncTipsToNotShow</key>
@@ -1405,21 +1378,6 @@
 		<string>000</string>
 		<string>0000</string>
 		<string>0001</string>
-		<string>0002</string>
-		<string>0003</string>
-		<string>0004</string>
-		<string>0005</string>
-		<string>0006</string>
-		<string>0007</string>
-		<string>0008</string>
-		<string>0009</string>
-		<string>0010</string>
-		<string>0011</string>
-		<string>0012</string>
-		<string>0013</string>
-		<string>0014</string>
-		<string>0015</string>
-		<string>0016</string>
 	</array>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
@@ -1463,7 +1421,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/qoomon/.zsh/app_configs/iterm2</string>
+	<string>/Users/bengt.brodersen/.zsh/app_configs/iterm2</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
@@ -1471,11 +1429,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml?shard=38</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=27</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-10-10T00:59:55Z</date>
+	<date>2017-11-09T09:48:44Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>URLHandlersByGuid</key>
@@ -1491,7 +1449,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.4.beta.1</string>
+	<string>3.1.5.beta.2</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>7</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
