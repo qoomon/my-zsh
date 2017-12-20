@@ -9,9 +9,10 @@ autoload +X -U colors && colors
 ### PROMPT SETUP
 ################
 
-setopt notify # Report the status of background jobs immediately, rather than waiting until just before printing a prompt.
-setopt interactive_comments # Allowes to use #-sign as comment within commandline
-setopt prompt_subst # substitude variables within prompt string
+setopt NOTIFY # Report the status of background jobs immediately, rather than waiting until just before printing a prompt.
+setopt INTERACTIVE_COMMENTS # Allowes to use #-sign as comment within commandline
+setopt PROMPT_SUBST # substitude variables within prompt string
+# setopt SINGLE_LINE_ZLE # single line command history
 
 _prompt_cmd_id=0
 function _prompt_cmd_id_increment { ((_prompt_cmd_id++)) }
@@ -81,14 +82,45 @@ PS2='• '
 # print exit code on error
 _prompt_exit_code_exec_id=0
 function _prompt_exit_code {
-  local exit_code=$?
+  local exit_code=$status
   if [ $exit_code != 0 ] && [ $_prompt_exec_id != $_prompt_exit_code_exec_id ]; then
-    echo "${fg_bold[red]}✖ $exit_code${reset_color}"
+    echo "${fg_bold[red]}✖ ${exit_code}${reset_color}"
   fi
   _prompt_exit_code_exec_id=$_prompt_exec_id
 }
 # run before prompt
 precmd_functions=(_prompt_exit_code $precmd_functions)
+
+
+function _promp_int_trap {
+  
+  local FULLBUFFER="${PREBUFFER}${BUFFER}"
+  if [ -n "$FULLBUFFER" ]; then
+    echo -n "\n${fg_bold[yellow]}•${reset_color}"
+    # •
+  
+    # TODO 
+    
+    # tput cuu 1
+    # print -z - "$FULLBUFFER"
+    # zle reset-prompt
+    # zle -R
+    
+    # echo -en "${fg_bold[grey]}"
+    # print -rn - ${FULLBUFFER}
+    # echo -en "${reset_color}"
+    
+    
+    # tput cuu 1
+    # print -z - "$FULLBUFFER"
+    # zle reset-prompt
+    # zle -R
+
+  fi
+  
+  
+}
+trap '_promp_int_trap; return 130' INT
 
 
 ###### REZIZE TERMINAL WINDOW ##################################################
