@@ -18,7 +18,7 @@ alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
 
 alias ls='command ls -G' # G - colorize types,
-alias lsx='ls -1hTAp' # 1 - list files, h - human readable, A - list all except . and ..
+alias lsx='ls -hTAp' # h - human readable, A - list all except . and ..
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
 alias gls='command gls --color'
@@ -31,7 +31,7 @@ alias https="http --default-scheme https"
 
 alias http-server='command http-server -p 8080 -o'
 # alias http-server='docker run --rm --name nginx-volatile -v "$PWD":/usr/share/nginx/html:ro -p 80:80 nginx'
-alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZSH_FILE_DIR/localhost.pem --key $ZSH_FILE_DIR/localhost.pem"
+alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZCONFIG_FILE_DIR/localhost.pem --key $ZCONFIG_FILE_DIR/localhost.pem"
 alias https-server='http-server-ssl'
 
 alias pwgen='pwgen -scnyB1'

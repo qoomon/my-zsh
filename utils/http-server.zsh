@@ -2,7 +2,7 @@
 # npm install --global http-server
 
 # --- ssl setup
-# sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" $ZSH_FILE_DIR/localhost.pem
+# sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" $ZCONFIG_FILE_DIR/localhost.pem
 #
 # --- add folowing to /etc/hosts
 # 127.0.0.1	local.host
