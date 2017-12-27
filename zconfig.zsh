@@ -10,14 +10,18 @@ function zconfig {
       ;;
     'update')
       _zconfig::update
+      zgem upgrade
       _zconfig::reload
       ;;
     'reload')
       _zconfig::reload
       ;;
+    'profile')
+      zprofile $@
+      ;;
     *)
       echo "${fg_bold[red]}[zconfig]${reset_color}" "Unknown command '$cmd'" >&2
-      echo "${fg_bold[red]}[zconfig]${reset_color}" "Protocol: {edit|update|upgrade|reload|profile}" >&2
+      echo "${fg_bold[red]}[zconfig]${reset_color}" "Protocol: {edit|update|reload|profile}" >&2
       return 1
       ;;
   esac
@@ -30,7 +34,6 @@ function _zconfig::edit {
 function _zconfig::update {
   echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[green]}update ${fg_bold[black]}($ZCONFIG_HOME)${reset_color}"
   (cd $ZCONFIG_HOME; git pull)
-  zgem upgrade
 }
 
 function _zconfig::reload {
