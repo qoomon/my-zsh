@@ -17,7 +17,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list cheat >/dev/null && brew install cheat
 
 ! brew list zsh >/dev/null && brew install zsh
-
+! brew list pwgen >/dev/null && brew install pwgen
 
 ! brew list vim >/dev/null && brew install vim
 ! brew list micro >/dev/null && brew install micro # https://github.com/zyedidia/micro
@@ -34,6 +34,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 
 ! brew list tree >/dev/null && brew install tree
 ! brew list pstree >/dev/null && brew install pstree
+! brew list ncdu >/dev/null && brew install ncdu
 
 ! brew list ifstat >/dev/null && brew install ifstat
 ! brew list ipcalc >/dev/null && brew install ipcalc

@@ -34,7 +34,7 @@ alias http-server='command http-server -p 8080 -o'
 alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZCONFIG_FILE_DIR/localhost.pem --key $ZCONFIG_FILE_DIR/localhost.pem"
 alias https-server='http-server-ssl'
 
-alias pwgen='pwgen -scnyB1'
+alias pwgen='(){command pwgen -scnyB1 ${1:-20}}'
 
 alias assume-role='function(){eval $(command assume-role $@);}'
 
