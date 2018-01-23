@@ -5,6 +5,9 @@ function zconfig {
   shift
 
   case "$cmd" in
+    'cd')
+      _zconfig::cd
+      ;;
     'edit')
       _zconfig::edit $@
       ;;
@@ -25,6 +28,10 @@ function zconfig {
       return 1
       ;;
   esac
+}
+
+function _zconfig::cd {
+  cd "$ZCONFIG_HOME"
 }
 
 function _zconfig::edit {

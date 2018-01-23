@@ -36,7 +36,7 @@ alias https-server='http-server-ssl'
 
 alias pwgen='(){command pwgen -scnyB1 ${1:-20}}'
 
-alias assume-role='function(){eval $(command assume-role $@);}'
+alias aws-assume-role='assume-role'
 
 # save pipe output to given variable e.g. echo foo | to bar; echo $bar 
 alias to='read -r'

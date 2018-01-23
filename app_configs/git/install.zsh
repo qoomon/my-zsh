@@ -38,7 +38,7 @@ git config --global alias.ignore $'!sh -c "if [ -n \'$1\' ]; then echo \'$1\' >>
 git config --global alias.ignore-change 'update-index --assume-unchanged'
 
 # colorized log
-git config --global alias.graph $'!git log --color=always --graph --all --date=format:\'%a %Y-%m-%d %H:%M\' --pretty=tformat:\' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)\' -m'
+git config --global alias.graph $'!git log --color=always --graph --date=format:\'%a %Y-%m-%d %H:%M\' --pretty=tformat:\' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)\' -m'
 
 # get commit hash for HEAD by default or Branch or Tag
 git config --global alias.hash $'!sh -c "git rev-parse ${1:-HEAD}"'
