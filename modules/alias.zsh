@@ -17,6 +17,8 @@ alias mv='command mv -i' # ask before overwrite file
 alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
 
+alias commands='(){command ls -G $@ $commands}'
+
 alias ls='command ls -G' # G - colorize types,
 alias lsx='ls -hTAp' # h - human readable, A - list all except . and ..
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
@@ -35,11 +37,6 @@ alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZCONFIG_FILE
 alias https-server='http-server-ssl'
 
 alias pwgen='(){command pwgen -scnyB1 ${1:-20}}'
-
-alias aws-assume-role='assume-role'
-
-# save pipe output to given variable e.g. echo foo | to bar; echo $bar 
-alias to='read -r'
 
 alias sum="awk '{ sum += \$1 } END { print sum }'"
 

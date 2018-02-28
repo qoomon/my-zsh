@@ -22,20 +22,23 @@ fi
 # list all alias
 git config --global alias.alias "\!git config --get-regexp alias | sort | sed -E -e 's|^alias\.||' | grep -v -e '^alias' | sort | sed -E -e 's|^([^ ]*)( .*)|${fg_bold[blue]}\1###${fg[white]}\2$reset_color|' | column -s '###' -t"
 
-# amend last commit
-git config --global alias.commend 'commit --amend --no-edit'
+# amend to last commit
+git config --global alias.amend 'commit --amend --no-edit'
 
 # undo last commmit
 git config --global alias.retract 'reset HEAD^'
 
+# reset to upstream state
+git config --global alias.rewind 'git reset --hard @{upstream}'
+
 # force push with lease
-git config --global alias.punch 'push --force-with-lease'
+git config --global alias.push-force 'push --force-with-lease'
 
 # open ignore file with $EDITOR
 git config --global alias.ignore $'!sh -c "if [ -n \'$1\' ]; then echo \'$1\' >> .gitignore; else $EDITOR .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi;"'
 
 # ignore changes of tracked file(s)
-git config --global alias.ignore-change 'update-index --assume-unchanged'
+git config --global alias.ignore-change 'update-index --skip-worktree'
 
 # colorized log
 git config --global alias.graph $'!git log --color=always --graph --date=format:\'%a %Y-%m-%d %H:%M\' --pretty=tformat:\' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)\' -m'
@@ -48,8 +51,6 @@ git config --global alias.bootstrap '!git init && git commit -m "root" --allow-e
 
 # short status
 git config --global alias.situation 'status --short --branch'
-
-git config --global alias.skip-worktree 'update-index --skip-worktree'
 
 
 git config --global merge.tool 'vimdiff'

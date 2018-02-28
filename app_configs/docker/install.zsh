@@ -18,3 +18,13 @@ if [ -e "$DOCKER_APP_COMPLETION_PATH" ]; then
     fi
   done
 fi
+
+if [ "$(uname)" = "Darwin" ]; then
+  # workaround for slow docker compose
+  grep -q -F 'localunixsocket' /etc/hosts || echo '127.0.0.1       localunixsocket' | sudo tee -a /etc/hosts
+  
+  ln -s /usr/local/share/zsh/site-functions/_docker /Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion
+  ln -s /usr/local/share/zsh/site-functions/_docker-compose /Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion
+  ln -s /usr/local/share/zsh/site-functions/_docker-machine /Applications/Docker.app/Contents/Resources/etc/docker-machine.zsh-completion
+fi
+
