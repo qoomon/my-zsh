@@ -375,7 +375,15 @@
 	</dict>
 	<key>Default Bookmark Guid</key>
 	<string>5766DCEB-0D7E-4EEB-8B1F-7E9628121D2F</string>
+	<key>DimOnlyText</key>
+	<false/>
+	<key>EnableProxyIcon</key>
+	<false/>
+	<key>HideTab</key>
+	<true/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
+	<true/>
+	<key>JobName</key>
 	<true/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
@@ -423,14 +431,16 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>1080 1288 400 129 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 769 620 392 0 0 2560 1417 </string>
+	<string>970 768 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>780 416 606 456 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1046 984 770 429 0 0 2560 1417 </string>
+	<string>270 787 770 429 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1280 0 1278 1417 0 0 2560 1417 </string>
+	<string>0 23 2560 1394 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 1040 640 377 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -700,6 +710,8 @@
 			<true/>
 			<key>Blur</key>
 			<false/>
+			<key>Blur Radius</key>
+			<real>30</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -763,7 +775,7 @@
 				<real>0.97254902124404907</real>
 			</dict>
 			<key>Cursor Type</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
@@ -775,7 +787,7 @@
 			<key>Disable Window Resizing</key>
 			<true/>
 			<key>Flashing Bell</key>
-			<false/>
+			<true/>
 			<key>Foreground Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1250,6 +1262,8 @@
 			<true/>
 			<key>Normal Font</key>
 			<string>Menlo-Regular 12</string>
+			<key>Only The Default BG Color Uses Transparency</key>
+			<false/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1293,7 +1307,7 @@
 			<key>Shortcut</key>
 			<string></string>
 			<key>Silence Bell</key>
-			<false/>
+			<true/>
 			<key>Smart Cursor Color</key>
 			<false/>
 			<key>Sync Title</key>
@@ -1435,16 +1449,28 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-02-01T12:41:57Z</date>
+	<date>2018-03-06T12:18:50Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
-	<key>ShowFullScreenTabBar</key>
+	<key>ShowBookmarkName</key>
 	<false/>
+	<key>ShowFullScreenTabBar</key>
+	<true/>
+	<key>ShowPaneTitles</key>
+	<true/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.10000000000000001</real>
+	<key>StretchTabsToFillBar</key>
+	<false/>
+	<key>TabStyle</key>
+	<integer>1</integer>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>Use background pattern indicator</key>
+	<true/>
+	<key>UseBorder</key>
+	<false/>
+	<key>WindowNumber</key>
 	<true/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
@@ -1455,7 +1481,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.5.beta.2</string>
+	<string>3.1.6beta3</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>7</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

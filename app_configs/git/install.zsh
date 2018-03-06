@@ -35,7 +35,7 @@ git config --global alias.rewind 'git reset --hard @{upstream}'
 git config --global alias.push-force 'push --force-with-lease'
 
 # open ignore file with $EDITOR
-git config --global alias.ignore $'!sh -c "if [ -n \'$1\' ]; then echo \'$1\' >> .gitignore; else $EDITOR .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi;"'
+git config --global alias.ignore $'!sh -c "PATTERN=$1; if [ -n \'$PATTERN\' ]; then echo \'$PATTERN\' >> .gitignore; else $EDITOR .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi;"'
 
 # ignore changes of tracked file(s)
 git config --global alias.ignore-change 'update-index --skip-worktree'
@@ -49,8 +49,11 @@ git config --global alias.hash $'!sh -c "git rev-parse ${1:-HEAD}"'
 # git init with empty root commit
 git config --global alias.bootstrap '!git init && git commit -m "root" --allow-empty'
 
-# short status
+# short status  
 git config --global alias.situation 'status --short --branch'
+
+# execute for all git sub folders
+git config --global alias.workspace '!sh -c "CMD=$1; for repo in */; do (cd \$repo && git status >/dev/null 2>&1 && printf \"\e[34m\${PWD#$PWD/}\e[39m\n\" && git \$CMD && echo); true; done"'
 
 
 git config --global merge.tool 'vimdiff'
