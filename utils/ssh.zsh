@@ -1,4 +1,4 @@
-function ssh_tunnel {
+function ssh-tunnel {
   
   local local_port=$1
   local remote_host=$2
@@ -7,18 +7,20 @@ function ssh_tunnel {
   ssh -N -L "$local_port":"$remote_target_host" "$remote_host"
 }
 
-function ssh_jump {
-  local jump_host=$1
-  local target_host=$2
-  ssh -o ProxyCommand="ssh -W %h:%p '$jump_host'"  "$target_host"
+# ssh_jump 'root@example.org' -p 22 -- "root@example.com" -p 2222
+function ssh-jump {
+  local split_index=${@[(ie)--]}
+  local proxy_paramters=(${@:1:$((split_index-1))})
+  local target_paramters=(${@:$((split_index+1))})
+  ssh -o ProxyCommand="ssh -W %h:%p $proxy_paramters" $target_paramters
 }
 
-function ssh_key_set {
+function ssh-key-set {
    ssh-add -D
    ssh-add "$HOME/.ssh/${1:-id_rsa}"
 }
 
-function ssh_key_info {
+function ssh-key-info {
    ssh-keygen -l -f "$HOME/.ssh/${1:-id_rsa}"
 }
 
