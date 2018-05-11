@@ -7,6 +7,10 @@ sudo -v # ask for password
 # install homebrew
 command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+! brew cask list qlstephen >/dev/null && brew cask install qlstephen
+! brew cask list qlmarkdown >/dev/null && brew cask install qlmarkdown
+! brew cask list qlcolorcode >/dev/null && brew cask install qlcolorcode
+
 # ! brew list coreutils >/dev/null && brew install coreutils # http://www.gnu.org/software/coreutils/manual/coreutils.pdf
 
 ! brew list calc >/dev/null && brew install calc # http://www.isthe.com/chongo/tech/comp/calc/

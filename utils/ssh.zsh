@@ -14,6 +14,7 @@ function ssh-jump {
   local target_paramters=(${@:$((split_index+1))})
   ssh -o ProxyCommand="ssh -W %h:%p $proxy_paramters" $target_paramters
 }
+#ssh -o ProxyCommand="ssh -W %h:%p 'root@example.org'" "root@example.com" -p 2222
 
 function ssh-key-set {
    ssh-add -D
