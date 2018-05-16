@@ -11,8 +11,8 @@ source "$ZGEM_HOME/zgem.zsh" # && ZGEM_VERBOSE='true'
 zgem bundle 'https://github.com/qoomon/zprofile.git' from:'git' use:'zprofile.zsh'
 if [ "$ZPROFILE" = 'active' ]; then zprofile::before; fi
 
-zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
-# zgem bundle 'https://github.com/zdharma/fast-syntax-highlighting.git' from:'git' use:'fast-syntax-highlighting.plugin.zsh'
+# zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git' from:'git' use:'zsh-syntax-highlighting.zsh'
+zgem bundle 'https://github.com/zdharma/fast-syntax-highlighting.git' from:'git' use:'fast-syntax-highlighting.plugin.zsh'
 
 zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git' from:'git' use:'zsh-history-substring-search.zsh'  # origin 'https://github.com/zsh-users/zsh-history-substring-search.git'
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git' from:'git' use:'zsh-completions.plugin.zsh'
