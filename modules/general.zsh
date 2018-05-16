@@ -18,7 +18,6 @@ export LS_COLORS="di=1;34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=
 # for macOS
 export LSCOLORS="Exfxcxdxbxegedabagacad" 
 
-
 # support colors in less
 LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
 LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
@@ -40,6 +39,9 @@ export FZF_DEFAULT_OPTS='
   --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
   --exact
 '
+if command -v fd >/dev/null; then
+  export FZF_DEFAULT_COMMAND="fd"
+fi
 
 ### Plugin Config - zsh-syntax-highlighting ###
 ZSH_HIGHLIGHT_MAXLENGTH=300
@@ -55,5 +57,3 @@ bindkey '^[[B' history-substring-search-down   # bind arrow-down
 bindkey '^[OA' history-substring-search-up     # bind arrow-up
 bindkey '^[OB' history-substring-search-down   # bind arrow-down
 
-
-compctl -U -K _no_completion j

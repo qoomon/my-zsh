@@ -30,7 +30,8 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list htop >/dev/null && brew install htop # better top
 ! brew list nmap >/dev/null && brew install nmap
 ! brew list mtr >/dev/null && brew install mtr # ping and trace combined : http://www.bitwizard.nl/mtr/
-! brew list tmux >/dev/null && brew install tmux # https://github.com/tmux/tmux
+! brew list tmux >/dev/null && brew install tmux # A simple, fast and user-friendly alternative to 'find'; https://github.com/tmux/tmux
+! brew list fd >/dev/null && brew install fd # A simple, fast and user-friendly alternative to 'find'https://github.com/sharkdp/fd
 ! brew list the_silver_searcher >/dev/null && brew install the_silver_searcher # command: ag; better find https://github.com/ggreer/the_silver_searcher
 ! brew list irssi >/dev/null && brew install irssi # https://github.com/irssi/irssi
 ! brew list watch >/dev/null && brew install watch
