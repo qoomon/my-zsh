@@ -35,7 +35,7 @@ git config --global alias.rewind $'reset --hard @{upstream}'
 git config --global alias.push-force $'push --force-with-lease'
 
 # open ignore file with $EDITOR
-git config --global alias.ignore $'!sh -c "PATTERN=$1; if [ -n \'$PATTERN\' ]; then echo \'$PATTERN\' >> .gitignore; else ${EDITOR:-vi} .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi"'
+git config --global alias.ignore $'!sh -c "if [ -n \'${1}\' ]; then if !(grep -s \'${1}\' .gitignore >/dev/null); then echo \'${1}\' >> .gitignore; fi; else ${EDITOR:-vi} .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi"'
 
 # ignore changes of tracked file(s)
 git config --global alias.ignore-change $'update-index --skip-worktree'
