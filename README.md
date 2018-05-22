@@ -8,8 +8,10 @@
 * install_utils_macos.sh  - install common command line utils (with brew)
 
 ## Commands
-zconfig edit - will open config in $EDITOR
-
+`zconfig cd` - cd to $ZCONFIG_HOME
+`zconfig edit [EDITOR]` - open config in $EDITOR or in given editor
+`zconfig update` - updates config an [zgem](https://github.com/qoomon/zgem) plugins
+`zconfig profile [benchmark]` - profiles and benchmark zsh config, see [zprofile](https://github.com/qoomon/zprofile)
 
 ## Zsh Knowledge
 
