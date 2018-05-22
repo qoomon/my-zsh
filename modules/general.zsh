@@ -57,3 +57,13 @@ bindkey '^[[B' history-substring-search-down   # bind arrow-down
 bindkey '^[OA' history-substring-search-up     # bind arrow-up
 bindkey '^[OB' history-substring-search-down   # bind arrow-down
 
+# execute given commad in every sub directory
+function workspace {
+  WORKSPACE=$PWD; 
+  CMD="$@"; 
+  for dir in */; do 
+    ( cd $dir && printf "\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n" && $CMD && echo )
+  done
+}
+
+

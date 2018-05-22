@@ -1,6 +1,6 @@
 autoload +X -U colors && colors
 
-function mvn_colorized {
+function mvn-colorized {
   'mvn' $@ | sed -E \
       -e "s|^(\[INFO\] Building )([^ ]*)( .*)|${fg_bold[blue]}\1${fg_bold[cyan]}\2${fg_bold[white]}\3$reset_color|" \
       -e "s|^(\[INFO\] )(--- )(.*)|${fg_bold[blue]}\1${fg_no_bold[grey]}\2${fg_no_bold[cyan]}\3$reset_color|" \
@@ -28,10 +28,6 @@ function mvn_colorized {
 
 compdef _mvn mvn_colorized # set default completion
 
-function mvn_project_version {
+function mvn-project-version {
   'mvn' exec:exec -Dexec.executable='echo' -Dexec.args='${project.version}' --quiet --non-recursive
-}
-
-function mvn_project_version_all {
-  'mvn' exec:exec -Dexec.executable='echo' -Dexec.args='${project.version}' --quiet
 }

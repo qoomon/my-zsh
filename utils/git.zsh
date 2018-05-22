@@ -1,10 +1,10 @@
 
-function git_repository_version_latest {
+function git-repository-version-latest {
   git describe --all --tags --match 'v*' --first-parent --abbrev=0 2>/dev/null| sed 's|^v||'
 }
 
-function git_repository_version_bump_recommendation {
-  local latest_version=$(git_repository_version_latest)
+function git-repository-version-bump-recommendation {
+  local latest_version=$(git-repository-version-latest)
   local latest_version_array=($(echo "$latest_version" | grep -E -o "[^.-]+" ))
 
   latest_version_array[4]=$(echo "$latest_version" | sed "s|^[^-]*||" )
@@ -18,12 +18,12 @@ function git_repository_version_bump_recommendation {
   fi
 }
 
-function git_repository_version_next {
-  local latest_version=$(git_repository_version_latest)
+function git-repository-version-next {
+  local latest_version=$(git-repository-version-latest)
   local -a latest_version_array; latest_version_array=($(echo "$latest_version" | grep -E -o "[^.-]+" ))
   latest_version_array[4]=$(echo "$latest_version" | sed "s|^[^-]*||" )
 
-  local next_version_bump_recommendation=$(git_repository_version_bump_recommendation)
+  local next_version_bump_recommendation=$(git-repository-version-bump-recommendation)
   local -a next_version_array; next_version_array=($latest_version_array)
   if [ "$next_version_bump_recommendation" = "major" ]; then
     next_version_array[1]=$((${next_version_array[1]}+1))
@@ -40,11 +40,11 @@ function git_repository_version_next {
   echo "$next_version"
 }
 
-function git_repository_version_compare {
+function git-repository-version-compare {
   local current_version=${1:-}
   local -a current_version_array; current_version_array=($(echo "$current_version" | grep -E -o "[^.-]+" ))
 
-  local next_version=$(git_repository_version_next)
+  local next_version=$(git-repository-version-next)
   local -a next_version_array; next_version_array=($(echo "$next_version" | grep -E -o "[^.-]+" ))
 
   if [ ${current_version_array[1]} -lt ${next_version_array[1]} ] \
@@ -56,7 +56,7 @@ function git_repository_version_compare {
 }
 
 # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
-fshow() {
+git-browser() {
   local out shas sha q k
   while out=$(
       git log --graph --color=always \

@@ -1,6 +1,6 @@
 
 # open man page in mac os Preview App
-function man_preview {
+function man-preview {
   man -t $1 | open -f -a Preview
   # MANWIDTH=120 MANPAGER='col -bx' man ls | groff -P-pa4 -Tps -mandoc -c | open -f -a Preview.app
 }

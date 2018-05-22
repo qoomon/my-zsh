@@ -7,14 +7,15 @@ function ssh-tunnel {
   ssh -N -L "$local_port":"$remote_target_host" "$remote_host"
 }
 
-# ssh_jump 'root@example.org' -p 22 -- "root@example.com" -p 2222
+# ssh_jump root@jumphost.example -- root@target.example
+# ssh_jump root@jumphost.example -p 22 -- root@target.example -p 2222
 function ssh-jump {
   local split_index=${@[(ie)--]}
   local proxy_paramters=(${@:1:$((split_index-1))})
   local target_paramters=(${@:$((split_index+1))})
   ssh -o ProxyCommand="ssh -W %h:%p $proxy_paramters" $target_paramters
 }
-#ssh -o ProxyCommand="ssh -W %h:%p 'root@example.org'" "root@example.com" -p 2222
+#ssh -o ProxyCommand="ssh -W %h:%p 'root@jumphost.example'" "root@target.example" -p 2222
 
 function ssh-key-set {
    ssh-add -D

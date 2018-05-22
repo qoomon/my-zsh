@@ -1,12 +1,12 @@
 export DOCKER_HOST=unix:///var/run/docker.sock
 
-function docker_connect {
+function docker-connect {
   docker exec -i -t $1 sh
 }
 
 # docker run -it --rm <imageName> <command>  # one shot command. remove container after run
 
-function docker_registry_image_tags {
+function docker-registry-image-tags {
   
   local insecureFlag=''
   if [ "$1" = '--insecure' ]; then 

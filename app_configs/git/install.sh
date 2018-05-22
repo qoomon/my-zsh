@@ -40,7 +40,7 @@ git config --global alias.ignore $'!sh -c "if [ -n \'${1}\' ]; then if !(grep -s
 # ignore changes of tracked file(s)
 git config --global alias.ignore-change $'update-index --skip-worktree'
 
-# colorized log
+# colorized log graph
 git config --global alias.graph $'log --color=always --graph --date=format:\'%a %Y-%m-%d %H:%M\' --pretty=tformat:\' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)\' -m'
 
 # get commit hash for HEAD by default or Branch or Tag
