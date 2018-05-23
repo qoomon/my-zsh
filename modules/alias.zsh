@@ -31,10 +31,8 @@ alias less='command less -R -M -X' # -R : enable colors, -M : shows more detaile
 
 alias https="http --default-scheme https"
 
-alias http-server='command http-server -p 8080 -o'
-# alias http-server='docker run --rm --name nginx-volatile -v "$PWD":/usr/share/nginx/html:ro -p 80:80 nginx'
-alias http-server-ssl="command http-server -p 8443 -o --ssl --cert $ZCONFIG_FILE_DIR/localhost.pem --key $ZCONFIG_FILE_DIR/localhost.pem"
-alias https-server='http-server-ssl'
+alias http-server='command http-server -a localhost -p 8080'
+alias https-server="command http-server -a localhost -p 8443 --ssl --cert $ZCONFIG_FILE_DIR/localhost.crt --key $ZCONFIG_FILE_DIR/localhost.key"
 
 alias pwgen='(){command pwgen -scnyB1 ${1:-20}}'
 
