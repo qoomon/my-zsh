@@ -33,11 +33,11 @@ function _prompt_info {
   local current_user="$USER" # "$(whoami)"
   local current_host="$HOST" # "$(hostname -s)"
   if [ "$current_user" = "root" ]; then
-    prompt_info+="${fg_bold[red]}"
+    prompt_info+="${bg[red]}${fg[black]}root"
   else
-    prompt_info+="${fg[cyan]}"
+    prompt_info+="${fg[cyan]}$current_user"
   fi
-  prompt_info+="$current_user${reset_color}${fg_bold[grey]}@${reset_color}${fg[blue]}$current_host${reset_color}"
+  prompt_info+="${reset_color}${fg_bold[grey]}@${reset_color}${fg[blue]}$current_host${reset_color}"
 
   # current_dir - shorten $PWD: replace $HOME wit '~' and parent folders with first character only
   local current_dir=${${PWD/#$HOME/'~'}//(#m)[^\/]##\//${MATCH[1]}/} 

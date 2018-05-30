@@ -44,7 +44,7 @@ if type fd >/dev/null; then
 fi
 
 ### Plugin Config - zsh-syntax-highlighting ###
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main root brackets)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_HIGHLIGHT_MAXLENGTH=300
 
 ### Plugin Config - history-substring-search ###
