@@ -32,8 +32,8 @@ function _prompt_info {
   # current_user & current_host
   local current_user="$USER" # "$(whoami)"
   local current_host="$HOST" # "$(hostname -s)"
-  if [ "$current_user" = "root" ]; then
-    prompt_info+="${bg[red]}${fg[black]}root"
+  if [ $EUID = 0 ]; then # check for root user
+    prompt_info+="${fg_bold[red]}$current_user" 
   else
     prompt_info+="${fg[cyan]}$current_user"
   fi
@@ -67,7 +67,7 @@ function _prompt_info {
     fi
   fi
 
-  echo "$prompt_info"
+  echo -e "$prompt_info"
 }
 
 ### prompt
