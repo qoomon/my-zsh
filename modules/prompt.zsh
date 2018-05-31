@@ -26,24 +26,25 @@ preexec_functions=(_prompt_exec_id_increment $preexec_functions) # increment bef
 
 function _prompt_info {
 
-  # prompt_info indicator
+  # --- prompt indicator
   local prompt_info="${fg_bold[grey]}#${reset_color} "
 
-  # current_user & current_host
-  local current_user="$USER" # "$(whoami)"
-  local current_host="$HOST" # "$(hostname -s)"
-  if [ $EUID = 0 ]; then # check for root user
-    prompt_info+="${fg_bold[red]}$current_user" 
+  # --- username
+  if [ $EUID = 0 ]; then # highlight root user
+    prompt_info+="${fg_bold[red]}${USER}${reset_color}" 
   else
-    prompt_info+="${fg[cyan]}$current_user"
+    prompt_info+="${fg[cyan]}${USER}${reset_color}"
   fi
-  prompt_info+="${reset_color}${fg_bold[grey]}@${reset_color}${fg[blue]}$current_host${reset_color}"
+  
+  # --- hostname
+  prompt_info+="${fg_bold[grey]}@${reset_color}${fg[blue]}${HOST:-HOSTNAME}${reset_color}"
 
-  # current_dir - shorten $PWD: replace $HOME wit '~' and parent folders with first character only
+  # --- directory
+  # shorten $PWD: replace $HOME wit '~' and parent folders with first character only
   local current_dir=${${PWD/#$HOME/'~'}//(#m)[^\/]##\//${MATCH[1]}/} 
   prompt_info+=" ${fg_bold[grey]}in${reset_color} ${fg[yellow]}$current_dir${reset_color}"
 
-  # current_branch
+  # --- git branch
   local current_branch_status_line="$(git status --short --branch --porcelain 2>/dev/null | head -1)"
   if [ -n "$current_branch_status_line" ]; then
     if [[ "$current_branch_status_line" == *"(no branch)"* ]]; then
