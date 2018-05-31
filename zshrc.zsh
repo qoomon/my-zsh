@@ -26,3 +26,5 @@ zgem bundle "./modules/alias.zsh"
 zgem bundle "./utils/ssh.zsh"
 
 if [ "$ZPROFILE" = 'active' ] ; then zprofile::after; fi
+
+cd $HOME
