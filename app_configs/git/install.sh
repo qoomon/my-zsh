@@ -20,7 +20,7 @@ fi
 
 
 # list all alias
-git config --global alias.alias $'!git config --get-regexp alias | sort | sed -E -e \'s|^alias\.||\' | grep -v -e \'^alias\' | sort | sed -E -e "s|^([^ ]*)( .*)|$(printf \'\\e[34m\')\\1###$(printf \'\\e[39m\')\\2|" | column -s \'###\' -t'
+git config --global alias.alias $'!git config --get-regexp \'^alias.\' | sed \'s/^alias\.//\' | sort | sed -E -e "s|^([^ ]*)( .*)|$(printf \'\\e[34m\')\\1$(printf \'\\e[39m\')\\2|"'
 
 # amend to last commit
 git config --global alias.amend $'commit --amend --no-edit'
@@ -35,7 +35,7 @@ git config --global alias.rewind $'reset --hard @{upstream}'
 git config --global alias.push-force $'push --force-with-lease'
 
 # open ignore file with $EDITOR
-git config --global alias.ignore $'!sh -c "if [ -n \'${1}\' ]; then if !(grep -s \'${1}\' .gitignore >/dev/null); then echo \'${1}\' >> .gitignore; fi; else ${EDITOR:-vi} .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi"'
+git config --global alias.ignore $'!f() { IGNORE_PATH="$1"; if [ -n "$IGNORE_PATH" ]; then if !(grep -s "^${IGNORE_PATH}$" .gitignore >/dev/null); then echo "$IGNORE_PATH" >> .gitignore; fi; else ${EDITOR:-vi} .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi; }; f'
 
 # ignore changes of tracked file(s)
 git config --global alias.ignore-change $'update-index --skip-worktree'
@@ -43,18 +43,17 @@ git config --global alias.ignore-change $'update-index --skip-worktree'
 # colorized log graph
 git config --global alias.graph $'log --color=always --graph --date=format:\'%a %Y-%m-%d %H:%M\' --pretty=tformat:\' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)\' -m'
 
-# get commit hash for HEAD by default or Branch or Tag
-git config --global alias.hash $'!sh -c \'REV=$0; git rev-parse $REV\''
+# get commit hash for HEAD by default   or Branch or Tag
+git config --global alias.hash $'!f() { REV=$1; git rev-parse $REV; }; f'
 
 # git init with empty root commit
-git config --global alias.bootstrap '!git init && git commit -m "root" --allow-empty'
+git config --global alias.bootstrap $'!git init && git commit -m \'root\' --allow-empty'
 
 # short status  
 git config --global alias.situation $'status --short --branch'
 
 # execute for all git sub folders
-git config --global alias.workspace $'!sh -c \'WORKSPACE=$PWD; CMD="$0 $@"; for repo in */; do ( cd $repo && git status >/dev/null 2>&1 && printf "\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n" && git $CMD && echo); true; done\''
-
+git config --global alias.workspace $'!f() { WORKSPACE=$PWD; CMD="$@"; for repo in */; do ( cd $repo && git status >/dev/null 2>&1 && printf \'\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n\' && git $CMD && echo); true; done; }; f'
 
 git config --global merge.tool 'vimdiff'
 git config --global diff.tool 'vimdiff'
