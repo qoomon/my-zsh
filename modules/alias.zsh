@@ -5,6 +5,7 @@
 autoload +X -U colors && colors
 
 alias aliasx="alias | sort | sed -E -e 's|^([^=]*)=(.*)|${fg_bold[blue]}\1###${fg[white]}\2$reset_color|' | column -s '###' -t"
+alias history-edit='(){ ${1:-$EDITOR} $HISTFILE && fc -R }'
 
 alias sush="sudo $SHELL"
 alias home="cd $HOME"

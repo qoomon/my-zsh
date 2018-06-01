@@ -33,6 +33,15 @@ bindkey '^[^[[C' forward-word  # alt + rigth
 ### mvn
 MAVEN_OPTS='-XX:+TieredCompilation -XX:TieredStopAtLevel=1' # speedup maven builds
 
+### util function that execute given commad in every sub directory
+function workspace {
+  WORKSPACE=$PWD; 
+  CMD="$@"; 
+  for dir in */; do 
+    ( cd $dir && printf "\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n" && $CMD && echo )
+  done
+}
+
 ### fzf configuration
 export FZF_DEFAULT_OPTS='
   --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
@@ -58,13 +67,15 @@ bindkey '^[[B' history-substring-search-down   # bind arrow-down
 bindkey '^[OA' history-substring-search-up     # bind arrow-up
 bindkey '^[OB' history-substring-search-down   # bind arrow-down
 
-# execute given commad in every sub directory
-function workspace {
-  WORKSPACE=$PWD; 
-  CMD="$@"; 
-  for dir in */; do 
-    ( cd $dir && printf "\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n" && $CMD && echo )
-  done
-}
+### Plugin Config - zsh-history-search ###
+if type fzf >/dev/null; then
+  zle -N _history_widget
+  bindkey '^R' _history_widget
+  
+  zle -N _history_argument_widget
+  bindkey '^@' _history_argument_widget
+fi
+  
+
 
 
