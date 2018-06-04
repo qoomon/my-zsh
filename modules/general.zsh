@@ -68,6 +68,7 @@ bindkey '^[OA' history-substring-search-up     # bind arrow-up
 bindkey '^[OB' history-substring-search-down   # bind arrow-down
 
 ### Plugin Config - zsh-history-search ###
+HISTORY_ARGUMENT_SEARCH_LIMIT=1000
 if type fzf >/dev/null; then
   zle -N _history_widget
   bindkey '^R' _history_widget
