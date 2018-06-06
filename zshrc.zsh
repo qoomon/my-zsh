@@ -1,7 +1,7 @@
 ##### load extension manager
 export ZCONFIG_HOME="$(dirname "$0")"
 export ZCONFIG_FILE_DIR="$ZCONFIG_HOME/files"
-export ZGEM_HOME="$HOME/.zsh.zgem"
+export ZGEM_HOME="$HOME/.zgem"
 export ZGEM_UTILS_DIR="$ZCONFIG_HOME/utils"
 
 ### load zgem plugin manager

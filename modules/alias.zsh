@@ -4,7 +4,9 @@
 
 autoload +X -U colors && colors
 
-alias aliasx="alias | sort | sed -E -e 's|^([^=]*)=(.*)|${fg_bold[blue]}\1###${fg[white]}\2$reset_color|' | column -s '###' -t"
+alias aliasx="alias | grep -v -e 'aliasx=' | sort | sed -E -e 's|^([^=]*)=(.*)|${fg_bold[blue]}\1###${fg[white]}\2$reset_color|' | column -s '###' -t" # colorized alias
+alias hashx="\hash | sed -E -e 's|^([^=]*)(=.*)|${fg_bold[blue]}\\1$reset_color\\2|'" # colorized hash command
+
 alias history-edit='(){ ${1:-$EDITOR} $HISTFILE && fc -R }'
 
 alias sush="sudo $SHELL"
@@ -17,8 +19,6 @@ alias pick='fzf -m --ansi' # fuzzy search and select anything
 alias mv='command mv -i' # ask before overwrite file
 alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
-
-alias commands='(){command ls -G $@ $commands}'
 
 alias ls='command ls -G' # G - colorize types,
 alias lsx='ls -hTAp' # h - human readable, A - list all except . and ..
@@ -37,7 +37,7 @@ alias https-server="command http-server -a localhost -p 8443 --ssl --cert $ZCONF
 
 alias pwgen='(){command pwgen -scnyB1 ${1:-20}}'
 
-alias sum="awk '{ sum += \$1 } END { print sum }'"
+alias rd='nl | sort -uk2 | sort -nk1 | cut -f2-'
 
 alias man='() {
 env \
