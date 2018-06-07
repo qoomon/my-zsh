@@ -13,18 +13,15 @@ function zconfig {
       ;;
     'update')
       _zconfig::update
-      zgem upgrade
+      eval ${ZCONFIG_UPDATE_COMMAND:-}
       _zconfig::reload
       ;;
     'reload')
       _zconfig::reload
       ;;
-    'profile')
-      zprofile $@
-      ;;
     *)
       echo "${fg_bold[red]}[zconfig]${reset_color}" "Unknown command '$cmd'" >&2
-      echo "${fg_bold[red]}[zconfig]${reset_color}" "Protocol: {edit|update|reload|profile}" >&2
+      echo "${fg_bold[red]}[zconfig]${reset_color}" "Protocol: {edit|update|reload}" >&2
       return 1
       ;;
   esac
