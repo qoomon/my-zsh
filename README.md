@@ -23,6 +23,22 @@
 * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
 
+### Prompt
+* Multiline Prompt
+* Root user highlight
+* GIT status of current directory
+  * `*` dirty flag
+  * `⇡`/`⇣` before/behind
+* Return code after command, if it's not `0`
+
+![prompt_default](docs/prompt_default.png)
+
+![prompt_root](docs/prompt_root.png)
+
+![prompt_error](docs/prompt_error.png)
+
+
+
 ## Zsh Wiki
 
 ## Shortcuts
