@@ -130,24 +130,9 @@ function TRAPWINCH {
   zle && { zle reset-prompt; zle -R }
 }
 
-################
-### PROMPT UTILS
-################
 
-# Edit the current command line in $EDITOR
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
-
-function annotation { # print online annotation with comment 
-  local comment=$1
-  echo
-  echo "${bg[grey]}${fg_bold[default]}\e[2K  ⇛ ${comment}${reset_color}"
-  echo
-}
-
-
-function _clear_screen_widget { # clear screen without coping last line
+# clear screen for mutiline prompt
+function _clear_screen_widget { 
   tput clear
   local precmd
   for precmd in $precmd_functions; do
@@ -158,8 +143,25 @@ function _clear_screen_widget { # clear screen without coping last line
 zle -N _clear_screen_widget
 bindkey "^L" _clear_screen_widget
 
+################
+### PROMPT UTILS
+################
 
-function zle-line-init { # make it possible to undo abort cmd line
+# Edit the current command line in $EDITOR
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
+# print one line annotation with comment 
+function annotation {
+  local comment=$1
+  echo
+  echo "${bg[grey]}${fg_bold[default]}\e[2K  ⇛ ${comment}${reset_color}"
+  echo
+}
+
+ # make it possible to undo abort cmd line
+function zle-line-init {
   if [[ -n $ZLE_LINE_ABORTED ]]; then
     local buffer_save="$BUFFER"
     local cursor_save="$CURSOR"

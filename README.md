@@ -1,19 +1,29 @@
-# 🐚 zsh_config 🐚
+# 🐚 zsh-config 🐚
 ## Installation
-* git clone --depth 1 https://github.com/qoomon/zsh_config.git "$HOME/.zsh"
-* $HOME/.zsh/install.zsh
-  * install this config for current user
+* `git clone --depth 1 https://github.com/qoomon/zsh_config.git "$HOME/.zsh"`
+* `$HOME/.zsh/install.zsh`
+  * installs this config for current user
 
 ### Optional
-* install_utils_macos.sh  - install common command line utils (with brew)
+* `install_utils_macos.sh`  - install common command line utils (with brew)
 
-## Commands
-`zconfig cd` - cd to $ZCONFIG_HOME
-`zconfig edit [EDITOR]` - open config in $EDITOR or in given editor
-`zconfig update` - updates config an [zgem](https://github.com/qoomon/zgem) plugins
-`zconfig profile [benchmark]` - profiles and benchmark zsh config, see [zprofile](https://github.com/qoomon/zprofile)
+## Plugins
 
-## Zsh Knowledge
+* [zsh-config](https://github.com/qoomon/zsh-config/blob/master/utils/zconfig.zsh)
+  * `zconfig cd` - cd to $ZCONFIG_HOME
+  * `zconfig edit [EDITOR]` - open config in $EDITOR or in given editor
+  * `zconfig update` - updates config an [zgem](https://github.com/qoomon/zgem) plugins
+* [zjump](https://github.com/qoomon/zjump.git)
+  * `j` - directory history search with fzf
+* [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
+  * `ctrl + R` - command history search with fzf
+  * `ctrl` + `SPACE` - command argument history search with fzf
+ * [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search.git) 
+ * `UP/DOWN` - circle through command history and filter by current command line 
+* [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
+* [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
+
+## Zsh Wiki
 
 ## Shortcuts
 
@@ -44,7 +54,6 @@
 * `CTRL + G`	Escape from search mode
 
 * `CTRL + L`	Clear screen
-
 
 
 ## Commands
