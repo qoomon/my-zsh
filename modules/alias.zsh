@@ -33,7 +33,7 @@ alias less='command less -R -M -X' # -R : enable colors, -M : shows more detaile
 alias https="http --default-scheme https"
 
 alias http-server='command http-server -a localhost -p 8080'
-alias https-server="command http-server -a localhost -p 8443 --ssl --cert $ZCONFIG_HOME/files/localhost.crt --key $ZCONFIG_HOMR/files/localhost.key"
+alias https-server="command http-server -a localhost -p 8443 --ssl --cert $ZCONFIG_HOME/files/localhost.crt --key $ZCONFIG_HOME/files/localhost.key"
 
 alias pwgen='(){command pwgen -scnyB1 ${1:-20}}'
 
