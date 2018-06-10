@@ -9,7 +9,7 @@ if [ "$ZPROFILE" = 'active' ]; then zprofile::before; fi
 
 ### config util
 export ZCONFIG_HOME="$(dirname "$0")"
-export ZCONFIG_UPDATE_COMMANDS='zgem upgrade'
+export ZCONFIG_UPDATE_COMMAND='zgem upgrade'
 zgem bundle "$ZCONFIG_HOME/utils/zconfig.zsh"
 
 ##### plugins
