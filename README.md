@@ -1,4 +1,4 @@
-# zsh-config 🐚
+# zsh-config 🐚	⚙️
 ## Installation
 * `git clone --depth 1 https://github.com/qoomon/zsh_config.git "$HOME/.zsh"`
 * `$HOME/.zsh/install.zsh`
