@@ -3,6 +3,9 @@
 * `git clone --depth 1 https://github.com/qoomon/zsh_config.git "$HOME/.zsh"`
 * `$HOME/.zsh/install.zsh`
   * installs this config for current user
+* install [fzf](https://github.com/junegunn/fzf), it's mandetory to make following flugins work
+  * [zjump](https://github.com/qoomon/zjump.git)
+  * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
 
 ### Optional
 * `install_utils_macos.sh`  - install common command line utils (with brew)
@@ -14,10 +17,10 @@
   * `zconfig edit [EDITOR]` - open config in $EDITOR or in given editor
   * `zconfig update` - updates config an [zgem](https://github.com/qoomon/zgem) plugins
 * [zjump](https://github.com/qoomon/zjump.git)
-  * `j` - directory history search with fzf
+  * `j` - directory history search with [fzf](https://github.com/junegunn/fzf)
 * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
-  * `ctrl + R` - command history search with fzf
-  * `ctrl` + `SPACE` - command argument history search with fzf
+  * `ctrl + R` - command history search with [fzf](https://github.com/junegunn/fzf)
+  * `ctrl` + `SPACE` - command argument history search with [fzf](https://github.com/junegunn/fzf)
  * [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search.git) 
  * `UP/DOWN` - circle through command history and filter by current command line 
 * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
