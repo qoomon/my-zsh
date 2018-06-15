@@ -26,7 +26,7 @@
 * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
 
-### Prompt
+## Prompt
 * Multiline Prompt
 * Root user highlight
 * GIT status of current directory
@@ -39,6 +39,10 @@
 ![prompt_root](docs/prompt_root.png)
 
 ![prompt_error](docs/prompt_error.png)
+
+### Terminal Colors Schemes
+* for [iTerm](https://github.com/qoomon/zsh-config/blob/master/app_configs/iterm2/qoomon.itermcolors)
+* for [macOS Terminal](https://github.com/qoomon/zsh-config/blob/master/app_configs/terminal/qoomon.terminal)
 
 
 
