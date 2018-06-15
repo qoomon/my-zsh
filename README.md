@@ -1,11 +1,11 @@
 # zsh-config 🐚	⚙️
 
 ## Installation
-* [install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH)
+* [install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH#how-to-install-zsh-in-many-platforms)
 * `git clone --depth 1 https://github.com/qoomon/zsh-config.git "$HOME/.zsh"`
 * `$HOME/.zsh/install.zsh`
   * installs this config for current user
-* install [fzf](https://github.com/junegunn/fzf), it's mandatory to make following [plugins](#plugins) work
+* [install fzf](https://github.com/junegunn/fzf#installation), it's mandatory to make following [plugins](#plugins) work
   * [zjump](https://github.com/qoomon/zjump.git)
   * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
 
