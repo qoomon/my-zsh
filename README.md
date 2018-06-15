@@ -1,6 +1,7 @@
 # zsh-config 🐚	⚙️
 
 ## Installation
+* [install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH)
 * `git clone --depth 1 https://github.com/qoomon/zsh-config.git "$HOME/.zsh"`
 * `$HOME/.zsh/install.zsh`
   * installs this config for current user
