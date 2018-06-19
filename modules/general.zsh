@@ -38,7 +38,7 @@ function workspace {
   WORKSPACE=$PWD; 
   CMD="$@"; 
   for dir in */; do 
-    ( cd $dir && printf "\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n" && $CMD && echo )
+    ( cd $dir && printf "\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n" && eval $CMD && echo )
   done
 }
 

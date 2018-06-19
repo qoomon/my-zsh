@@ -53,7 +53,7 @@ git config --global alias.bootstrap $'!git init && git commit -m \'root\' --allo
 git config --global alias.situation $'status --short --branch'
 
 # execute for all git sub folders
-git config --global alias.workspace $'!f() { WORKSPACE=$PWD; CMD="$@"; for repo in */; do ( cd $repo && git status >/dev/null 2>&1 && printf \'\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n\' && git $CMD && echo); true; done; }; f'
+git config --global alias.workspace $'!f() { WORKSPACE=$PWD; CMD="$@"; for repo in */; do ( cd $repo 2>/dev/null && git status >/dev/null 2>&1 && printf "\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n" && eval git $CMD && echo); true; done; }; f'
 
 git config --global merge.tool 'vimdiff'
 git config --global diff.tool 'vimdiff'
