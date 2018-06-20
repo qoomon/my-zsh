@@ -12,6 +12,8 @@ alias history-edit='(){ ${1:-$EDITOR} $HISTFILE && fc -R }'
 alias sush="sudo $SHELL"
 alias home="cd $HOME"
 
+alias pid='(){ps -ax -o "pid, command" | grep --color=always "$1" | grep -v " grep "}'
+
 alias type="'type' -a"
 
 alias pick='fzf -m --ansi' # fuzzy search and select anything
@@ -21,7 +23,7 @@ alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
 
 alias ls='command ls -G' # G - colorize types,
-alias lsx='ls -hTAp' # h - human readable, A - list all except . and ..
+alias lsx='ls -hTApl' # h - human readable, A - list all except . and ..
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
 alias gls='command gls --color'

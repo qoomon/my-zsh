@@ -1,2 +1,3 @@
-
-alias weather='(){ curl wttr.in/${1} }'
+function weather { 
+  curl wttr.in/${1} 
+}

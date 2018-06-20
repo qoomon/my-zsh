@@ -1,4 +1,3 @@
-
 # open man page in mac os Preview App
 function man-preview {
   man -t $1 | open -f -a Preview

@@ -1,11 +1,3 @@
-export DOCKER_HOST=unix:///var/run/docker.sock
-
-function docker-connect {
-  docker exec -i -t $1 sh
-}
-
-# docker run -it --rm <imageName> <command>  # one shot command. remove container after run
-
 function docker-registry-image-tags {
   
   local insecureFlag=''
@@ -34,6 +26,15 @@ function docker-registry-image-tags {
   else
     echo $response | jq  -r '.tags[]' | sort c
   fi
+}
+
+autoload +X -U colors && colors
+function docker-examples {
+  echo " ${fg_bold[magenta]}-${reset_color} ${fg_bold[yellow]}Execute sommand in running container${reset_color}"
+  echo "     ${fg_bold[green]}docker${reset_color} exec -it ${fg_bold[blue]}container${reset_color} ${fg_bold[blue]}command${reset_color} "
+  
+  echo " ${fg_bold[magenta]}-${reset_color} ${fg_bold[yellow]}Run container as a command${reset_color}"
+  echo "     ${fg_bold[green]}docker${reset_color} run -it --rm ${fg_bold[blue]}image_name${reset_color}"
 }
 
 

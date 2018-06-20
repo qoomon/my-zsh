@@ -1,4 +1,3 @@
-
 function git-repository-version-latest {
   git describe --all --tags --match 'v*' --first-parent --abbrev=0 2>/dev/null| sed 's|^v||'
 }

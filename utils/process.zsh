@@ -1,7 +1,3 @@
-function pid {
-  ps -ax -o 'pid, command' | grep $@ | grep -v "grep"
-}
-
 function limits {
   local pid=$(pid $@ | awk '{print $1}')
   local pid_count=$(echo "$pid" | wc -l | tr -d " ")
