@@ -6,10 +6,13 @@ ZSH_HIGHLIGHT_MAXLENGTH=300
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
 HISTORY_SUBSTRING_SEARCH_FUZZY='true'
-bindkey "${terminfo[kcuu1]}" history-substring-search-up
-bindkey "${terminfo[kcud1]}" history-substring-search-down
-bindkey "${terminfo[cuu1]}" history-substring-search-up
-bindkey "${terminfo[cud1]}" history-substring-search-down
+if [[ "$OSTYPE" == "darwin"* ]]; then # macOS
+  bindkey '^[[A' history-substring-search-up     # arrow-up
+  bindkey '^[[B' history-substring-search-down   # arrow-down
+else
+  bindkey "${terminfo[kcuu1]}" history-substring-search-up     # arrow-up
+  bindkey "${terminfo[kcud1]}" history-substring-search-down   # arrow-down
+fi
 
 ### zsh-history-search Config ###
 HISTORY_ARGUMENT_SEARCH_LIMIT=1000

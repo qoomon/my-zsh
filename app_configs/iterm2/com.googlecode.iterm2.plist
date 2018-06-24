@@ -18,7 +18,7 @@
 	<true/>
 	<key>Custom Color Presets</key>
 	<dict>
-		<key>qoomon2</key>
+		<key>qoomon</key>
 		<dict>
 			<key>Ansi 0 Color</key>
 			<dict>
@@ -90,13 +90,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.45109373331069946</real>
+				<real>0.67843139171600342</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.21108800172805786</real>
+				<real>0.0078431377187371254</real>
 				<key>Red Component</key>
-				<real>0.88611507415771484</real>
+				<real>0.87450981140136719</real>
 			</dict>
 			<key>Ansi 14 Color</key>
 			<dict>
@@ -168,13 +168,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.45109373331069946</real>
+				<real>0.6788673996925354</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.21108800172805786</real>
+				<real>0.0062893233262002468</real>
 				<key>Red Component</key>
-				<real>0.88611507415771484</real>
+				<real>0.87603825330734253</real>
 			</dict>
 			<key>Ansi 6 Color</key>
 			<dict>
@@ -387,10 +387,16 @@
 	<true/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
+	<key>NSColorPanelMode</key>
+	<string>6</string>
+	<key>NSColorPickerPreferredRGBEntryMode</key>
+	<integer>2</integer>
+	<key>NSColorPickerSlidersDefaults</key>
+	<string>1</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/.zsh/app_configs/iterm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{712, 448}</string>
+	<string>{720, 448}</string>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
 	<key>NSNavPanelExpandedStateForSaveMode</key>
@@ -405,8 +411,8 @@
 	<false/>
 	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
 	<array>
-		<string>0.000000, 0.000000, 224.000000, 263.000000, NO, NO</string>
-		<string>0.000000, 264.000000, 224.000000, 43.000000, NO, NO</string>
+		<string>0.000000, 0.000000, 228.000000, 299.000000, NO, NO</string>
+		<string>0.000000, 300.000000, 228.000000, 43.000000, NO, NO</string>
 	</array>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
@@ -415,7 +421,7 @@
 	gAKACoAN0xAJChEVGVdOUy5rZXlzoxITFIADgASABaMWFxiABoAHgAiACVpJZGVudGlm
 	aWVyVVdpZHRoVkhpZGRlblEwI0BowAAAAAAACNIhIiMkWiRjbGFzc25hbWVYJGNsYXNz
 	ZXNcTlNEaWN0aW9uYXJ5oiMlWE5TT2JqZWN00xAJCicrGaMSExSAA4AEgAWjLC0YgAuA
-	DIAIgAlRMSNAc7Gdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
+	DIAIgAlRMSNAdKGdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
 	TlNLZXllZEFyY2hpdmVy0Tg5VUFycmF5gAEACAARABoAIwAtADIANwBGAEwAUQBcAGMA
 	ZgBoAGoAbABzAHsAfwCBAIMAhQCJAIsAjQCPAJEAnACiAKkAqwC0ALUAugDFAM4A2wDe
 	AOcA7gDyAPQA9gD4APwA/gEAAQIBBAEGAQ8BFAEjAScBLwFBAUQBSgAAAAAAAAIBAAAA
@@ -437,21 +443,45 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
+<<<<<<< Updated upstream
+	<string>80 450 228 280 0 0 1680 1028 </string>
+||||||| merged common ancestors
 	<string>1960 857 224 244 0 0 2560 1418 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>1080 1288 400 129 0 0 2560 1417 </string>
+=======
+	<string>1960 857 224 244 0 0 2560 1418 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>1080 966 400 129 0 0 2560 1418 </string>
+>>>>>>> Stashed changes
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 769 620 392 0 0 2560 1418 </string>
+	<string>530 477 620 392 0 0 1680 1028 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>780 416 606 456 0 0 2560 1417 </string>
+	<string>269 126 606 469 0 0 1680 1028 </string>
 	<key>NSWindow Frame SharedPreferences</key>
+<<<<<<< Updated upstream
+	<string>589 230 928 394 0 0 1680 1028 </string>
+||||||| merged common ancestors
 	<string>995 836 928 394 0 0 2560 1418 </string>
+=======
+	<string>1144 612 928 394 0 0 2560 1418 </string>
+>>>>>>> Stashed changes
 	<key>NSWindow Frame iTerm Window 0</key>
+<<<<<<< Updated upstream
+	<string>0 639 570 377 0 0 1680 1028 </string>
+||||||| merged common ancestors
 	<string>0 23 1278 1395 0 0 2560 1418 </string>
+=======
+	<string>64 457 865 694 0 0 2560 1418 </string>
+>>>>>>> Stashed changes
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>381 629 570 377 0 0 2560 1417 </string>
+	<string>146 494 570 377 0 0 1680 1028 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>853 1040 853 377 0 0 2560 1417 </string>
+	<string>380 346 570 377 0 0 1680 1028 </string>
+	<key>NSWindow Frame iTerm Window 3</key>
+	<string>254 55 570 377 0 0 1680 1028 </string>
+	<key>NSWindow Frame iTerm Window 4</key>
+	<string>275 32 570 377 0 0 1680 1028 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -541,13 +571,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.45109373331069946</real>
+				<real>0.67843139171600342</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.21108800172805786</real>
+				<real>0.0078431377187371254</real>
 				<key>Red Component</key>
-				<real>0.88611507415771484</real>
+				<real>0.87450981140136719</real>
 			</dict>
 			<key>Ansi 14 Color</key>
 			<dict>
@@ -619,13 +649,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.45109373331069946</real>
+				<real>0.6788673996925354</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.21108800172805786</real>
+				<real>0.0062893233262002468</real>
 				<key>Red Component</key>
-				<real>0.88611507415771484</real>
+				<real>0.87603825330734253</real>
 			</dict>
 			<key>Ansi 6 Color</key>
 			<dict>
@@ -696,6 +726,8 @@
 				<key>Red Component</key>
 				<real>0.10718484967947006</real>
 			</dict>
+			<key>Background Image Is Tiled</key>
+			<false/>
 			<key>Background Image Location</key>
 			<string></string>
 			<key>Badge Color</key>
@@ -716,7 +748,7 @@
 			<key>Blinking Cursor</key>
 			<true/>
 			<key>Blur</key>
-			<false/>
+			<true/>
 			<key>Blur Radius</key>
 			<real>30</real>
 			<key>Bold Color</key>
@@ -1270,7 +1302,7 @@
 			<key>Normal Font</key>
 			<string>Menlo-Regular 12</string>
 			<key>Only The Default BG Color Uses Transparency</key>
-			<false/>
+			<true/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1352,6 +1384,8 @@
 			<false/>
 			<key>Use Tab Color</key>
 			<false/>
+			<key>Use Underline Color</key>
+			<false/>
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
@@ -1364,14 +1398,6 @@
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
-	<true/>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
-	<integer>0</integer>
-	<key>NoSyncHaveUsedCopyMode</key>
-	<true/>
-	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
-	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallUtilitiesPackage</key>
@@ -1379,28 +1405,28 @@
 	<key>NoSyncInstallUtilitiesPackage_selection</key>
 	<integer>0</integer>
 	<key>NoSyncInstallationId</key>
-	<string>FEC5D2E0-1581-41F6-8E88-F48F1B635EC0</string>
+	<string>04E09ACD-92B1-4D36-958E-C4BE264B36D2</string>
 	<key>NoSyncLastTipTime</key>
-	<real>521627843.62671798</real>
+	<real>551434685.07305205</real>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<true/>
-	<key>NoSyncSuppressBroadcastInputWarning</key>
-	<true/>
-	<key>NoSyncSuppressBroadcastInputWarning_selection</key>
-	<integer>0</integer>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>520765958.56681103</real>
-	<key>NoSyncTipsDisabled</key>
-	<true/>
+	<real>544830960.52546299</real>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
 		<string>000</string>
 		<string>0000</string>
 		<string>0001</string>
+		<string>0002</string>
+		<string>0003</string>
+		<string>0004</string>
+		<string>0005</string>
+		<string>0006</string>
+		<string>0007</string>
 	</array>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
@@ -1444,7 +1470,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/bengt.brodersen/.zsh/app_configs/iterm2</string>
+	<string>/Users/bengtbrodersen/.zsh/app_configs/iterm2</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
@@ -1452,12 +1478,20 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml?shard=27</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=38</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
+<<<<<<< Updated upstream
+	<date>2018-06-18T21:59:00Z</date>
+||||||| merged common ancestors
 	<date>2018-06-09T15:27:08Z</date>
+=======
+	<date>2018-06-18T16:09:36Z</date>
+>>>>>>> Stashed changes
 	<key>SUSendProfileInfo</key>
+	<false/>
+	<key>Secure Input</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
@@ -1468,7 +1502,7 @@
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.10000000000000001</real>
 	<key>StretchTabsToFillBar</key>
-	<false/>
+	<true/>
 	<key>TabStyle</key>
 	<integer>1</integer>
 	<key>TimeBetweenTips</key>
@@ -1490,7 +1524,13 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
+<<<<<<< Updated upstream
+	<string>3.2.0beta4</string>
+||||||| merged common ancestors
 	<string>3.1.6beta5</string>
+=======
+	<string>3.2.0beta3</string>
+>>>>>>> Stashed changes
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>7</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
