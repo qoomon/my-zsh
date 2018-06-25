@@ -72,32 +72,34 @@
 
 * `CTRL + X`  -> `CTRL + E` Edit command line within $EDITOR
 * `CTRL + _` Undo last input
-* `CTRL + K`	Clear the characters on the line after the current cursor position
+* `CTRL + K` Clear the characters on the line after the current cursor position
 * `CTRL + U` Clear the entire line
-* `ESC  + [backspace]` or `CTRL + W`	Delete the word in front of the cursor
-* `ESC  + D`	Delete the word after the cursor
+* `ESC  + [backspace]` or `CTRL + W` Delete the word in front of the cursor
+* `ESC  + D` Delete the word after the cursor
+* `CTRL + W` delete last word
 
 * `ESC  + Q` Push current line on a stack until next command line
 
-* `CTRL + C`	Terminate/kill current foreground process
-* `CTRL + Z`	Suspend/stop current foreground process
+* `CTRL + C` Terminate/kill current foreground process
+* `CTRL + Z` Suspend/stop current foreground process
  * `fg` Run process again in foreground
  * `bg` Run process again in background
-* `CTRL + S`	Stop output to screen
-* `CTRL + Q`	Re-enable screen output
+* `CTRL + S` Stop output to screen
+* `CTRL + Q` Re-enable screen output
 
 * `ESC  + H` Open man page for current command
 
-* `CTRL + R`	Search history
-* `CTRL + G`	Escape from search mode
+* `CTRL + R` Search history
+* `CTRL + G` Escape from search mode
 
-* `CTRL + L`	Clear screen
+* `CTRL + L` Clear screen
+
 
 ### Commands
 * `vared <VARIABLE>` On-the-fly editing of `<VARIABLE>`
-* `!!`	              Execute last command in history
-* `!<PEFIX>`	        Execute last command in history beginning with `<PEFIX>`
-* `!<PEFIX>:p`      	Print last command in history beginning with `<PEFIX>`
+* `!!`               Execute last command in history
+* `!<PEFIX>`         Execute last command in history beginning with `<PEFIX>`
+* `!<PEFIX>:p`       Print last command in history beginning with `<PEFIX>`
 
 
 ---

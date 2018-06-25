@@ -26,7 +26,6 @@ setopt numeric_glob_sort
 setopt no_case_glob # Case insensitive globbing
 # setopt no_clobber # disable overwrite file with redirection '>' force ovewrite with '>|'
 
-WORDCHARS=''
 LISTMAX=0 # Only ask before displaying completions if doing so would scroll.
 ZLE_SPACE_SUFFIX_CHARS=$'&|' # do not remove space after completion for '&' and '|'
 
