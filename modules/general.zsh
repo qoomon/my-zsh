@@ -25,7 +25,7 @@ LESS_TERMCAP_ue=$(printf "$reset_color")
 
 setopt multios  # enable multi output streams
 
-WORDCHARS=${WORDCHARS//[\/&.;]} # remove some word characters
+WORDCHARS='' # threat every special charater as word delimiter
 ### General Keybindings ###
 bindkey -e # -e emacs mode -v for vi mode
 bindkey '^[^[[D' backward-word # alt + left
