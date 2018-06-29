@@ -60,7 +60,7 @@ git config --global diff.tool 'vimdiff'
 git config --global merge.conflictstyle 'diff3'
 git config --global mergetool.prompt false
 
-# if type idea >/dev/null; then
+# if [ $commands[idea] ] >/dev/null; then
 #   git config --global mergetool.idea.cmd 'idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")'
 #   git config --global mergetool.idea.trustExitCode true
 #   git config --global merge.tool idea

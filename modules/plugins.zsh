@@ -16,7 +16,7 @@ fi
 
 ### zsh-history-search Config ###
 HISTORY_ARGUMENT_SEARCH_LIMIT=1000
-if type fzf >/dev/null; then
+if [ $commands[fzf] ]; then
   zle -N _history_widget
   bindkey '^R' _history_widget
   

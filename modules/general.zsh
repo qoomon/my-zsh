@@ -49,7 +49,7 @@ export FZF_DEFAULT_OPTS='
   --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
   --exact
 '
-if type fd >/dev/null; then
+if [ $commands[fd] ]; then
   export FZF_DEFAULT_COMMAND="fd"
 fi
   
