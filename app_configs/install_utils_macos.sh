@@ -16,6 +16,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list calc >/dev/null && brew install calc # http://www.isthe.com/chongo/tech/comp/calc/
 
 ! brew list git >/dev/null && brew install git
+! brew list loc >/dev/null && brew install loc
 ! brew list gource >/dev/null && brew install gource # software version control visualization http://gource.io
 
 ! brew list tldr >/dev/null && brew install tldr # https://github.com/tldr-pages/tldr
