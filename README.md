@@ -104,6 +104,7 @@
 
 ---
 **Sources**
+* http://reasoniamhere.com/2014/01/11/outrageously-useful-tips-to-master-your-z-shell/
 * http://www.rayninfo.co.uk/tips/zshtips.html
 * http://grml.org/zsh/zsh-lovers.html
 * http://www.bash2zsh.com/zsh_refcard/refcard.pdf
