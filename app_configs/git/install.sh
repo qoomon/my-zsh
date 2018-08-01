@@ -44,7 +44,7 @@ git config --global alias.ignore-change $'update-index --skip-worktree'
 git config --global alias.graph $'log --color=always --graph --date=format:\'%a %Y-%m-%d %H:%M\' --pretty=tformat:\' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)\' -m'
 
 # get commit hash for HEAD by default   or Branch or Tag
-git config --global alias.hash $'!f() { REV=$1; git rev-parse $REV; }; f'
+git config --global alias.hash $'!f() { REV=${1:-HEAD}; git rev-parse $REV; }; f'
 
 # git init with empty root commit
 git config --global alias.bootstrap $'!git init && git commit -m \'root\' --allow-empty'
