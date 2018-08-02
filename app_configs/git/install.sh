@@ -25,6 +25,9 @@ git config --global alias.alias $'!git config --get-regexp \'^alias.\' | sed \'s
 # amend to last commit
 git config --global alias.amend $'commit --amend --no-edit'
 
+# amend spesific commit
+fixup = '!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f'
+
 # undo last commmit
 git config --global alias.retract $'reset HEAD^'
 
