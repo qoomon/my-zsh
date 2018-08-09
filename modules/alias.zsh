@@ -23,11 +23,11 @@ alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
 
 alias ls='command ls -G' # G - colorize types,
-alias lsx='ls -hTApl' # h - human readable, A - list all except . and ..
+alias ll='ls -hTApl' # h - human readable, A - list all except . and ..
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
 alias gls='command gls --color'
-alias glsx='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --human-readable -l' # l - long format
+alias gll='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --human-readable -l' # l - long format
 
 alias grep='command grep --color=auto' # colorize matching parts
 alias less='command less -R -M -X' # -R : enable colors, -M : shows more detailed prompt, including file position -N : shows line number -X : supresses the terminal clearing at exit
