@@ -51,7 +51,7 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list httpry >/dev/null && brew install httpry # http sniffer https://github.com/jbittel/httpry
 # ! brew list w3m >/dev/null && brew install w3m # terminal browser
 
-! brew list oath-toolkit >/dev/null && brew install oath-toolkit # generate OTP Codes
+! brew list oath-toolkit >/dev/null && brew install oath-toolkit # generate OTP Codes e.g. Google Authenticator => oathtool -v --totp --base32 <Secret>
 ! brew list zbar >/dev/null && brew install zbar # read qr-code images e.g. command: zbarimg qr.png
 # ! brew list tesseract >/dev/null && brew install tesseract --with-all-languages # ocr https://github.com/tesseract-ocr/tesseract
 
