@@ -7,6 +7,9 @@ sudo -v # ask for password
 # install homebrew
 command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+! brew list zsh >/dev/null && brew install zsh
+! brew list tldr >/dev/null && brew install tldr # https://github.com/tldr-pages/tldr
+
 ! brew cask list qlstephen >/dev/null && brew cask install qlstephen #quick look for plain text files
 ! brew cask list qlmarkdown >/dev/null && brew cask install qlmarkdown #quick for markdown files
 ! brew cask list qlcolorcode >/dev/null && brew cask install qlcolorcode #quick look for src files with syntax highlighting
@@ -19,10 +22,8 @@ command -v brew >/dev/null || ruby -e "$(curl -fsSL https://raw.githubuserconten
 ! brew list loc >/dev/null && brew install loc
 ! brew list gource >/dev/null && brew install gource # software version control visualization http://gource.io
 
-! brew list tldr >/dev/null && brew install tldr # https://github.com/tldr-pages/tldr
-
-! brew list zsh >/dev/null && brew install zsh
 ! brew list pwgen >/dev/null && brew install pwgen
+! brew list qoomon/tab/passphrase >/dev/null && brew install qoomon/tab/passphrase
 
 ! brew list bat >/dev/null && brew install bat # cat with highlighing and git support; https://github.com/sharkdp/bat
 
