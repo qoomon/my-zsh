@@ -18,7 +18,6 @@ zgem bundle "$ZCONFIG_HOME/utils/zconfig.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/plugins.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/history.zsh"
-zgem bundle "$ZCONFIG_HOME/modules/prompt.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
 
@@ -27,3 +26,4 @@ zgem bundle "$ZCONFIG_HOME/utils/command-line.zsh"
 zgem bundle "$ZCONFIG_HOME/utils/ssh.zsh"
 
 if [ "$ZPROFILE" = 'active' ] ; then zprofile::after; fi
+

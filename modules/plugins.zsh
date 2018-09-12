@@ -1,3 +1,4 @@
+################################################################################
 zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_HIGHLIGHT_MAXLENGTH=300
@@ -14,6 +15,7 @@ else
   bindkey "${terminfo[kcuu1]}" history-substring-search-up     # arrow-up
   bindkey "${terminfo[kcud1]}" history-substring-search-down   # arrow-down
 fi
+
 ################################################################################
 zgem bundle 'https://github.com/qoomon/zsh-history-search.git'
 HISTORY_ARGUMENT_SEARCH_LIMIT=1000
@@ -24,7 +26,12 @@ if [ $commands[fzf] ]; then
   zle -N _history_argument_widget
   bindkey '^@' _history_argument_widget
 fi
+
 ################################################################################
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git'
+
 ################################################################################
 zgem bundle 'https://github.com/qoomon/zjump.git'
+
+################################################################################
+zgem bundle 'https://github.com/qoomon/zsh-theme-qoomon.git' use:'qoomon.zsh-theme'
