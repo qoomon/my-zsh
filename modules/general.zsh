@@ -23,7 +23,9 @@ LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
 LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
 LESS_TERMCAP_ue=$(printf "$reset_color")
 
-setopt multios  # enable multi output streams
+setopt MULTIOS  # enable multi output streams
+setopt NOTIFY # Report the status of background jobs immediately, rather than waiting until just before printing a prompt.
+setopt INTERACTIVE_COMMENTS # Allowes to use #-sign as comment within commandline
 
 WORDCHARS='' # threat every special charater as word delimiter
 ### General Keybindings ###
@@ -31,27 +33,18 @@ bindkey -e # -e emacs mode -v for vi mode
 bindkey '^[^[[D' backward-word # alt + left
 bindkey '^[^[[C' forward-word  # alt + rigth
 
-### mvn
-MAVEN_OPTS='-XX:+TieredCompilation -XX:TieredStopAtLevel=1' # speedup maven builds
-
-### util function that execute given commad in every sub directory
-function workspace {
-  WORKSPACE=$PWD; 
-  CMD="$@"; 
-  for dir in */; do 
-    ( cd $dir && printf "\\e[34m${PWD#$WORKSPACE/}:\\e[39m\\n" && eval $CMD && echo )
-  done
-}
+# Edit the current command line in $EDITOR
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
 
 ### fzf configuration
-export FZF_DEFAULT_OPTS='
-  --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
-  --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
-  --exact
-  --ansi
-'
-
 if [ $commands[fd] ]; then
+  export FZF_DEFAULT_OPTS='
+    --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
+    --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
+    --exact
+    --ansi
+  '
   export FZF_DEFAULT_COMMAND="fd -c always"
 fi
-  

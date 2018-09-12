@@ -16,8 +16,10 @@ setopt HIST_IGNORE_ALL_DUPS     # ignore all duplication in command history list
 # setopt HIST_EXPIRE_DUPS_FIRST  # allow dups, but expire old ones when I hit HISTSIZE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_SPACE        # Do not include lines beginning with a space in the history file
+# setopt SINGLE_LINE_ZLE         # single line command history
 setopt HIST_VERIFY              # let the user edit the command line after history expansion
 setopt NO_HIST_BEEP
+
 
 # "predefined history"
 # just write important commands you always need to ~/.important_commands

@@ -1,28 +1,6 @@
-# Promt ########################################################################
-
-# http://www.utf8icons.com/
-# http://apps.timwhitlock.info/emoji/tables/unicode
-
 autoload +X -U colors && colors
 
-################
-### PROMPT SETUP
-################
-
-setopt NOTIFY # Report the status of background jobs immediately, rather than waiting until just before printing a prompt.
-setopt INTERACTIVE_COMMENTS # Allowes to use #-sign as comment within commandline
-setopt PROMPT_SUBST # substitude variables within prompt string
-# setopt SINGLE_LINE_ZLE # single line command history
-
-_prompt_cmd_id=0
-function _prompt_cmd_id_increment { ((_prompt_cmd_id++)) }
-precmd_functions=(_prompt_cmd_id_increment $precmd_functions) # increment before prompt
-
-_prompt_exec_id=0
-function _prompt_exec_id_increment { ((_prompt_exec_id++)) }
-preexec_functions=(_prompt_exec_id_increment $preexec_functions) # increment before execute command
-
-###### Command Line ############################################################
+###### Prompt Configuration ####################################################
 
 function _prompt_info {
 
@@ -71,67 +49,48 @@ function _prompt_info {
   echo -e "$prompt_info"
 }
 
-### prompt
 precmd_functions=($precmd_functions _prompt_info)
 PS1='‣ '
 PS2='• '
-
 # right prompt
 # RPROMPT='[%D{%H:%M:%S}]' # date
 
-###### EXIT CODE ###############################################################
-# print exit code on error
-_prompt_exit_code_exec_id=0
-function _prompt_exit_code {
+
+###### Handle Exit Codes #######################################################
+
+_prompt_exec_id=0
+function _prompt_exec_id_increment { ((_prompt_exec_id++)) }
+preexec_functions=(_prompt_exec_id_increment $preexec_functions)
+
+_prompt_cmd_id=0
+function _prompt_handle_exit_code {
   local exit_code=$status
-  if [ $exit_code != 0 ] && [ $_prompt_exec_id != $_prompt_exit_code_exec_id ]; then
+  if [ $exit_code != 0 ] && [ $_prompt_exec_id != $_prompt_cmd_id ]; then
     echo "${fg_bold[red]}✖ ${exit_code}${reset_color}"
   fi
-  _prompt_exit_code_exec_id=$_prompt_exec_id
+  _prompt_cmd_id=$_prompt_exec_id
 }
-# run before prompt
-precmd_functions=(_prompt_exit_code $precmd_functions)
+precmd_functions=(_prompt_handle_exit_code $precmd_functions)
 
-
-function _promp_int_trap {
-  
+# print indicator when commandline is interupted
+function _promp_handle_interupt {
   local FULLBUFFER="${PREBUFFER}${BUFFER}"
   if [ -n "$FULLBUFFER" ]; then
-    echo -n "\n${fg_bold[yellow]}•${reset_color}"
-    # •
-  
-    # TODO 
-    
-    # tput cuu 1
-    # print -z - "$FULLBUFFER"
-    # zle reset-prompt
-    # zle -R
-    
-    # echo -en "${fg_bold[grey]}"
-    # print -rn - ${FULLBUFFER}
-    # echo -en "${reset_color}"
-    
-    
-    # tput cuu 1
-    # print -z - "$FULLBUFFER"
-    # zle reset-prompt
-    # zle -R
-
+    local exit_code=130
+    echo -en "\n${fg_bold[grey]}◆ ${exit_code}${reset_color}"
   fi
-  
-  
 }
-trap '_promp_int_trap; return 130' INT
+trap '_promp_handle_interupt; return INT' INT
 
 
-###### REZIZE TERMINAL WINDOW ##################################################
-# Ensure that the prompt is redrawn when the terminal size changes.
+###### Misc ####################################################################
+
+### Ensure that the prompt is redrawn when the terminal size changes.
 function TRAPWINCH {
   zle && { zle reset-prompt; zle -R }
 }
 
-
-# clear screen for mutiline prompt
+####  clear screen for mutiline prompt
 function _clear_screen_widget { 
   tput clear
   local precmd
@@ -143,32 +102,3 @@ function _clear_screen_widget {
 zle -N _clear_screen_widget
 bindkey "^L" _clear_screen_widget
 
-################
-### PROMPT UTILS
-################
-
-# Edit the current command line in $EDITOR
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
-
-# print one line annotation with comment 
-function annotation {
-  local comment=$1
-  echo
-  echo "${bg[grey]}${fg_bold[default]}\e[2K  ⇛ ${comment}${reset_color}"
-  echo
-}
-
- # make it possible to undo abort cmd line
-function zle-line-init {
-  if [[ -n $ZLE_LINE_ABORTED ]]; then
-    local buffer_save="$BUFFER"
-    local cursor_save="$CURSOR"
-    BUFFER="$ZLE_LINE_ABORTED" 
-    CURSOR="${#BUFFER}" 
-    zle split-undo
-    BUFFER="$buffer_save" CURSOR="$cursor_save" 
-  fi
-}
-zle -N zle-line-init

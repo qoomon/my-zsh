@@ -37,9 +37,11 @@ alias https="http --default-scheme https"
 alias http-server='command http-server -a localhost -p 8080'
 alias https-server="command http-server -a localhost -p 8443 --ssl --cert $ZCONFIG_HOME/files/localhost.crt --key $ZCONFIG_HOME/files/localhost.key"
 
-alias pwgen='(){command pwgen -scnyB1 ${1:-20}}'
+alias pwgen='() {command pwgen -scnyB1 ${1:-20}}'
 
 alias rd='nl | sort -uk2 | sort -nk1 | cut -f2-'
+
+alias weather='() {curl "wttr.in/$1"}' # print weather forecast for current location to prompt
 
 alias man='() {
 env \
@@ -63,3 +65,12 @@ return ${pipestatus[1]}
 alias wordcount="tr -s ' ' | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr"
 
 # alias -s jpeg="open" # sufix alias
+
+### executes given commad in every sub directory
+alias workspace='() {
+  local workspace=$PWD; 
+  local cmd="$@"; 
+  for dir in */; do 
+    ( cd $dir && printf "\\e[34m${PWD#$workspace/}:\\e[39m\\n" && eval $cmd && echo )
+  done
+}'

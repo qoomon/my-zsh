@@ -14,22 +14,16 @@ export ZCONFIG_HOME="$FILE_DIR"
 export ZCONFIG_UPDATE_COMMAND='zgem upgrade'
 zgem bundle "$ZCONFIG_HOME/utils/zconfig.zsh"
 
-##### plugins
-zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git'
-zgem bundle 'https://github.com/zsh-users/zsh-completions.git'
-zgem bundle 'https://github.com/qoomon/zsh-history-search.git'
-zgem bundle 'https://github.com/qoomon/zjump.git'
-
 ### modules
-zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/plugins.zsh"
+zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/history.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/prompt.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
 
 ### utils
+zgem bundle "$ZCONFIG_HOME/utils/command-line.zsh"
 zgem bundle "$ZCONFIG_HOME/utils/ssh.zsh"
 
 if [ "$ZPROFILE" = 'active' ] ; then zprofile::after; fi
