@@ -25,6 +25,7 @@ setopt null_glob # prevents an error in case a glob does not match any name
 setopt numeric_glob_sort
 setopt no_case_glob # Case insensitive globbing
 # setopt no_clobber # disable overwrite file with redirection '>' force ovewrite with '>|'
+# setopt correct # misspelled command correction sugestions
 
 LISTMAX=0 # Only ask before displaying completions if doing so would scroll.
 ZLE_SPACE_SUFFIX_CHARS=$'&|' # do not remove space after completion for '&' and '|'

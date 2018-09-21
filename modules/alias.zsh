@@ -26,6 +26,9 @@ alias ls='command ls -G' # G - colorize types,
 alias ll='ls -hTApl' # h - human readable, A - list all except . and ..
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
+alias du="du -h" # h - human readable
+alias df="df -h" # h - human readable
+
 alias gls='command gls --color'
 alias gll='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --human-readable -l' # l - long format
 

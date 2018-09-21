@@ -1,0 +1,107 @@
+tap "homebrew/core"
+tap "homebrew/services"
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+
+tap "qoomon/tab"
+
+# brew "coreutils" # http://www.gnu.org/software/coreutils/manual/coreutils.pdf
+brew "grep"
+brew "openssh"
+brew "screen"
+
+brew "zsh"
+brew "tldr" # https://github.com/tldr-pages/tldr
+brew "fzf" # https://github.com/junegunn/fzf
+brew "fd" # A simple, fast and user-friendly alternative to 'find'https://github.com/sharkdp/fd
+# brew "the_silver_searcher" # command: ag; better find https://github.com/ggreer/the_silver_searcher
+brew "tree"
+brew "watch" # infinite command loop
+brew "watchman" # a file watching service https://facebook.github.io/watchman
+
+brew "calc" # http://www.isthe.com/chongo/tech/comp/calc/
+
+brew "git"
+brew "loc"
+brew "gource" # software version control visualization http://gource.io
+
+brew "jq" # json parser
+
+brew "httpie" # better alternative to curl
+brew "siege" # benchmark http # https://github.com/JoeDog/siege
+brew "vegeta" # benchmark http # https://github.com/tsenart/vegeta
+# brew "irssi" # https://github.com/irssi/irssi
+# brew "w3m" # terminal browser
+
+brew "pwgen"
+brew "qoomon/tab/ppgen" # passphrase generator; https://github.com/qoomon/passphrase-generator
+
+brew "ncdu"
+brew "bat" # cat with highlighing and git support; https://github.com/sharkdp/bat
+brew "vim"
+brew "micro" # https://github.com/zyedidia/micro
+
+brew "htop" # better top
+brew "ctop" # htop for docker
+brew "pstree"
+
+brew "tmux" # https://github.com/tmux/tmux
+
+brew "ifstat"
+brew "ipcalc"
+brew "nmap"
+brew "mtr" # ping and trace combined : http://www.bitwizard.nl/mtr/
+
+# brew "oath-toolkit" # generate OTP Codes e.g. Google Authenticator => oathtool --totp --base32 <Secret>
+# brew "zbar" # read qr-code images e.g. command: zbarimg qr.png
+# brew "tesseract" args: ["with-all-languages"] # ocr https://github.com/tesseract-ocr/tesseract
+
+
+
+# tap "yudai/gotty"
+# brew "yudai/gotty/gotty"
+
+# brew "dnsmasq" # e.g. wildcard dns server *.localhost \
+# && sudo mkdir -p /etc/resolver || sudo tee /etc/resolver/localhost <<< 'nameserver 127.0.0.1' >/dev/null # add dnsmasq as resolver
+# brew "socat"
+
+brew "node" # js runtime evironment
+cask "java"
+# brew "jenv"
+
+cask "qlstephen" # quick look for plain text files
+cask "qlmarkdown" # quick for markdown files
+cask "qlcolorcode" # quick look for src files with syntax highlighting
+
+mas "Pages", id: 409201541
+mas "Numbers", id: 409203825
+mas "Keynote", id: 409183694
+
+mas "Slack", id: 803453959
+mas "Purple Tree", id: 764936294
+mas "Amphetamine", id: 937984704
+mas "The Unarchiver", id: 425424353
+mas "AutoMute", id: 1118136179
+
+cask "alfred"
+cask "atom"
+cask "cyberduck"
+cask "day-o"
+cask "docker-edge"
+cask "google-backup-and-sync"
+cask "google-chrome-beta"
+cask "hyperdock"
+cask "hyperswitch"
+cask "intellij-idea"
+cask "iterm2-beta"
+cask "java"
+cask "little-snitch-nightly"
+cask "mark-text"
+cask "moneymoney"
+cask "qlcolorcode"
+cask "qlmarkdown"
+cask "qlstephen"
+cask "shimo"
+cask "sourcetree"
+cask "whatsapp"
+cask "google-trends" # screensaver

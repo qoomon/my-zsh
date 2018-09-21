@@ -33,6 +33,9 @@ bindkey -e # -e emacs mode -v for vi mode
 bindkey '^[^[[D' backward-word # alt + left
 bindkey '^[^[[C' forward-word  # alt + rigth
 
+# Enable math functions e.g. (( f = sin(0.3) ))
+zmodload zsh/mathfunc
+
 # Edit the current command line in $EDITOR
 autoload -Uz edit-command-line
 zle -N edit-command-line

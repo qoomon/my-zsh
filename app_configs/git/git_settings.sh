@@ -26,7 +26,7 @@ git config --global alias.alias $'!git config --get-regexp \'^alias.\' | sed \'s
 git config --global alias.amend $'commit --amend --no-edit'
 
 # amend spesific commit
-fixup = '!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f'
+git config --global alias.fixup $'!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f'
 
 # undo last commmit
 git config --global alias.retract $'reset HEAD^'
@@ -52,7 +52,7 @@ git config --global alias.hash $'!f() { REV=${1:-HEAD}; git rev-parse $REV; }; f
 # git init with empty root commit
 git config --global alias.bootstrap $'!git init && git commit -m \'root\' --allow-empty'
 
-# short status  
+# short status
 git config --global alias.situation $'status --short --branch'
 
 # execute for all git sub folders
