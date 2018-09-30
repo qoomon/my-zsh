@@ -2,6 +2,8 @@
 SELF_DIR="$(dirname "$0")"
 cd "$SELF_DIR"
 
+# install commandline tools
+[ -e "$(xcode-select --print-path)" ] || sudo xcode-select --install
 # install homebrew
 [ $commands[brew] ] || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 # install brew bundle

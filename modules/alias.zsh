@@ -26,6 +26,8 @@ alias ls='command ls -G' # G - colorize types,
 alias ll='ls -hTApl' # h - human readable, A - list all except . and ..
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
+alias bat='bat --plain --paging never' # disable line numbers and paging by default
+
 alias du="du -h" # h - human readable
 alias df="df -h" # h - human readable
 
