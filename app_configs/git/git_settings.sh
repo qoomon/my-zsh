@@ -5,12 +5,14 @@ cd "$SELF_DIR"
 # see $HOME/.gitconfig
 
 # git global config
-git config --global color.ui true
+git config --global color.ui 'auto'
 git config --global merge.ff false
+# ensures to convert CRLF to LF when writing to database
+git config --global core.autocrlf input
 git config --global pull.rebase 'preserve'
 git config --global rebase.autoStash true
 git config --global push.followTags true
-git config --global tag.sort version:refname
+git config --global tag.sort 'version:refname'
 git config --global core.editor "$EDITOR"
 git config --global core.pager 'less -R -M'
 # git config --global commit.template ~/git_commit_template.txt
