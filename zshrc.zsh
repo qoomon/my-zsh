@@ -15,11 +15,12 @@ export ZCONFIG_UPDATE_COMMAND='zgem upgrade'
 zgem bundle "$ZCONFIG_HOME/utils/zconfig.zsh"
 
 ### modules
-zgem bundle "$ZCONFIG_HOME/modules/plugins.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/history.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/completion.zsh"
 zgem bundle "$ZCONFIG_HOME/modules/alias.zsh"
+
+zgem bundle "$ZCONFIG_HOME/modules/plugins.zsh"
 
 ### utils
 zgem bundle "$ZCONFIG_HOME/utils/command-line.zsh"
