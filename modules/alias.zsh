@@ -16,7 +16,7 @@ alias pid='(){ps -ax -o "pid, command" | grep --color=always "$1" | grep -v " gr
 
 alias type="'type' -a"
 
-alias pick='fzf -m --ansi' # fuzzy search and select anything
+alias pick='fzf -m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all --no-sort --ansi' # fuzzy search and select anything
 
 alias mv='command mv -i' # ask before overwrite file
 alias cp='command cp -i' # ask before overwrite file
@@ -48,24 +48,26 @@ alias rd='nl | sort -uk2 | sort -nk1 | cut -f2-'
 
 alias weather='() {curl "wttr.in/$1"}' # print weather forecast for current location to prompt
 
-alias man='() {
-env \
-  LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
-  LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
-  LESS_TERMCAP_ue=$(printf "$reset_color") \
-  PAGER="${commands[less]:-$PAGER}" \
-  _NROFF_U=1 \
-command man $@
-}'
+# colorized man 
+function man {
+  env \
+    LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
+    LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
+    LESS_TERMCAP_ue=$(printf "$reset_color") \
+    PAGER="${commands[less]:-$PAGER}" \
+    _NROFF_U=1 \
+  command man $@
+}
 
-alias diff='() {
-command diff $@ | sed \
-  -e "s|^\(<.*\)|${fg[red]}\1$reset_color|" \
-  -e "s|^\(>.*\)|${fg[green]}\1$reset_color|" \
-  -e "s|^\([a-z0-9].*\)|${fg_bold[cyan]}\1$reset_color|" \
-  -l
-return ${pipestatus[1]}
-}'
+# colorized diff 
+function diff {
+  command diff $@ | sed \
+    -e "s|^\(<.*\)|${fg[red]}\1$reset_color|" \
+    -e "s|^\(>.*\)|${fg[green]}\1$reset_color|" \
+    -e "s|^\([a-z0-9].*\)|${fg_bold[cyan]}\1$reset_color|" \
+    -l
+  return ${pipestatus[1]}
+}
 
 alias wordcount="tr -s ' ' | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr"
 

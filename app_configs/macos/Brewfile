@@ -53,7 +53,6 @@ brew "tmux" # https://github.com/tmux/tmux
 brew "ifstat"
 brew "ipcalc"
 brew "nmap"
-brew "mtr" # ping and trace combined : http://www.bitwizard.nl/mtr/
 
 # brew "oath-toolkit" # generate OTP Codes e.g. Google Authenticator => oathtool --totp --base32 <Secret>
 # brew "zbar" # read qr-code images e.g. command: zbarimg qr.png
