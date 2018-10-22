@@ -23,7 +23,7 @@ alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
 
 alias ls='command ls -G' # G - colorize types,
-alias ll='ls -hTApl' # h - human readable, A - list all except . and ..
+alias ll='ls -hTpl' # h - human readable
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
 alias bat='bat --plain --paging never' # disable line numbers and paging by default

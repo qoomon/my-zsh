@@ -10,14 +10,17 @@ brew "grep"
 brew "openssh"
 brew "screen"
 
+
 brew "zsh"
+brew "bash"
 brew "tldr" # https://github.com/tldr-pages/tldr
 brew "fzf" # https://github.com/junegunn/fzf
-brew "fd" # A simple, fast and user-friendly alternative to 'find'https://github.com/sharkdp/fd
-# brew "the_silver_searcher" # command: ag; better find https://github.com/ggreer/the_silver_searcher
+# brew "fd" # A simple, fast and user-friendly alternative to 'find'https://github.com/sharkdp/fd
+brew "the_silver_searcher" # command: ag; better find https://github.com/ggreer/the_silver_searcher
 brew "tree"
 brew "watch" # infinite command loop
 brew "watchman" # a file watching service https://facebook.github.io/watchman
+brew "rclone" # https://github.com/ncw/rclone
 
 brew "calc" # http://www.isthe.com/chongo/tech/comp/calc/
 
