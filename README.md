@@ -19,11 +19,11 @@
 ## Installation
 * [install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH#how-to-install-zsh-in-many-platforms)
 * `git clone --depth 1 https://github.com/qoomon/zsh-config.git "$HOME/.zsh"`
-* `$HOME/.zsh/install.zsh`
-  * installs this config for current user
+* `$HOME/.zsh/install.zsh`installs this config for current user
 * [install fzf](https://github.com/junegunn/fzf#installation), it's mandatory to make following [plugins](#plugins) work
   * [zjump](https://github.com/qoomon/zjump.git)
   * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
+* Get [Terminal Colors Scheme](#terminal-colors-schemes)
 
 ## Main Configuration
   [`zshrc.zsh`](zshrc.zsh)
@@ -52,7 +52,7 @@
 * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
 * [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)
 
-### [Prommpt](https://github.com/qoomon/zsh-theme-qoomon.git)
+### [Prompt](https://github.com/qoomon/zsh-theme-qoomon.git)
 * Multiline Prompt
 * Root user highlight
 * GIT status of current directory
