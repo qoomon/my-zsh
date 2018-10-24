@@ -1,8 +1,8 @@
 # zsh-config 🐚	⚙️
 
 ## Features
-* Syntax Highlighting
-* Colored Prommpt inlc. Git Branch Name
+* [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
+* [Colored Prommpt](https://github.com/qoomon/zsh-theme-qoomon.git) inlc. Git Branch Name
 * Completions
   * for Commands and Parameters; hit `Tab`
   * for Commands and Parameters from history search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
