@@ -2,7 +2,7 @@
 
 ## Features
 * [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
-* [Colored Prommpt](https://github.com/qoomon/zsh-theme-qoomon.git) inlc. Git Branch Name
+* [Colored Prommpt](#prompt) inlc. Git Branch Name and Exit Code
 * Completions
   * for Commands and Parameters; hit `Tab`
   * for Commands and Parameters from history search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
@@ -28,7 +28,7 @@
 ## Main Configuration
   [`zshrc.zsh`](zshrc.zsh)
   
-###### Configuration Modules
+### Configuration Modules
 * [`modules/plugins.zsh`](modules/plugins.zsh)
 * [`modules/general.zsh`](modules/general.zsh)
 * [`modules/alias.zsh`](modules/alias.zsh)
@@ -52,7 +52,7 @@
 * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
 * [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)
 
-### Prompt
+### [Prommpt](https://github.com/qoomon/zsh-theme-qoomon.git)
 * Multiline Prompt
 * Root user highlight
 * GIT status of current directory
