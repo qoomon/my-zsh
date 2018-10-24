@@ -15,7 +15,3 @@ npm install --global localtunnel
 
 # install stared atom packages
 apm stars --install
-apm stars | grep -o '⭐  [^ ]*' | sed "s/⭐  //" | while read package; do
-
-apm install "$package"
-done

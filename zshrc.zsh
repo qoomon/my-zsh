@@ -27,4 +27,3 @@ zgem bundle "$ZCONFIG_HOME/utils/command-line.zsh"
 zgem bundle "$ZCONFIG_HOME/utils/ssh.zsh"
 
 if [ "$ZPROFILE" = 'active' ] ; then zprofile::after; fi
-
