@@ -67,15 +67,9 @@
 ![prompt_error](docs/prompt_error.png)
 
 
-## Terminal Colors Schemes
+### Terminal Colors Schemes
 * for [iTerm](app_configs/iterm2/qoomon.itermcolors)
 * for [macOS Terminal](app_configs/terminal/qoomon.terminal)
-
-
-## Command Line Util Collection
-  * macOS
-    * [`install-utils-macos.sh`](app_configs/iterm2/install-utils-macos.sh)  - install common command line utils
-
 
 ## Misc Zsh Know-How
 
