@@ -1,5 +1,21 @@
 # zsh-config 🐚	⚙️
 
+## Features
+* Syntax Highlighting
+* Colored Prommpt inlc. Git Branch Name
+* Completions
+  * for Commands and Parameters; hit `Tab`
+  * for Commands and Parameters from history search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
+* Search History
+  * by Substrings; hit `Arrow Up`
+  * Improved Version of `Ctrl` + `R` search with [fzf](https://github.com/junegunn/fzf#installation)
+* Jump to visited Directories with [zjump](https://github.com/qoomon/zjump.git); command `j <PART_OF_DIR_PATH>...`
+* Handy Aliases, see [`modules/alias.zsh`](modules/alias.zsh)
+* Handy optional Utils, see [Utils Directory](/tree/master/utils)
+* and a lot more..., see [Configuration Modules](#configuration-modules)
+
+
+
 ## Installation
 * [install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH#how-to-install-zsh-in-many-platforms)
 * `git clone --depth 1 https://github.com/qoomon/zsh-config.git "$HOME/.zsh"`
@@ -8,7 +24,6 @@
 * [install fzf](https://github.com/junegunn/fzf#installation), it's mandatory to make following [plugins](#plugins) work
   * [zjump](https://github.com/qoomon/zjump.git)
   * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
-
 
 ## Main Configuration
   [`zshrc.zsh`](zshrc.zsh)
@@ -35,6 +50,7 @@
  * `UP/DOWN` - circle through command history and filter by current command line 
 * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
+* [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)
 
 ### Prompt
 * Multiline Prompt
