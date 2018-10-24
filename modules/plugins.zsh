@@ -19,6 +19,11 @@ fi
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git'
 
 ################################################################################
+zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_MAXLENGTH=300
+
+################################################################################
 zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
@@ -31,7 +36,3 @@ else
   bindkey "${terminfo[kcud1]}" history-substring-search-down   # arrow-down
 fi
 
-################################################################################
-zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-ZSH_HIGHLIGHT_MAXLENGTH=300
