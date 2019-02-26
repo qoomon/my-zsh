@@ -42,11 +42,13 @@ git config --global alias.push-force $'push --force-with-lease'
 # open ignore file with $EDITOR
 git config --global alias.ignore $'!f() { IGNORE_PATH="$1"; if [ -n "$IGNORE_PATH" ]; then if !(grep -s "^${IGNORE_PATH}$" .gitignore >/dev/null); then echo "$IGNORE_PATH" >> .gitignore; fi; else ${EDITOR:-vi} .gitignore; fi; if [ -e .gitignore ]; then git add .gitignore; fi; }; f'
 
-# ignore changes of tracked file(s)
+# ignore changes of tracked file(s)   
 git config --global alias.ignore-change $'update-index --skip-worktree'
 
 # colorized log graph
-git config --global alias.graph $'log --color=always --graph --date=format:\'%a %Y-%m-%d %H:%M\' --pretty=tformat:\' %C(blue bold)%h%C(reset) %C(white bold)%s%C(reset) %C(dim white)%an%C(reset)%n ↪  %C(dim green)%ar%C(reset) %C(dim cyan)%ad%C(reset)%C(auto)%d%C(reset)\' -m'
+git config --global alias.graph $'log --color=always --graph --date=format:\'%a %Y-%m-%d %H:%M\' \
+--pretty=tformat:\' %C(white)%s%C(reset)%C(auto)%d%C(reset)
+ %C(dim white)•%C(reset) %C(dim blue)%h%C(reset) %C(dim cyan)%ad%C(reset) %C(dim green)%ar%C(reset) %C(dim white)%an%C(reset)\' -m'
 
 # get commit hash for HEAD by default   or Branch or Tag
 git config --global alias.hash $'!f() { REV=${1:-HEAD}; git rev-parse $REV; }; f'
