@@ -15,7 +15,6 @@
 * and a lot more..., see [Configuration Modules](#configuration-modules)
 
 
-
 ## Installation
 * [install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH#how-to-install-zsh-in-many-platforms)
 * `git clone --depth 1 https://github.com/qoomon/zsh-config.git "$HOME/.zsh"`
@@ -24,6 +23,7 @@
   * [zjump](https://github.com/qoomon/zjump.git)
   * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
 * Get [Terminal Colors Scheme](#terminal-colors-schemes)
+
 
 ## Main Configuration
   [`zshrc.zsh`](zshrc.zsh)
@@ -70,6 +70,7 @@
 ### Terminal Colors Schemes
 * for [iTerm](app_configs/iterm2/qoomon.itermcolors)
 * for [macOS Terminal](app_configs/terminal/qoomon.terminal)
+
 
 ## Misc Zsh Know-How
 

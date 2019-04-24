@@ -6,13 +6,11 @@ export ZGEM_UTILS_DIR="$FILE_DIR/utils"
 if [ ! -e "$ZGEM_HOME" ]; then git clone 'https://github.com/qoomon/zgem.git' "$ZGEM_HOME"; fi
 source "$ZGEM_HOME/zgem.zsh" # && ZGEM_VERBOSE='true'
 
-zgem bundle 'https://github.com/qoomon/zprofile.git'
-if [ "$ZPROFILE" = 'active' ]; then zprofile::before; fi
-
 ### config util
 export ZCONFIG_HOME="$FILE_DIR"
 export ZCONFIG_UPDATE_COMMAND='zgem upgrade'
 zgem bundle "$ZCONFIG_HOME/utils/zconfig.zsh"
+zgem bundle "$ZCONFIG_HOME/utils/lazyload.zsh"
 
 ### modules
 zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
@@ -25,5 +23,3 @@ zgem bundle "$ZCONFIG_HOME/modules/plugins.zsh"
 ### utils
 zgem bundle "$ZCONFIG_HOME/utils/command-line.zsh"
 zgem bundle "$ZCONFIG_HOME/utils/ssh.zsh"
-
-if [ "$ZPROFILE" = 'active' ] ; then zprofile::after; fi
