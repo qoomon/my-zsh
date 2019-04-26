@@ -2,7 +2,7 @@
 
 ## Features
 * [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
-* [Colored Prommpt](#prompt) inlc. Git Branch Name and Exit Code
+* [Colored Prompt](#prompt) inlc. Git Branch Name and Exit Code
 * Completions
   * for Commands and Parameters; hit `Tab`
   * for Commands and Parameters from history search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
