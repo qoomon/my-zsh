@@ -1,16 +1,18 @@
 function lazyload {
-  local load_cmd=$1; shift 1
-  local cmd_names=($@)
-  for cmd_name in $cmd_names; do
-    alias $cmd_name="_lazyload '$load_cmd' $cmd_name $(echo ${cmd_names:#$cmd_name})"
+  local load_cmd=$1; shift
+  local cmd_list=($@); shift $#
+
+  for cmd_name in $cmd_list; do
+    alias $cmd_name="_lazyload '$load_cmd' '${(j:&:)cmd_list}' $cmd_name"
   done
 }
 
 function _lazyload {
-  local load_cmd=$1; shift 1
-  local cmd=$1
-  local cmd_alias=($@)
-  unalias $cmd_alias
+  local load_cmd=$1; shift
+  local load_aliases=(${(s:&:)1}); shift
+  local cmd=($@); shift $#
+
+  unalias $load_aliases
   eval "$load_cmd"
   if [[ ${functions[$load_cmd]} ]] && [[ $load_cmd = 'load:'* ]]; then
     unfunction $load_cmd
