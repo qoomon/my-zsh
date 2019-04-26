@@ -1,8 +1,8 @@
 # zsh-config 🐚	⚙️
 
 ## Features
-* [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * [Colored Prompt](#prompt) inlc. Git Branch Name and Exit Code
+  * [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * Completions
   * for Commands and Parameters; hit `Tab`
   * for Commands and Parameters from history search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
