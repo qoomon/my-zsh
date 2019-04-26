@@ -9,25 +9,6 @@ alias hashx="\hash | sed -E -e 's|^([^=]*)(=.*)|${fg_bold[blue]}\\1$reset_color\
 
 alias history-edit='(){ ${1:-$EDITOR} $HISTFILE && fc -R }'
 
-function loop {
-  local sleep_seconds=0;
-  if [[ $1 =~ -n([0-9]*) ]]; then
-    if [ -n "${match[1]}" ]; then
-      sleep_seconds=${match[1]}
-      shift
-    else
-      sleep_seconds=$2
-      shift 2
-    fi
-  fi
-  while :; do 
-    eval "$@"
-    if [ $sleep_seconds -gt 0 ]; then 
-      sleep $sleep_seconds
-    fi
-  done
-}
-
 alias sush="sudo $SHELL"
 alias home="cd $HOME"
 
