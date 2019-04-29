@@ -10,7 +10,6 @@ source "$ZGEM_HOME/zgem.zsh" # && ZGEM_VERBOSE='true'
 export ZCONFIG_HOME="$FILE_DIR"
 export ZCONFIG_UPDATE_COMMAND='zgem upgrade'
 zgem bundle "$ZCONFIG_HOME/utils/zconfig.zsh"
-zgem bundle "$ZCONFIG_HOME/utils/lazyload.zsh"
 
 ### modules
 zgem bundle "$ZCONFIG_HOME/modules/general.zsh"
