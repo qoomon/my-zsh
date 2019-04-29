@@ -12,7 +12,7 @@
 * Jump to visited Directories with [zjump](https://github.com/qoomon/zjump.git); command `j <PART_OF_DIR_PATH>...`
 * Handy Aliases, see [`modules/alias.zsh`](modules/alias.zsh)
 * Handy optional Utils, see [Utils Directory](/utils); load by `zgem bundle <UTIL_NAME>`
-* lazyload dependencies `lazyload <load-command> <command-alias>... `
+* [lazyload](https://github.com/qoomon/zsh-lazyload) dependencies `lazyload <load-command> <command-name...>`
   * e.g. `lazyload 'source "$(brew --prefix nvm)/nvm.sh"' nvm`
 * and a lot more..., see [Configuration Modules](#configuration-modules)
 
