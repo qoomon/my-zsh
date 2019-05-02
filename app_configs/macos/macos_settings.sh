@@ -8,9 +8,10 @@ cd "$SELF_DIR"
 
 # keep apps in light mode while dark mode is enabled. (menu bar, dock, nofocation center)
 defaults write -g NSRequiresAquaSystemAppearance -bool true
+# undo: defaults delete -g NSRequiresAquaSystemAppearance
 
-# Enable ctrl + opt + cmd + t shortcut to toggle dark/light mode
-# sudo defaults write /Library/Preferences/.GlobalPreferences.plist _HIEnableThemeSwitchHotKey -bool true
+# toggle dark/light mode by commandline
+# osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode'
 
 # disable "show recent applications in Dock"
 defaults write com.apple.dock show-recents -bool false

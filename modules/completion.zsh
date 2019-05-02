@@ -3,11 +3,13 @@
 #Layout is :completion:FUNCTION:COMPLETER:COMMAND-OR-MAGIC-CONTEXT:ARGUMENT:TAG
 autoload +X -U colors && colors
 
-autoload +X -U compinit && compinit -C # Speed up compinit by not checking cache (-C).
 ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
-if [ -z "$(find $ZSH_COMPDUMP -newermt '-7 day')" ]; then
-  echo 'Initialize Completions'
-  compinit -d $ZSH_COMPDUMP && compdump
+autoload +X -U compinit
+if [ $ZSH_COMPDUMP(Nmh-24) ]; then # check for recent compdump file within last 24h
+  compinit -d $ZSH_COMPDUMP -C # -C do not validate cache
+else
+  rm -f $ZSH_COMPDUMP
+  compinit -d $ZSH_COMPDUMP
 fi
 
 ################
