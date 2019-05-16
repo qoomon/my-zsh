@@ -35,7 +35,6 @@
 * [`modules/general.zsh`](modules/general.zsh)
 * [`modules/alias.zsh`](modules/alias.zsh)
 * [`modules/history.zsh`](modules/history.zsh)
-* [`modules/prompt.zsh`](modules/prompt.zsh)
 * [`modules/completions.zsh`](modules/completions.zsh)
 
 ### Plugins
