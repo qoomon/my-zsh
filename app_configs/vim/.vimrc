@@ -33,7 +33,7 @@ set backspace=indent,eol,start	" Backspace behaviour
 
 " Enable filetype plugins
 filetype plugin on
-filetype indent on
+"" filetype indent on
 
 set wildmenu " Turn on the WiLd menu
 
