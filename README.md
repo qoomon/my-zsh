@@ -67,10 +67,9 @@
 
 ![prompt_error](docs/prompt_error.png)
 
-
-### Terminal Colors Schemes
-* for [iTerm](app_configs/iterm2/qoomon.itermcolors)
-* for [macOS Terminal](app_configs/terminal/qoomon.terminal)
+#### Terminal Colors Schemes
+* for [iTerm](https://github.com/qoomon/zsh-theme-qoomon/qoomon.itermcolors)
+* for [macOS Terminal](https://github.com/qoomon/zsh-theme-qoomon/qoomon.terminal)
 
 
 ## Misc Zsh Know-How
