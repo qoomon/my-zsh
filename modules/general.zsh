@@ -42,12 +42,13 @@ zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
 ### fzf configuration
+export FZF_DEFAULT_OPTS='
+  --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
+  --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
+  --exact
+  --ansi
+'
+
 if [ $commands[fd] ]; then
-  export FZF_DEFAULT_OPTS='
-    --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
-    --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
-    --exact
-    --ansi
-  '
   export FZF_DEFAULT_COMMAND="fd -c always"
 fi
