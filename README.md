@@ -8,7 +8,7 @@
   * for Commands and Parameters from history search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
 * Search History
   * by Substrings; hit `Arrow Up`
-  * Improved Version of `Ctrl` + `R` search with [fzf](https://github.com/junegunn/fzf#installation)
+  * Improved Version of Reverse History Search `Ctrl` + `R` search with [fzf](https://github.com/junegunn/fzf#installation)
 * Jump to visited Directories with [zjump](https://github.com/qoomon/zjump.git); command `j <PART_OF_DIR_PATH>...`
 * Handy Aliases, see [`modules/alias.zsh`](modules/alias.zsh)
 * Handy optional Utils, see [Utils Directory](/utils); load by `zgem bundle <UTIL_NAME>`
@@ -21,7 +21,7 @@
 * [install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH#how-to-install-zsh-in-many-platforms)
 * `git clone --depth 1 https://github.com/qoomon/zsh-config.git "$HOME/.zsh"`
 * `$HOME/.zsh/install.zsh`installs this config for current user
-* [install fzf](https://github.com/junegunn/fzf#installation), it's mandatory to make following [plugins](#plugins) work
+* [install fzf](https://github.com/junegunn/fzf#installation) `brew install fzf`, it's mandatory to make following [plugins](#plugins) work
   * [zjump](https://github.com/qoomon/zjump.git)
   * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
 * Get [Terminal Colors Scheme](#terminal-colors-schemes)
