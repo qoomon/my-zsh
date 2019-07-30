@@ -1,8 +1,10 @@
 # zsh-config 🐚	⚙️
 
 ## Features
-* [Colored Prompt](#prompt) inlc. Git Branch Name and Exit Code
+* [Colored Prompt](#prompt)
   * [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
+   * Display Exit Code if not 0
+   * Display Git Situation of working directory (Branch name and Status Indicators)
 * Completions
   * for Commands and Parameters; hit `Tab`
   * for Commands and Parameters from history search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
