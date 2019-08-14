@@ -23,7 +23,10 @@ alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
 
 alias ls='command ls -G' # G - colorize types,
-alias ll='ls -hTpl' # h - human readable
+alias ll='ls -hTpla' # h - human readable
+if [ $commands[exa] ]; then
+  alias ll='exa -Fla --group-directories-first' # h - human readable
+fi
 # CLICOLOR_FORCE=1 ls -al | fzf --ansi
 
 alias bat='bat --plain --paging never' # disable line numbers and paging by default
