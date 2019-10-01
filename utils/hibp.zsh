@@ -29,8 +29,7 @@ function hibp_clipperz {
   | grep -v 'ARCH' \
   | while IFS=$'\t' read card field secret; do
       if [[ "${field:l}" =~ (code|pin|cvc|cvv) ]] \
-          && [[ "${#secret}" -le 6 ]] \
-          && [[ "${#secret}" =~ ^[0-9]*$ ]] &&; then
+          && [[ "${#secret}" =~ ^[0-9]{0,6}$ ]] &&; then
         continue
       fi
       
