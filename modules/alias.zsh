@@ -9,7 +9,6 @@ alias hashx="\hash | sed -E -e 's|^([^=]*)(=.*)|${fg_bold[blue]}\\\1${reset_colo
 
 alias history-edit='(){ ${1:-$EDITOR} $HISTFILE && fc -R }'
 
-alias sush="sudo $SHELL"
 alias home="cd $HOME"
 
 alias pid='(){ps -ax -o "pid, command" | grep --color=always "$1" | grep -v " grep "}'
@@ -53,7 +52,7 @@ alias rd='nl | sort -uk2 | sort -nk1 | cut -f2-'
 
 alias weather='() {curl "wttr.in/$1"}' # print weather forecast for current location to prompt
 
-# colorized man 
+# colorized man
 function man {
   env \
     LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
@@ -64,7 +63,7 @@ function man {
   command man $@
 }
 
-# colorized diff 
+# colorized diff
 function diff {
   command diff $@ | sed \
     -e "s|^\(<.*\)|${fg[red]}\1$reset_color|" \
@@ -80,9 +79,9 @@ alias wordcount="tr -s ' ' | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | sort | u
 
 ### executes given commad in every sub directory
 alias workspace='() {
-  local workspace=$PWD; 
-  local cmd="$@"; 
-  for dir in */; do 
+  local workspace=$PWD;
+  local cmd="$@";
+  for dir in */; do
     ( cd $dir && printf "\\e[34m${PWD#$workspace/}:\\e[39m\\n" && eval $cmd && echo )
   done
 }'

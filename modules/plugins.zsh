@@ -3,6 +3,7 @@ zgem bundle 'https://github.com/qoomon/zsh-lazyload.git'
 
 ################################################################################
 zgem bundle 'https://github.com/qoomon/zsh-theme-qoomon.git' use:'qoomon.zsh-theme'
+PROMPT_INFO_HOST='false'
 
 ################################################################################
 zgem bundle 'https://github.com/qoomon/zjump.git'
@@ -13,7 +14,7 @@ HISTORY_ARGUMENT_SEARCH_LIMIT=1000
 if [ $commands[fzf] ]; then
   zle -N _history_widget
   bindkey '^R' _history_widget
-  
+
   zle -N _history_argument_widget
   bindkey '^@' _history_argument_widget
 fi
@@ -38,4 +39,3 @@ else
   bindkey "${terminfo[kcuu1]}" history-substring-search-up     # arrow-up
   bindkey "${terminfo[kcud1]}" history-substring-search-down   # arrow-down
 fi
-
