@@ -13,7 +13,6 @@ function zconfig {
       ;;
     'update')
       _zconfig::update
-      eval ${ZCONFIG_UPDATE_COMMAND:-}
       _zconfig::reload
       ;;
     'reload')
@@ -37,7 +36,7 @@ function _zconfig::edit {
 
 function _zconfig::update {
   echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[green]}update ${fg_bold[black]}($ZCONFIG_HOME)${reset_color}"
-  (cd $ZCONFIG_HOME; git pull)
+  (eval ${ZCONFIG_UPDATE_COMMAND:-})
 }
 
 function _zconfig::reload {
