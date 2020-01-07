@@ -43,7 +43,7 @@
 * [zsh-config](/utils/zconfig.zsh)
   * `zconfig cd` - cd to `$ZCONFIG_HOME`
   * `zconfig edit [EDITOR]` - open config in `$EDITOR` or in given editor
-  * `zconfig update` - updates config an [zgem](https://github.com/qoomon/zgem) plugins
+  * `zconfig update` - updates config and [zgem](https://github.com/qoomon/zgem) plugins
 * [zjump](https://github.com/qoomon/zjump.git)
   * `j` - directory history search with [fzf](https://github.com/junegunn/fzf)
 * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
