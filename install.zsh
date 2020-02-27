@@ -2,7 +2,7 @@
 SELF_DIR="$(dirname "$0")"
 cd "$SELF_DIR"
 
-autoload +X -U colors && colors
+autoload -Uz colors && colors
 
 function ask {
   echo -n "$1 "

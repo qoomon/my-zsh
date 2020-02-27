@@ -1,6 +1,6 @@
-autoload +X -U colors && colors
+autoload -U colors && colors
 
-autoload +X -U keeper
+autoload -U keeper
 
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 

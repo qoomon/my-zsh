@@ -1,4 +1,4 @@
-autoload +X -U colors && colors
+autoload -Uz colors && colors
 
 function hibp {
   local password

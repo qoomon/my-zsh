@@ -28,7 +28,7 @@ function docker-registry-image-tags {
   fi
 }
 
-autoload +X -U colors && colors
+autoload -Uz colors && colors
 function docker-examples {
   echo " ${fg_bold[magenta]}-${reset_color} ${fg_bold[yellow]}Execute sommand in running container${reset_color}"
   echo "     ${fg_bold[green]}docker${reset_color} exec -it ${fg_bold[blue]}container${reset_color} ${fg_bold[blue]}command${reset_color} "

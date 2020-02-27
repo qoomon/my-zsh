@@ -1,15 +1,15 @@
 # Completions ##################################################################
 # see http://zsh.sourceforge.net/Doc/Release/Completion-System.html
 #Layout is :completion:FUNCTION:COMPLETER:COMMAND-OR-MAGIC-CONTEXT:ARGUMENT:TAG
-autoload +X -U colors && colors
+autoload -Uz colors && colors
 
 ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
-autoload +X -U compinit
+autoload -Uz compinit
 if [ $ZSH_COMPDUMP(Nmh-24) ]; then # check for recent compdump file within last 24h
-  compinit -d $ZSH_COMPDUMP -C # -C do not validate cache
+  compinit -C # -C do not validate cache
 else
   rm -f $ZSH_COMPDUMP
-  compinit -d $ZSH_COMPDUMP
+  compinit
 fi
 
 ################
@@ -35,8 +35,8 @@ ZLE_SPACE_SUFFIX_CHARS=$'&|' # do not remove space after completion for '&' and 
 # list of completers to use
 # zstyle ':completion:*' completer  _complete _expand _list _match _prefix
 
-zstyle ':completion:*' verbose yes # show descriptions for options for many commands
-zstyle ':completion:*' extra-verbose yes
+zstyle ':completion:*' verbose yes # show descriptions for command options
+# zstyle ':completion:*' extra-verbose yes # show descriptions for commands
 
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'  # Case-Insensitive Completion
 # zstyle ':completion:*' matcher-list 'r:|?=** m:{[:lower:][:upper:]}={[:upper:][:lower:]}'  # fuzzy & Case-Insensitive Completion

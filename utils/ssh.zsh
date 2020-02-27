@@ -8,7 +8,7 @@ function ssh-key-info {
 }
 
 
-autoload +X -U colors && colors
+autoload -Uz colors && colors
 function ssh-examples {
   echo " ${fg_bold[magenta]}-${reset_color} ${fg_bold[yellow]}Tunneling${reset_color}"
   echo "     ${fg_bold[green]}ssh${reset_color} ${fg_bold[blue]}username${reset_color}@${fg_bold[blue]}target_host${reset_color} -L ${fg_bold[blue]}tunnelport${reset_color}:${fg_bold[blue]}remote_host${reset_color}:${fg_bold[blue]}remote_port${reset_color} -N"

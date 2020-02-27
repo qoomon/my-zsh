@@ -3,6 +3,7 @@ zgem bundle 'https://github.com/qoomon/zsh-lazyload.git'
 
 ################################################################################
 zgem bundle 'https://github.com/qoomon/zsh-theme-qoomon.git' use:'qoomon.zsh-theme'
+# TODO fix cancel multiline bug e.g. git rm <TAB> <ctrl+c>
 PROMPT_INFO_HOST='false'
 
 ################################################################################

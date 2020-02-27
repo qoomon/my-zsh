@@ -14,7 +14,7 @@ function openssl-download-certificate {
 #    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 
 
-autoload +X -U colors && colors
+autoload -Uz colors && colors
 function ssl-examples {
   echo " ${fg_bold[magenta]}-${reset_color} ${fg_bold[yellow]}Generate fingerprint from certificate${reset_color}"
   echo "     ${fg_bold[green]}openssl${reset_color} x509 -in ${fg_bold[blue]}certificate.crt${reset_color} -pubkey -noout | openssl rsa -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64"
