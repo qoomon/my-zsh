@@ -12,6 +12,10 @@ else
   compinit
 fi
 
+# zstyle ':completion:*' use-cache on
+# zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
+# zstyle ':completion::complete:paket:add:*' use-cache off # disable cache for specific command e.g. paket add
+
 ################
 ### COMPLETION SETUP
 ################
@@ -39,8 +43,8 @@ zstyle ':completion:*' verbose yes # show descriptions for command options
 # zstyle ':completion:*' extra-verbose yes # show descriptions for commands
 
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'  # Case-Insensitive Completion
-# zstyle ':completion:*' matcher-list 'r:|?=** m:{[:lower:][:upper:]}={[:upper:][:lower:]}'  # fuzzy & Case-Insensitive Completion
 
+zstyle ':completion:*' squeeze-slashes true # consecutive slashes will be treated as a single slash
 zstyle ':completion:*' accept-exact '*(N)' # forces prefix matching
 zstyle ':completion:*' select-prompt '%Sat %p%s' # Add position hint to prompt when there are a lot of choices
 zstyle ':completion:*' force-list always # always show comletion also if not ambiguous
