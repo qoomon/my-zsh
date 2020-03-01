@@ -93,10 +93,9 @@ zstyle ':completion:*:killall:*' command 'ps -u $USER -o command'
 ################
 
 function __completion-widget {
-  if [[ -z $BUFFER ]]; then # on empty cli
-    # complete executables for current direcotry
-    BUFFER+="./"
-    CURSOR+=${#BUFFER}
+  if [[ $BUFFER == '' ]] || [[ $BUFFER == '.' ]]; then 
+    BUFFER="./"
+    CURSOR=${#BUFFER}
     zle list-choices
   else
     # adds '...' during completion to cli
