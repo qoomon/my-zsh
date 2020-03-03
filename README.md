@@ -40,7 +40,7 @@
 * [`modules/completions.zsh`](modules/completions.zsh)
 
 ### Plugins
-* [zsh-config](/utils/zconfig.zsh)
+* [zsh-config](/zconfig.zsh)
   * `zconfig cd` - cd to `$ZCONFIG_HOME`
   * `zconfig edit [EDITOR]` - open config in `$EDITOR` or in given editor
   * `zconfig update` - updates config and [zgem](https://github.com/qoomon/zgem) plugins
