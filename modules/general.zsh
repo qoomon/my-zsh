@@ -1,5 +1,4 @@
 autoload -U colors && colors
-
 autoload -U keeper
 
 export LANG="en_US.UTF-8"
@@ -52,14 +51,6 @@ function zle-line-init {
  fi
 }
 zle -N zle-line-init
-
-# Print line annotation with comment 
-function annotate {
-  local comment=$1
-  echo
-  echo "${bg[grey]}${fg_bold[default]}\e[2K# ${comment}${reset_color}"
-  echo
-}
 
 ### fzf configuration
 if [ $commands[fzf] ]; then

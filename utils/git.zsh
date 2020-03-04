@@ -4,7 +4,7 @@ function git-ssh {
   # -o IdentitiesOnly=yes - tells SSH to only use keys that are provided via the CLI and none from the $HOME/.ssh or via ssh-agent
   # -i ~/path/to/some_id_rsa - the key that you explicitly want to use for the connection
   local git_ssh_command="ssh -F /dev/null -o IdentitiesOnly=yes -i '$privat_key_path'"
-      GIT_SSH_COMMAND=$git_ssh_command git $@
+  GIT_SSH_COMMAND=$git_ssh_command git $@
   if [[ $status == 0 ]]; then
     echo ''
     echo '  INFO: Configure your local repository'

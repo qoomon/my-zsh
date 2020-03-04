@@ -1,6 +1,20 @@
+#!/usr/bin/env zsh
+
 autoload -Uz colors && colors
 
 function hibp {
+  if [[ $1 == 'chrome' ]]; then
+    shift
+    hibp-chrome $@
+  elif [[ $1 == 'clipperz' ]]; then
+    shift
+    hibp-clipperz $@
+  else
+    hibp-password $@
+  fi
+}
+
+function hibp-password {
   local password
   if [[ -t 0 ]]; then
     echo -n 'Password:'
@@ -22,8 +36,7 @@ function hibp {
 }
 
 
-
-function hibp_clipperz {
+function hibp-clipperz {
   local clipperz_export_file="$1"
   local card field secret
   xmllint --xpath 'string(/html/body/div/div/textarea)' "$clipperz_export_file" \
@@ -53,8 +66,7 @@ function hibp_clipperz {
 }
 
 
-
-function hibp_chrome {
+function hibp-chrome {
   local chrome_export_file="$1"
   local card field secret
   tail -n +2 "$chrome_export_file" \
@@ -77,3 +89,5 @@ function hibp_chrome {
       ) || break
   done
 }
+
+hibp $@

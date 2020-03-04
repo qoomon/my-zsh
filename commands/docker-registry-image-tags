@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+function docker-registry-image-tags {
+  
+  local insecureFlag=''
+  if [ "$1" = '--insecure' ]; then 
+    insecureFlag='--insecure'
+    shift
+  fi
+  
+  local registry="$(echo $1 | sed -E 's|((([^/]+)/)?([^/]+)/)?([^/]+)|\3|')"
+  local repository="$(echo $1 | sed -E 's|((([^/]+)/)?([^/]+)/)?([^/]+)|\4|')"
+  local image="$(echo $1 | sed -E 's|((([^/]+)/)?([^/]+)/)?([^/]+)|\5|')"
+  
+  local authorizationHeader=''
+  if [[ ! "$registry" ]]; then 
+    registry='registry.hub.docker.com'
+    if [[ ! "$repository" ]]; then 
+      repository="library"
+    fi
+    local token="$(curl -sSL "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${repository}/${image}:pull" | jq --raw-output .token)"
+    authorizationHeader="Authorization: Bearer ${token}"
+  fi
+
+  local response="$(curl -sSL $insecureFlag -H "$authorizationHeader" "https://${registry}/v2/${repository}/${image}/tags/list")"
+  if echo "$response" | jq --exit-status 'has("errors")' >/dev/null; then
+    echo "$response" | jq  -r '.errors[].message'
+  else
+    echo "$response" | jq  -r '.tags[]' | sort
+  fi
+}
+
+docker-registry-image-tags "$@"

@@ -1,4 +1,5 @@
 ZCONFIG_HOME=${ZCONFIG_HOME:-"$HOME/.zsh"}
+ZCONFIG_UPDATE_COMMAND=${ZCONFIG_UPDATE_COMMAND:-}
 
 function zconfig {
   local cmd="$1"
@@ -27,18 +28,21 @@ function zconfig {
 }
 
 function _zconfig::cd {
-  cd "$ZCONFIG_HOME"
+  cd $ZCONFIG_HOME
 }
 
 function _zconfig::edit {
-  ${1:-$EDITOR} "$ZCONFIG_HOME"
+  ${1:-$EDITOR} $ZCONFIG_HOME
 }
 
 function _zconfig::update {
   echo "${fg_bold[blue]}[zconfig]${reset_color}" "${fg_bold[green]}update ${fg_bold[black]}($ZCONFIG_HOME)${reset_color}"
-  (eval ${ZCONFIG_UPDATE_COMMAND:-})
+  if [[ $ZCONFIG_UPDATE_COMMAND ]]
+  then
+    eval $ZCONFIG_UPDATE_COMMAND
+  fi
 }
 
 function _zconfig::reload {
-  exec "$SHELL" --login
+  exec $SHELL --login
 }

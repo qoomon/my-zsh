@@ -1,4 +1,6 @@
-transfer() { 
+#!/usr/bin/env bash
+
+function transfer { 
     # check arguments
     if [ $# -eq 0 ]; then 
         echo "No arguments specified." >&2
@@ -27,3 +29,5 @@ transfer() {
         curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name" | tee /dev/null
     fi
 }
+
+transfer "$@"

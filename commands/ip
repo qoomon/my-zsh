@@ -1,26 +1,35 @@
+#!/usr/bin/env bash
+
 # ipinfo.io/ip;   ipinfo.io/json
 # ifconfig.co/ip;   ifconfig.co/json
 # api.ipify.org
+
 function ip {
   local cmd="$1"
   [[ $# > 0 ]] && shift
 
   case "$cmd" in
     'internal'|'int'|'i')
-      __ip::internal $@
+      ip-internal $@
       ;;
     'external'|'ext'|'e')
-      __ip::external $@
+      ip-external $@
       ;;
     *)
       echo "Unknown command '$cmd'" >&2
-      echo "Usage: $0 {internal|external}" >&2
+      echo "Usage: " >&2
+      echo "" >&2
+      echo "   $0 internal" >&2
+      echo "or $0 int" >&2
+      echo "" >&2
+      echo "   $0 external" >&2
+      echo "or $0 ext" >&2
       return 1
       ;;
   esac
 }
 
-function __ip::internal {
+function ip-internal {
   local interface=""
 
   while [[ $# > 0 ]] ; do
@@ -40,22 +49,22 @@ function __ip::internal {
     esac
   done
 
-  if [ -z "$interface" ]; then
+  if [ ! "$interface" ]; then
     local interface_list=($(ifconfig -l))
     for interface in $interface_list; do
-        local ip=$(ipconfig getifaddr $interface)
+        local ip=$(ipconfig getifaddr "$interface")
         if [ -n "$ip" ]; then
           echo "$interface: $ip"
         fi
     done
   else
-    echo $(ipconfig getifaddr $interface)
+    echo $(ipconfig getifaddr "$interface")
   fi
 }
 
-function __ip::external {
+function ip-external {
 
-  local interface=""
+  local interface=
   local details=false
 
   while [[ $# > 0 ]] ; do
@@ -79,14 +88,16 @@ function __ip::external {
   done
 
   local interface_param
-  if [ -n "$interface" ]; then
-    interface_param=(--interface $interface)
+  if [ "$interface" ]; then
+    interface_param=(--interface "$interface")
   fi
 
   local address="ipinfo.io/ip"
-  if $details; then
+  if [ "$details" ]; then
     address="ipinfo.io/json"
   fi
 
-  curl $interface_param $address
+  curl $interface_param "$address"
 }
+
+ip "$@"

@@ -4,7 +4,7 @@
 * [Colored Prompt](#prompt)
   * [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
    * Display Exit Code if not 0
-   * Display Git Situation of working directory (Branch name and Status Indicators)
+   * Display Git informations of working directory (Branch name and Status Indicators)
 * Completions
   * for Commands and Parameters; hit `Tab`
   * for Commands and Parameters from history search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
@@ -13,10 +13,12 @@
   * Improved Version of Reverse History Search `Ctrl` + `R` search with [fzf](https://github.com/junegunn/fzf#installation)
 * Jump to visited Directories with [zjump](https://github.com/qoomon/zjump.git); command `j <PART_OF_DIR_PATH>...`
 * Handy Aliases, see [`modules/alias.zsh`](modules/alias.zsh)
+* [zsh-config](/zconfig.zsh)
+  * `zconfig cd` - cd to `$ZCONFIG_HOME`
+  * `zconfig edit [EDITOR]` - open config in `$EDITOR` or in given editor
+  * `zconfig update` - updates config and [zgem](https://github.com/qoomon/zgem) plugins
 * Handy optional Utils, see [Utils Directory](/utils); load by `zgem bundle <UTIL_NAME>`
-* [lazyload](https://github.com/qoomon/zsh-lazyload) dependencies `lazyload <load-command> <command-name...>`
-  * e.g. `lazyload 'source "$(brew --prefix nvm)/nvm.sh"' nvm`
-* and a lot more..., see [Configuration Modules](#configuration-modules)
+* and a lot more..., see [Configuration Modules](#modules)
 
 
 ## Installation
@@ -29,21 +31,17 @@
 * Get [Terminal Colors Scheme](#terminal-colors-schemes)
 
 
-## Main Configuration
-  [`zshrc.zsh`](zshrc.zsh)
+## Configuration Structure
+Entrypoint [`zshrc.zsh`](zshrc.zsh)
   
-### Configuration Modules
+#### Modules
 * [`modules/plugins.zsh`](modules/plugins.zsh)
 * [`modules/general.zsh`](modules/general.zsh)
 * [`modules/alias.zsh`](modules/alias.zsh)
 * [`modules/history.zsh`](modules/history.zsh)
 * [`modules/completions.zsh`](modules/completions.zsh)
 
-### Plugins
-* [zsh-config](/zconfig.zsh)
-  * `zconfig cd` - cd to `$ZCONFIG_HOME`
-  * `zconfig edit [EDITOR]` - open config in `$EDITOR` or in given editor
-  * `zconfig update` - updates config and [zgem](https://github.com/qoomon/zgem) plugins
+##### Plugins
 * [zjump](https://github.com/qoomon/zjump.git)
   * `j` - directory history search with [fzf](https://github.com/junegunn/fzf)
 * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
@@ -54,8 +52,10 @@
 * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
 * [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)
+* [lazyload](https://github.com/qoomon/zsh-lazyload)
+  * e.g. `lazyload nvm -- 'source "$(brew --prefix nvm)/nvm.sh"'`
 
-### [Prompt](https://github.com/qoomon/zsh-theme-qoomon.git)
+##### [Prompt](https://github.com/qoomon/zsh-theme-qoomon.git)
 * Multiline Prompt
 * Root user highlight
 * GIT status of current directory
@@ -63,16 +63,15 @@
   * `⇡`/`⇣` before/behind
 * Return code after command, if it's not `0`
 
-![prompt_default](docs/prompt_default.png)
+![prompt_default](.README/prompt_default.png)
 
-![prompt_root](docs/prompt_root.png)
+![prompt_root](.README/prompt_root.png)
 
-![prompt_error](docs/prompt_error.png)
+![prompt_error](.README/prompt_error.png)
 
 #### Terminal Colors Schemes
 * for [iTerm](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.itermcolors)
 * for [macOS Terminal](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.terminal)
-
 
 ## Misc Zsh Know-How
 
