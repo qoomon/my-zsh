@@ -4,8 +4,8 @@
 
 autoload -Uz colors && colors
 
-alias aliasx="alias | grep -v -e 'aliasx=' | sort | sed -E -e 's|^([^=]*)=(.*)|${fg_bold[blue]}\\\1###${fg[white]}\\\2${reset_color}|' | column -s '###' -t" # colorized alias
-alias hashx="\hash | sed -E -e 's|^([^=]*)(=.*)|${fg_bold[blue]}\\\1${reset_color}\\\2|' | column -s '=' -t" # colorized hash command
+alias aliasx="alias | grep -v -e 'aliasx=' | sort | sed -E -e 's|^([^=]*)=(.*)|${fg_bold[blue]}\1###${fg[white]}\2${reset_color}|' | column -s '###' -t" # colorized alias
+alias hashx="hash | sed -E -e 's|^([^=]*)(=.*)|${fg_bold[blue]}\1${reset_color}\2|' | column -s '=' -t" # colorized hash command
 
 alias history-edit='(){ ${1:-$EDITOR} $HISTFILE && fc -R }'
 
