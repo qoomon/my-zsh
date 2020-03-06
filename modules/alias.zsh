@@ -24,7 +24,8 @@ alias rm='command rm -i' # ask before remove file
 
 alias ls='command ls -G' # G - colorize types,
 alias ll='ls -hTpla' # h - human readable
-if [ $commands[exa] ]; then
+if [ $commands[exa] ]
+then
   alias ll='exa -Fla --group-directories-first' # h - human readable
 fi
 

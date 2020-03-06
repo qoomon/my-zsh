@@ -5,7 +5,8 @@ function git-ssh {
   # -i ~/path/to/some_id_rsa - the key that you explicitly want to use for the connection
   local git_ssh_command="ssh -F /dev/null -o IdentitiesOnly=yes -i '$privat_key_path'"
   GIT_SSH_COMMAND=$git_ssh_command git $@
-  if [[ $status == 0 ]]; then
+  if [[ $status == 0 ]]
+  then
     echo ''
     echo '  INFO: Configure your local repository'
     echo ''
@@ -29,7 +30,8 @@ function git-browser {
     k=$(head -2 <<< "$out" | tail -1)
     shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
     [ -z "$shas" ] && continue
-    if [ "$k" = 'ctrl-d' ]; then
+    if [ "$k" = 'ctrl-d' ]
+    then
       git diff --color=always $shas | less -R
     else
       for sha in $shas; do

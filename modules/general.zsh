@@ -25,14 +25,16 @@ setopt INTERACTIVE_COMMENTS # Allowes to use #-sign as comment within commandlin
 export WORDCHARS='' # threat every special charater as word delimiter
 
 ### fzf configuration
-if [ $commands[fzf] ]; then
+if [ $commands[fzf] ]
+then
   export FZF_DEFAULT_OPTS='
     --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
     --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
     --exact
     --ansi
   '
-  if [ $commands[fd] ]; then
+  if [ $commands[fd] ]
+  then
     export FZF_DEFAULT_COMMAND="fd -c always"
   fi
 fi
@@ -44,7 +46,8 @@ bindkey "^X^E" edit-command-line
 
 # Undo aborted command line
 function zle-line-init {
- if [[ -n $ZLE_LINE_ABORTED ]]; then
+ if [[ -n $ZLE_LINE_ABORTED ]]
+ then
    local buffer_save="$BUFFER"
    local cursor_save="$CURSOR"
    BUFFER="$ZLE_LINE_ABORTED" 

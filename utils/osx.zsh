@@ -11,7 +11,8 @@ function notify {
   local sound=${4/\"/\\\"}
 
   local script="display notification \"$message\" with title \"$title\" subtitle \"$subtitle\""
-  if [ -n "$sound" ]; then
+  if [ -n "$sound" ]
+  then
     script="$script sound name \"$sound\""
   fi
 

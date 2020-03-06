@@ -35,7 +35,8 @@ zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
 HISTORY_SUBSTRING_SEARCH_FUZZY='true'
-bindkey '^[[A' history-substring-search-up            # arrow-up
-bindkey '^[[B' history-substring-search-down          # arrow-down
-bindkey "${key[Up]}" history-substring-search-up      # arrow-up
-bindkey "${key[Down]}" history-substring-search-down  # arrow-down
+
+[ ${key[Up]} ]   && bindkey "${key[Up]}"   history-substring-search-up    # arrow-up
+[ ${key[Down]} ] && bindkey "${key[Down]}" history-substring-search-down  # arrow-down
+bindkey '^[[A' history-substring-search-up    # arrow-up
+bindkey '^[[B' history-substring-search-down  # arrow-down

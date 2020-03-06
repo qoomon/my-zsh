@@ -19,10 +19,3 @@ setopt HIST_IGNORE_SPACE        # Do not include lines beginning with a space in
 # setopt SINGLE_LINE_ZLE         # single line command history
 setopt HIST_VERIFY              # let the user edit the command line after history expansion
 setopt NO_HIST_BEEP
-
-
-# "predefined history"
-# just write important commands you always need to ~/.important_commands
-# if [[ -r ~/.important_commands ]] ; then
-#     fc -R ~/.important_commands
-# fi

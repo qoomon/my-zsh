@@ -5,7 +5,8 @@ autoload -Uz colors && colors
 
 ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
 autoload -Uz compinit
-if [ $ZSH_COMPDUMP(Nmh-24) ]; then # check for recent compdump file within last 24h
+if [ $ZSH_COMPDUMP(Nmh-24) ]
+then # check for recent compdump file within last 24h
   compinit -C # -C do not validate cache
 else
   rm -f $ZSH_COMPDUMP
@@ -93,7 +94,8 @@ zstyle ':completion:*:killall:*' command 'ps -u $USER -o command'
 ################
 
 function __completion-widget {
-  if [[ $BUFFER == '' ]] || [[ $BUFFER == '.' ]]; then 
+  if [[ $BUFFER == '' ]] || [[ $BUFFER == '.' ]]
+  then 
     BUFFER="./"
     CURSOR=${#BUFFER}
     zle list-choices

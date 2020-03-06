@@ -11,7 +11,8 @@ function ask {
 }
 
 function usershell {
-  if [[ "$(uname)" == "Darwin" ]]; then
+  if [[ "$(uname)" == "Darwin" ]]
+  then
     dscl . -read /Users/${USER:-$(whoami)} | grep UserShell: | cut -d' ' -f2
   else
     getent passwd ${USER:-$(whoami)} | cut -d':' -f7
@@ -25,7 +26,8 @@ ZSHCONF_DIR="$(pwd | sed "s|^$HOME|\${HOME}|")"
 
 ZSHRC_FILE_COMMAND="source \"$ZSHCONF_DIR/zshrc.zsh\""
 
-if grep -xq "$ZSHRC_FILE_COMMAND" "$ZSHRC_FILE" >/dev/null; then
+if grep -xq "$ZSHRC_FILE_COMMAND" "$ZSHRC_FILE" >/dev/null
+then
   echo "zconfig already installed to $ZSHRC_FILE"
 else
   echo "zconfig install to $ZSHRC_FILE"
@@ -33,10 +35,13 @@ else
 fi
 
 
-if [[ $(usershell) = "/bin/zsh" ]]; then
+if [[ $(usershell) = "/bin/zsh" ]]
+then
   echo "user shell already set to /bin/zsh"
-elif ask "Want to change shell for current user?"; then
-  if ! grep -xq "/bin/zsh" "/etc/shells"; then
+elif ask "Want to change shell for current user?"
+then
+  if ! grep -xq "/bin/zsh" "/etc/shells"
+  then
     echo "/bin/zsh" >> "/etc/shells"
   fi
   chsh -s /bin/zsh

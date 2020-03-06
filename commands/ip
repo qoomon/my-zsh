@@ -49,11 +49,13 @@ function ip-internal {
     esac
   done
 
-  if [ ! "$interface" ]; then
+  if [ ! "$interface" ]
+  then
     local interface_list=($(ifconfig -l))
     for interface in $interface_list; do
         local ip=$(ipconfig getifaddr "$interface")
-        if [ -n "$ip" ]; then
+        if [ -n "$ip" ]
+        then
           echo "$interface: $ip"
         fi
     done
@@ -88,12 +90,14 @@ function ip-external {
   done
 
   local interface_param
-  if [ "$interface" ]; then
+  if [ "$interface" ]
+  then
     interface_param=(--interface "$interface")
   fi
 
   local address="ipinfo.io/ip"
-  if [ "$details" ]; then
+  if [ "$details" ]
+  then
     address="ipinfo.io/json"
   fi
 
