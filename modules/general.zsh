@@ -25,9 +25,8 @@ setopt INTERACTIVE_COMMENTS # Allowes to use #-sign as comment within commandlin
 export WORDCHARS='' # threat every special charater as word delimiter
 
 ### General Keybindings ###
-bindkey -e # -e emacs mode -v for vi mode
-bindkey '^[^[[D' backward-word # alt + left
-bindkey '^[^[[C' forward-word  # alt + rigth
+bindkey '^[b' backward-word # alt + left
+bindkey "^[f" forward-word # alt + rigth
 
 # Enable math functions e.g. (( f = sin(0.3) ))
 zmodload zsh/mathfunc
