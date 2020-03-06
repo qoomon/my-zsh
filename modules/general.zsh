@@ -24,12 +24,18 @@ setopt NOTIFY # Report the status of background jobs immediately, rather than wa
 setopt INTERACTIVE_COMMENTS # Allowes to use #-sign as comment within commandline
 export WORDCHARS='' # threat every special charater as word delimiter
 
-### General Keybindings ###
-bindkey '^[b' backward-word # alt + left
-bindkey "^[f" forward-word # alt + rigth
-
-# Enable math functions e.g. (( f = sin(0.3) ))
-zmodload zsh/mathfunc
+### fzf configuration
+if [ $commands[fzf] ]; then
+  export FZF_DEFAULT_OPTS='
+    --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
+    --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
+    --exact
+    --ansi
+  '
+  if [ $commands[fd] ]; then
+    export FZF_DEFAULT_COMMAND="fd -c always"
+  fi
+fi
 
 # Edit the current command line in $EDITOR
 autoload -Uz edit-command-line
@@ -48,16 +54,3 @@ function zle-line-init {
  fi
 }
 zle -N zle-line-init
-
-### fzf configuration
-if [ $commands[fzf] ]; then
-  export FZF_DEFAULT_OPTS='
-    --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
-    --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
-    --exact
-    --ansi
-  '
-  if [ $commands[fd] ]; then
-    export FZF_DEFAULT_COMMAND="fd -c always"
-  fi
-fi

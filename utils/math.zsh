@@ -1,3 +1,6 @@
+# Enable math functions e.g. (( f = sin(0.3) ))
+zmodload zsh/mathfunc
+
 alias math-sum=$'awk \'{ sum += $1 } END { print sum }\''
 
 alias math-avg=$'awk \'{ sum += $1; count+=1 } END { print sum / count }\''
