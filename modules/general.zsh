@@ -43,14 +43,3 @@ fi
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
-
-# Undo aborted command line
-_zle-undo() {
-  if [[ ! $BUFFER && $ZLE_LINE_ABORTED ]]
-  then
-    BUFFER="$ZLE_LINE_ABORTED" 
-  else
-    zle .undo
-  fi
-}
-zle -N undo _zle-undo
