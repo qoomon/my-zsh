@@ -45,15 +45,12 @@ zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
 # Undo aborted command line
-function zle-line-init {
- if [[ -n $ZLE_LINE_ABORTED ]]
- then
-   local buffer_save="$BUFFER"
-   local cursor_save="$CURSOR"
-   BUFFER="$ZLE_LINE_ABORTED" 
-   CURSOR="${#BUFFER}" 
-   zle split-undo
-   BUFFER="$buffer_save" CURSOR="$cursor_save" 
- fi
+_zle-undo() {
+  if [[ ! $BUFFER && $ZLE_LINE_ABORTED ]]
+  then
+    BUFFER="$ZLE_LINE_ABORTED" 
+  else
+    zle .undo
+  fi
 }
-zle -N zle-line-init
+zle -N undo _zle-undo
