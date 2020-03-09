@@ -5,6 +5,7 @@ export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
 # defaut editor
+bindkey -e # ensure emacs mode
 export VISUAL='vim'
 export EDITOR='vim'
 export PAGER='less'
@@ -31,8 +32,7 @@ then
     --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
     --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
     --exact
-    --ansi
-  '
+    --ansi'
   if [ $commands[fd] ]
   then
     export FZF_DEFAULT_COMMAND="fd -c always"
