@@ -43,9 +43,11 @@ alias less='command less -R -M -X' # -R : enable colors, -M : shows more detaile
 alias http-server='command http-server -a localhost -p 8080'
 alias https-server='command http-server -a localhost -p 8443 --ssl --cert $ZCONFIG_HOME/files/localhost.crt --key $ZCONFIG_HOME/files/localhost.key'
 
-alias pwgen='() {command pwgen -scnyB1 ${1:-20}}'
+alias pwgen='command pwgen -scnyB1'
 
 alias rd='nl | sort -uk2 | sort -nk1 | cut -f2-'
+
+alias epoch='date +%s'
 
 alias weather='() {curl "wttr.in/$1"}' # print weather forecast for current location to prompt
 
