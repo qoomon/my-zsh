@@ -36,7 +36,7 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=default,fg=magenta,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=default,fg=black,bold'
 HISTORY_SUBSTRING_SEARCH_FUZZY='true'
 
-[ ${key[Up]} ]   && bindkey "${key[Up]}"   history-substring-search-up    # arrow-up
-[ ${key[Down]} ] && bindkey "${key[Down]}" history-substring-search-down  # arrow-down
 bindkey '^[[A' history-substring-search-up    # arrow-up
 bindkey '^[[B' history-substring-search-down  # arrow-down
+[ ${key[Up]} ]   && bindkey "${key[Up]}"   history-substring-search-up    # arrow-up
+[ ${key[Down]} ] && bindkey "${key[Down]}" history-substring-search-down  # arrow-down

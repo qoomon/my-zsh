@@ -39,6 +39,15 @@ then
   fi
 fi
 
+####### Key Bindings
+
+# IntelliJ Bindings
+if [[ $TERMINAL_EMULATOR == 'JetBrains-JediTerm' ]]
+then
+  bindkey "^[^[[D" beginning-of-line
+  bindkey "^[^[[C" end-of-line
+fi
+
 # Edit the current command line in $EDITOR
 autoload -Uz edit-command-line
 zle -N edit-command-line
