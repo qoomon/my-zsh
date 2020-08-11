@@ -94,7 +94,9 @@ zstyle ':completion:*:killall:*' command 'ps -u $USER -o command'
 ################
 
 function __completion-widget {
-  if  [[ $BUFFER == '.' ]]
+  if  [[ $BUFFER == '' ]]
+  then return 1 # prevent empty tab
+  elif  [[ $BUFFER == '.' ]]
   then 
     BUFFER="./"
     CURSOR=${#BUFFER}
