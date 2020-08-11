@@ -9,15 +9,13 @@ alias hashx="hash | sed -E -e 's|^([^=]*)(=.*)|${fg_bold[blue]}\1${reset_color}\
 
 alias history-edit='(){ ${1:-$EDITOR} $HISTFILE && fc -R }'
 
-alias home='cd $HOME'
-alias tmp='cd /tmp'
-
 alias pid='(){ps -ax -o "pid, command" | grep --color=always "$1" | grep -v " grep "}'
 
 alias type="'type' -a"
 
 alias pick='fzf -m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all --no-sort --ansi' # fuzzy search and select anything
 
+alias cd='>/dev/null cd' # prevent stdout of special commands e.g. cd -
 alias mv='command mv -i' # ask before overwrite file
 alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
