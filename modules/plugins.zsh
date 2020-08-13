@@ -5,8 +5,9 @@ ZGEM_UTILS_DIR="$ZCONFIG_HOME/utils"
 source "$ZGEM_HOME/zgem.zsh" # && ZGEM_VERBOSE='true'
 
 ### Load Config Management 
-zgem bundle 'zconfig'
-ZCONFIG_UPDATE_COMMAND="(cd '$ZCONFIG_HOME'; git pull); zgem upgrade"
+zgem bundle 'https://github.com/qoomon/zconfig.git'
+# ZCONFIG_HOME set in zsh.rz
+ZCONFIG_UPDATE_COMMAND="git pull; zgem upgrade" 
 
 ################################################################################
 zgem bundle 'https://github.com/qoomon/zsh-lazyload.git'
