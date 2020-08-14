@@ -1,4 +1,4 @@
-# my ZSH 🌊🐚
+# my ZSH
 
 ## Features
 * [Colored Prompt](#prompt)
