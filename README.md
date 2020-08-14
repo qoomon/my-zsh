@@ -1,4 +1,4 @@
-# zsh-config 🐚	⚙️
+# my ZSH 🌊🐚
 
 ## Features
 * [Colored Prompt](#prompt)
