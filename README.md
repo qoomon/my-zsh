@@ -1,5 +1,5 @@
-# my ZSH
-## 🌊🐚
+# my ZSH <sub>[🌊🐚]</sub>
+
 
 ## Features
 * [Colored Prompt](#prompt)
