@@ -54,7 +54,7 @@ Entrypoint [`zshrc.zsh`](zshrc.zsh)
 * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
 * [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)
-* [lazyload](https://github.com/qoomon/zsh-lazyload)
+* [zsh-lazyload](https://github.com/qoomon/zsh-lazyload)
   * e.g. `lazyload nvm -- 'source "$(brew --prefix nvm)/nvm.sh"'`
 
 ##### [Prompt](https://github.com/qoomon/zsh-theme-qoomon.git)
