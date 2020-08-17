@@ -43,6 +43,7 @@ Entrypoint [`zshrc.zsh`](zshrc.zsh)
 * [`modules/completions.zsh`](modules/completions.zsh)
 
 ##### Plugins
+* [zconfig](https://github.com/qoomon/zconfig)
 * [zjump](https://github.com/qoomon/zjump.git)
   * `j` - directory history search with [fzf](https://github.com/junegunn/fzf)
 * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
