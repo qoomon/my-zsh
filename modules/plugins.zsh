@@ -6,7 +6,7 @@ source "$ZGEM_HOME/zgem.zsh" # && ZGEM_VERBOSE='true'
 
 ### Load Config Management 
 zgem bundle 'https://github.com/qoomon/zconfig.git'
-# ZCONFIG_HOME set in zsh.rz
+# ZCONFIG_HOME="$ZCONFIG_HOME" # already set in zshrc.zsh
 ZCONFIG_UPDATE_COMMAND="git pull; zgem upgrade" 
 
 ################################################################################

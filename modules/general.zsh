@@ -41,6 +41,11 @@ fi
 
 ####### Key Bindings
 
+# Edit the current command line in $EDITOR
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 # IntelliJ Bindings
 if [[ $TERMINAL_EMULATOR == 'JetBrains-JediTerm' ]]
 then
@@ -48,7 +53,3 @@ then
   bindkey "^[^[[C" end-of-line
 fi
 
-# Edit the current command line in $EDITOR
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
