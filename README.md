@@ -14,7 +14,7 @@
   * Improved Version of Reverse History Search `Ctrl` + `R` search with [fzf](https://github.com/junegunn/fzf#installation)
 * Jump to visited Directories with [zjump](https://github.com/qoomon/zjump.git); command `j <PART_OF_DIR_PATH>...`
 * Handy Aliases, see [`modules/alias.zsh`](modules/alias.zsh)
-* [zsh-config](/zconfig.zsh)
+* [zsh-config](https://github.com/qoomon/zconfig)
   * `zconfig cd` - cd to `$ZCONFIG_HOME`
   * `zconfig edit [EDITOR]` - open config in `$EDITOR` or in given editor
   * `zconfig update` - updates config and [zgem](https://github.com/qoomon/zgem) plugins
