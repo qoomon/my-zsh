@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-function pdf2scan { 
+function convert2scan { 
   for input in "$@"
   do
     local output="$(basename "$input" .pdf)_scan.pdf"
@@ -22,4 +22,4 @@ function pdf2scan {
   done
 }
 
-pdf2scan "$@"
+convert2scan "$@"
