@@ -8,6 +8,7 @@ function pdf2scan {
     # rotation from -0.2 to +0.2
     local rotation=$(bc -l <<< "-0.2 + 0.4 * ($RANDOM/32767)")
     
+    # ensure ImageMagick is installed
     # gray scan: -colorspace Gray
     # colored scan: -colorspace sRGB
     convert \
