@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
-function convert2scan { 
+function convert2scan {
+  local colorspace
+  if [ "$1" == "--gray" ]
+  then
+    colorspace="Gray"
+    shift 
+  fi
+
   for input in "$@"
   do
     local output="$(basename "$input" .pdf)_scan.pdf"
@@ -14,9 +21,9 @@ function convert2scan {
       -density 100 \
       "$input" \
       -rotate $rotation \
-      -attenuate 0.2 \
+      -attenuate 0.15 \
       +noise Multiplicative \
-      -colorspace Gray \
+      ${colorspace:+-colorspace $colorspace} \
       -sharpen 0x1.0 \
       "$output"
   done
