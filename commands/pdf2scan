@@ -11,6 +11,8 @@ function pdf2scan {
       rotation=-$rotation
     fi
 
+    # gray scan: -colorspace Gray
+    # colored scan: -colorspace sRGB
     convert \
       -density 100 \
       $input \
