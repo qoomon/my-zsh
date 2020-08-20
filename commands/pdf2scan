@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 function pdf2scan { 
-  
   for input in "$@"
   do
     local output="$(basename "$input" .pdf)_scan.pdf"
-
+    
     # rotation from -0.2 to +0.2
     local rotation=$(bc -l <<< "-0.2 + 0.4 * ($RANDOM/32767)")
     
@@ -13,13 +12,13 @@ function pdf2scan {
     # colored scan: -colorspace sRGB
     convert \
       -density 100 \
-      $input \
+      "$input" \
       -rotate $rotation \
       -attenuate 0.2 \
       +noise Multiplicative \
       -colorspace Gray \
       -sharpen 0x1.0 \
-      $output
+      "$output"
   done
 }
 
