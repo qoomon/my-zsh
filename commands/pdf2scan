@@ -1,16 +1,13 @@
-#!/usr/bin/env zsh
-
+#!/usr/bin/env bash
 function pdf2scan { 
+  
   for input in "$@"
   do
     local output="$(basename "$input" .pdf)_scan.pdf"
 
-    # rotation from -0.5 to +0.5
-    local rotation=$(( 0.2 + 0.2 * ( RANDOM % 1000 / 1000.0 ) ))
-    if [ $((RANDOM % 2)) = 0 ]; then
-      rotation=-$rotation
-    fi
-
+    # rotation from -0.2 to +0.2
+    local rotation=$(bc -l <<< "-0.2 + 0.4 * ($RANDOM/32767)")
+    
     # gray scan: -colorspace Gray
     # colored scan: -colorspace sRGB
     convert \
