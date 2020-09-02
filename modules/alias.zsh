@@ -20,6 +20,8 @@ alias mv='command mv -i' # ask before overwrite file
 alias cp='command cp -i' # ask before overwrite file
 alias rm='command rm -i' # ask before remove file
 
+alias tkdir='(){mkdir $@ && cd $_;}'
+
 alias ls='command ls -G' # G - colorize types,
 alias ll='ls -hTpla' # h - human readable
 if [ $commands[exa] ]
