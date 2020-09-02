@@ -28,7 +28,7 @@
   * [zjump](https://github.com/qoomon/zjump.git)
   * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
 * install [my-zsh](https://github.com/qoomon/my-zsh)
-  * `git clone --depth 1 https://github.com/qoomon/zsh-config.git "$HOME/.zsh" && $HOME/.zsh/install.zsh`
+  * `git clone --depth 1 https://github.com/qoomon/my-zsh.git "$HOME/.zsh" && $HOME/.zsh/install.zsh`
 * Get [Terminal Colors Scheme](#terminal-colors-schemes)
 
 
