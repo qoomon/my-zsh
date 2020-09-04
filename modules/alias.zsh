@@ -18,7 +18,7 @@ function hashx { # colorized hash command
 
 function history-edit { ${1:-$EDITOR} $HISTFILE && fc -R }
 
-function history-edit { ps -ax -o "pid, command" | grep --color=always "$1" | grep -v " grep " }
+function pid { ps -ax -o "pid, command" | grep --color=always "$1" | grep -v " grep " }
 
 alias type="type -a"
 
