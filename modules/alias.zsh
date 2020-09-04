@@ -4,52 +4,61 @@
 
 autoload -Uz colors && colors
 
-alias aliasx="alias | grep -v -e 'aliasx=' | sort | sed -E -e 's|^([^=]*)=(.*)|${fg_bold[blue]}\1###${fg[white]}\2${reset_color}|' | column -s '###' -t" # colorized alias
-alias hashx="hash | sed -E -e 's|^([^=]*)(=.*)|${fg_bold[blue]}\1${reset_color}\2|' | column -s '=' -t" # colorized hash command
+function aliasx { # colorized alias
+  alias | sort \
+  | sed -E -e "s|^([^=]*)=(.*)|${fg_bold[blue]}\1###${fg[white]}\2${reset_color}|" \
+  | column -s '###' -t 
+}
 
-alias history-edit='(){ ${1:-$EDITOR} $HISTFILE && fc -R }'
+function hashx { # colorized hash command
+  hash | grep -v -e 'hashx=' | sort \
+  | sed -E -e "s|^([^=]*)(=.*)|${fg_bold[blue]}\1${reset_color}\2|" \
+  | column -s '=' -t
+}
 
-alias pid='(){ps -ax -o "pid, command" | grep --color=always "$1" | grep -v " grep "}'
+function history-edit { ${1:-$EDITOR} $HISTFILE && fc -R }
 
-alias type="'type' -a"
+function history-edit { ps -ax -o "pid, command" | grep --color=always "$1" | grep -v " grep " }
 
-alias pick='fzf -m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all --no-sort --ansi' # fuzzy search and select anything
+alias type="type -a"
+
+if [ $commands[fzf] ]; then
+  alias pick='fzf -m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all --no-sort --ansi' # fuzzy search and select anything
+fi
 
 alias cd='>/dev/null cd' # prevent stdout of special commands e.g. cd -
-alias mv='command mv -i' # ask before overwrite file
-alias cp='command cp -i' # ask before overwrite file
-alias rm='command rm -i' # ask before remove file
+alias mv='mv -i' # ask before overwrite file
+alias cp='cp -i' # ask before overwrite file
+alias rm='rm -i' # ask before remove file
+function tkdir { mkdir $@ && cd $_ }
 
-alias tkdir='(){mkdir $@ && cd $_;}'
-
-alias ls='command ls -G' # G - colorize types,
-alias ll='ls -hTpla' # h - human readable
+alias ls='ls -G' # G - colorize types,
+alias ll='ls -laphc' # -l : details; -p : file indicator; -c : last modified date; -u : last usage date; -h : human readable;
 if [ $commands[exa] ]
 then
-  alias ll='exa -Fla --group-directories-first' # h - human readable
+  alias exa='exa --group-directories-first --classify' 
+  alias el='exa -Fla '
 fi
 
 alias bat='bat --plain --paging never' # disable line numbers and paging by default
 
-alias du="du -h" # h - human readable
-alias df="df -h" # h - human readable
+alias du="du -h" # -h : human readable;
+alias df="df -h" # -h : human readable;
 
-alias gls='command gls --color'
+alias gls='gls --color'
 alias gll='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --human-readable -l' # l - long format
 
-alias grep='command grep --color=auto' # colorize matching parts
-alias less='command less -R -M -X' # -R : enable colors, -M : shows more detailed prompt, including file position -N : shows line number -X : supresses the terminal clearing at exit
+alias grep='grep --color=auto' # colorize matching parts
+alias less='less -R -M -X' # -R : enable colors; -M : shows more detailed prompt, including file position; -N : shows line number; -X : supresses the terminal clearing at exit;
   
-alias http-server='command http-server -a localhost -p 8080'
-alias https-server='command http-server -a localhost -p 8443 --ssl --cert $ZCONFIG_HOME/files/localhost.crt --key $ZCONFIG_HOME/files/localhost.key'
+alias http-server='http-server -a localhost -p 8080'
+alias https-server='http-server -a localhost -p 8443 --ssl --cert $ZCONFIG_HOME/files/localhost.crt --key $ZCONFIG_HOME/files/localhost.key'
 
-alias pwgen='command pwgen -scnyB1'
+alias pwgen='pwgen -scnyB1'
 
-alias rd='nl | sort -uk2 | sort -nk1 | cut -f2-'
+alias epoch='date +%s' # print current epoch seconds
 
-alias epoch='date +%s'
-
-alias weather='() {curl "wttr.in/$1"}' # print weather forecast for current location to prompt
+function weather { curl "wttr.in/$1" } # print weather forecast for current location to prompt
 
 alias wordcount="tr -s ' ' | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr"
 
