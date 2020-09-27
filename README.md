@@ -38,7 +38,6 @@ Entrypoint [`zshrc.zsh`](zshrc.zsh)
 #### Modules
 * [`modules/plugins.zsh`](modules/plugins.zsh)
 * [`modules/general.zsh`](modules/general.zsh)
-* [`modules/alias.zsh`](modules/alias.zsh)
 * [`modules/history.zsh`](modules/history.zsh)
 * [`modules/completions.zsh`](modules/completions.zsh)
 
