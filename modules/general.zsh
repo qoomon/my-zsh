@@ -40,49 +40,32 @@ then
 fi
 
 
-
 ################################################################################
 ####### Utils ##################################################################
 ################################################################################
 
-function aliasx { # colorized alias
+function pid { 
+  ps -ax -o "pid, command" \
+  | grep --color=always "$1" \
+  | grep -v " grep " 
+}
+
+ # colorized alias list
+function alias-list {
   alias | sort \
   | sed -E -e "s|^([^=]*)=(.*)|${fg_bold[blue]}\1###${fg[white]}\2${reset_color}|" \
   | column -s '###' -t 
 }
 
-function hashx { # colorized hash command
+# colorized command list
+function hash-list { 
   hash | grep -v -e 'hashx=' | sort \
   | sed -E -e "s|^([^=]*)(=.*)|${fg_bold[blue]}\1${reset_color}\2|" \
   | column -s '=' -t
 }
 
-function history-edit { ${1:-$EDITOR} $HISTFILE && fc -R }
-
-function pid { ps -ax -o "pid, command" | grep --color=always "$1" | grep -v " grep " }
-
 # make directory and jump into it
 function tkdir { mkdir $@ && cd $_ }
-
-# colorized man
-function man {
-  LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
-  LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
-  LESS_TERMCAP_ue=$(printf "$reset_color") \
-  PAGER="${commands[less]:-$PAGER}" \
-  _NROFF_U=1 \
-     command man "$@"
-}
-
-# colorized diff
-function diff {
-  command diff "$@" | sed \
-    -e "s|^\(<.*\)|${fg[red]}\1$reset_color|" \
-    -e "s|^\(>.*\)|${fg[green]}\1$reset_color|" \
-    -e "s|^\([a-z0-9].*\)|${fg_bold[cyan]}\1$reset_color|" \
-    -l
-  return ${pipestatus[1]}
-}
 
 # Print line annotation with comment 
 function annotate {
@@ -111,6 +94,25 @@ function random {
 # print weather forecast for current location to prompt
 function weather { curl "wttr.in/$1" }
 
+# colorized man
+function man {
+  LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
+  LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
+  LESS_TERMCAP_ue=$(printf "$reset_color") \
+  PAGER="${commands[less]:-$PAGER}" \
+  _NROFF_U=1 \
+     command man "$@"
+}
+
+# colorized diff
+function diff {
+  command diff "$@" | sed \
+    -e "s|^\(<.*\)|${fg[red]}\1$reset_color|" \
+    -e "s|^\(>.*\)|${fg[green]}\1$reset_color|" \
+    -e "s|^\([a-z0-9].*\)|${fg_bold[cyan]}\1$reset_color|" \
+    -l
+  return ${pipestatus[1]}
+}
 
 
 ################################################################################
@@ -157,8 +159,6 @@ alias epoch='date +%s' # print current epoch seconds
 alias wordcount="tr -s ' ' | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr"
 
 # alias -s jpeg="open" # sufix alias
-
-
 
 ################################################################################
 ####### Key Bindings ###########################################################

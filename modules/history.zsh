@@ -19,3 +19,5 @@ setopt HIST_IGNORE_SPACE        # Do not include lines beginning with a space in
 # setopt SINGLE_LINE_ZLE         # single line command history
 setopt HIST_VERIFY              # let the user edit the command line after history expansion
 setopt NO_HIST_BEEP
+
+function history-edit { ${1:-$EDITOR} $HISTFILE && fc -R }
