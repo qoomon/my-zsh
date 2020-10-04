@@ -4,7 +4,7 @@
 # ifconfig.co/ip;   ifconfig.co/json
 # api.ipify.org
 
-function ip {
+function myip {
   local cmd="$1"
   [[ $# > 0 ]] && shift
 
@@ -104,4 +104,4 @@ function ip-external {
   curl $interface_param "$address"
 }
 
-ip "$@"
+myip "$@"
