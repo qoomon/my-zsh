@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+################################################
+#
+# Prerequisits:
+#   ensure ImageMagick is installed
+#
+# Usage:
+#   convert-pdf2scan [--gray] files...
+#
+################################################
+
+if [ "$1" == "--gray" ]
+then
+  local colorspace="Gray"
+  shift 
+fi
+
+for input in "$@"
+do
+  local output="$(basename "$input" .pdf)_scan.pdf"
+  
+  # random rotation from 0.2 to 0.4 degrees
+  local rotation=$(bc -l <<< "0.2 + 0.2 * ($RANDOM/32767)")
+  if [ $(($RANDOM % 2)) == 0 ]
+  then
+    rotation=-$rotation
+  fi
+  
+  convert \
+    -density 95 \
+    "$input" \
+    -rotate $rotation \
+    -attenuate 0.15 \
+    +noise Multiplicative \
+    ${colorspace:+-colorspace $colorspace} \
+    -sharpen 0x1.0 \
+    "$output"
+done

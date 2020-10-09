@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # ipinfo.io/ip;   ipinfo.io/json
-# ifconfig.co/ip;   ifconfig.co/json
-# api.ipify.org
+# ifconfig.co/ip; ifconfig.co/json
+# ipapi.co/ip;    ipapi.co/json
 
 function myip {
   local cmd="$1"
@@ -18,20 +18,18 @@ function myip {
     *)
       echo "Unknown command '$cmd'" >&2
       echo "Usage: " >&2
-      echo "" >&2
-      echo "   $0 internal" >&2
-      echo "or $0 int" >&2
-      echo "" >&2
-      echo "   $0 external" >&2
-      echo "or $0 ext" >&2
+      echo "   ${0##*/} int[ernal]" >&2
+      echo "   ${0##*/} ext[ernal]" >&2
+
       return 1
       ;;
   esac
 }
 
 function ip-internal {
-  local interface=""
-
+  
+  local interface=$(route -n get default | grep 'interface:' | sed 's/^.*: //')
+  
   while [[ $# > 0 ]] ; do
     local param_key="$1"
     shift
@@ -43,30 +41,19 @@ function ip-internal {
         ;;
       *)
         echo "Unknown parameter '$param_key'" >&2
-        echo  "Parameter: {--interface <name>}" >&2
+        echo "Valid parameters:" >&2
+        echo "    --interface <name>, -i <name>" >&2
         return 1
         ;;
     esac
   done
-
-  if [ ! "$interface" ]
-  then
-    local interface_list=($(ifconfig -l))
-    for interface in $interface_list; do
-        local ip=$(ipconfig getifaddr "$interface")
-        if [ -n "$ip" ]
-        then
-          echo "$interface: $ip"
-        fi
-    done
-  else
-    echo $(ipconfig getifaddr "$interface")
-  fi
+  
+  echo $(ipconfig getifaddr "$interface")
 }
 
 function ip-external {
 
-  local interface=
+  local interface=$(route -n get default | grep 'interface:' | sed 's/^.*: //')
   local details=false
 
   while [[ $# > 0 ]] ; do
@@ -83,25 +70,21 @@ function ip-external {
         ;;
       *)
         echo "Unknown parameter '$param_key'" >&2
-        echo "Parameter: {--details|--interface <name>}" >&2
+        echo "Valid parameters:" >&2
+        echo "    --interface <name>, -i <name>" >&2
+        echo "    --details, -d" >&2
         return 1
         ;;
     esac
   done
-
-  local interface_param
-  if [ "$interface" ]
+  
+  # TODO --ipv4
+  if [ "$details" == 'true' ]
   then
-    interface_param=(--interface "$interface")
+    curl $interface_param "https://ipapi.co/json/" -w "\n"
+  else
+    curl $interface_param "https://ipapi.co/ip" -w "\n"
   fi
-
-  local address="ipinfo.io/ip"
-  if [ "$details" ]
-  then
-    address="ipinfo.io/json"
-  fi
-
-  curl $interface_param "$address"
 }
 
 myip "$@"

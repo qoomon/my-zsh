@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+################################################
+#
+# Prerequisits:
+#   ensure ImageMagick is installed
+#
+# Usage:
+#   convert-pdf2images [--resize 1024x] files...
+#
+################################################
+
+if [ "$1" == "--resize" ]
+then
+  local resize="$2"
+  shift 2
+fi
+
+local input="$1"
+local output="${input%.*}.png"
+    
+convert \
+  -density 300 \
+  -antialias \
+  "$input" \
+  ${resize:+-resize $resize} \
+  -colorspace RGB \
+  -quality 100 \
+  "$output"
