@@ -16,11 +16,14 @@ function myip {
       ip-external $@
       ;;
     *)
-      echo "Unknown command '$cmd'" >&2
+      if [ -n "$cmd" ]
+      then
+        echo "Unknown command '$cmd'" >&2
+      fi
       echo "Usage: " >&2
-      echo "   ${0##*/} int[ernal]" >&2
-      echo "   ${0##*/} ext[ernal]" >&2
-
+      echo "   ${0##*/} int[ernal] [--interface <interface name>]" >&2
+      echo "   ${0##*/} ext[ernal] [--interface <interface name>] [--details]" >&2
+      
       return 1
       ;;
   esac
@@ -30,7 +33,8 @@ function ip-internal {
   
   local interface=$(route -n get default | grep 'interface:' | sed 's/^.*: //')
   
-  while [[ $# > 0 ]] ; do
+  while [[ $# > 0 ]]
+  do
     local param_key="$1"
     shift
 
@@ -56,7 +60,8 @@ function ip-external {
   local interface=$(route -n get default | grep 'interface:' | sed 's/^.*: //')
   local details=false
 
-  while [[ $# > 0 ]] ; do
+  while [[ $# > 0 ]]
+  do
     local param_key="$1"
     shift
 
