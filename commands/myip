@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# ipinfo.io/ip;   ipinfo.io/json
-# ifconfig.co/ip; ifconfig.co/json
-# ipapi.co/ip;    ipapi.co/json
-
 function myip {
   local cmd="$1"
   [[ $# > 0 ]] && shift
@@ -29,9 +25,13 @@ function myip {
   esac
 }
 
+function default-interface {
+  echo "$(route -n get default | grep 'interface:' | sed 's/^.*: //')"
+}
+
 function ip-internal {
   
-  local interface=$(route -n get default | grep 'interface:' | sed 's/^.*: //')
+  local interface=$(default-interface)
   
   while [[ $# > 0 ]]
   do
@@ -52,12 +52,13 @@ function ip-internal {
     esac
   done
   
-  echo $(ipconfig getifaddr "$interface")
+  echo "ipv4: $(ifconfig en0 | grep ' *inet .*' | cut -d ' ' -f2)"
+  echo "ipv6: $(ifconfig en0 | grep ' *inet6 .* temporary' | cut -d ' ' -f2)"
 }
 
 function ip-external {
 
-  local interface=$(route -n get default | grep 'interface:' | sed 's/^.*: //')
+  local interface=$(default-interface)
   local details=false
 
   while [[ $# > 0 ]]
@@ -83,13 +84,16 @@ function ip-external {
     esac
   done
   
-  # TODO --ipv4
+  local endpoint='https://ipapi.co/'
   if [ "$details" == 'true' ]
   then
-    curl $interface_param "https://ipapi.co/json/" -w "\n"
+    endpoint+='json'
   else
-    curl $interface_param "https://ipapi.co/ip" -w "\n"
+    endpoint+='ip'
   fi
+  
+  echo "ipv4: $(curl --ipv4 $interface_param "$endpoint" -s)"
+  echo "ipv6: $(curl --ipv6 $interface_param "$endpoint" -s)"
 }
 
 myip "$@"
