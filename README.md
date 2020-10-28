@@ -22,15 +22,18 @@
 * and a lot more..., see [Configuration Modules](#modules)
 
 
-##### [Prompt](https://github.com/qoomon/zsh-theme-qoomon.git)
+##### Prompt Theme
+* see [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)
+  
+  ![prompt_default](.README/prompt_default.png)
+
+###### Features
 * Multiline Prompt
 * Root user highlight
 * GIT status of current directory
   * `*` dirty flag
   * `⇡`/`⇣` before/behind
 * Return code after command, if it's not `0`
-
-![prompt_default](.README/prompt_default.png)
 
 
 #### Terminal Colors Schemes
