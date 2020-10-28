@@ -22,6 +22,22 @@
 * and a lot more..., see [Configuration Modules](#modules)
 
 
+##### [Prompt](https://github.com/qoomon/zsh-theme-qoomon.git)
+* Multiline Prompt
+* Root user highlight
+* GIT status of current directory
+  * `*` dirty flag
+  * `⇡`/`⇣` before/behind
+* Return code after command, if it's not `0`
+
+![prompt_default](.README/prompt_default.png)
+
+
+#### Terminal Colors Schemes
+* for [iTerm](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.itermcolors)
+* for [macOS Terminal](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.terminal)
+
+
 ## Installation
 * [install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH#how-to-install-zsh-in-many-platforms)
 * [install fzf](https://github.com/junegunn/fzf#installation), it's mandatory to make following [plugins](#plugins) work
@@ -55,24 +71,6 @@ Entrypoint [`zshrc.zsh`](zshrc.zsh)
 * [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)
 * [zsh-lazyload](https://github.com/qoomon/zsh-lazyload)
   * e.g. `lazyload nvm -- 'source "$(brew --prefix nvm)/nvm.sh"'`
-
-##### [Prompt](https://github.com/qoomon/zsh-theme-qoomon.git)
-* Multiline Prompt
-* Root user highlight
-* GIT status of current directory
-  * `*` dirty flag
-  * `⇡`/`⇣` before/behind
-* Return code after command, if it's not `0`
-
-![prompt_default](.README/prompt_default.png)
-
-![prompt_root](.README/prompt_root.png)
-
-![prompt_error](.README/prompt_error.png)
-
-#### Terminal Colors Schemes
-* for [iTerm](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.itermcolors)
-* for [macOS Terminal](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.terminal)
 
 ## Misc Zsh Know-How
 
