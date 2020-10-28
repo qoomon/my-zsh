@@ -25,7 +25,7 @@
 ##### Prompt Theme
 * see [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)
   
-  ![prompt_default](.README/prompt_default.png)
+  ![prompt_example](.README/prompt_example.png)
 
 ###### Features
 * Multiline Prompt
@@ -53,7 +53,7 @@
 
 ## Configuration Structure
 Entrypoint [`zshrc.zsh`](zshrc.zsh)
-  
+
 #### Modules
 * [`modules/plugins.zsh`](modules/plugins.zsh)
 * [`modules/general.zsh`](modules/general.zsh)
