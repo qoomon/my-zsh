@@ -119,6 +119,8 @@ function diff {
 ####### Aliases ################################################################
 ################################################################################
 
+alias sudo='sudo ' # allow aliases to work with sudo
+
 alias type="type -a"
 
 if [ $commands[fzf] ]; then
@@ -149,8 +151,8 @@ alias gll='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --hum
 alias grep='grep --color=auto' # colorize matching parts
 alias less='less -R -M -X' # -R : enable colors; -M : shows more detailed prompt, including file position; -N : shows line number; -X : supresses the terminal clearing at exit;
   
-alias http-server='http-server -a localhost -p 8080'
-alias https-server='http-server -a localhost -p 8443 --ssl --cert $ZCONFIG_HOME/files/localhost.crt --key $ZCONFIG_HOME/files/localhost.key'
+alias http-server='\http-server -a localhost -p 8080'
+alias https-server='\http-server -a localhost -p 8443 --ssl --cert $HOME/localhost+1.pem --key $HOME/localhost+1-key.pem'
 
 alias pwgen='pwgen -scnyB1'
 
