@@ -152,7 +152,9 @@ alias grep='grep --color=auto' # colorize matching parts
 alias less='less -R -M -X' # -R : enable colors; -M : shows more detailed prompt, including file position; -N : shows line number; -X : supresses the terminal clearing at exit;
   
 alias http-server='\http-server -a localhost -p 8080'
-alias https-server='\http-server -a localhost -p 8443 --ssl --cert $HOME/localhost+1.pem --key $HOME/localhost+1-key.pem'
+# you may generate cert and key with following command
+#   mkcert -cert-file localhost.pem, -key-file localhost-key.pem localhost 'local.host' '*.local.host' 
+alias https-server='\http-server -a localhost -p 8443 --ssl --cert $HOME/localhost.pem --key $HOME/localhost-key.pem'
 
 alias pwgen='pwgen -scnyB1'
 
