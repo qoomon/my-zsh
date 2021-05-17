@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e # exit on error
 ################################################
 #
 # Prerequisits:
@@ -8,31 +9,57 @@
 #   convert-pdf2scan [--gray] files...
 #
 ################################################
-
 if [ "$1" == "--gray" ]
 then
-  local colorspace="Gray"
+  colorspace="Gray"
   shift 
 fi
 
+tilt_min=0.02
+tilt_max=0.06
+density=100
+noise=0.15
+
 for input in "$@"
 do
-  local output="$(basename "$input" .pdf)_scan.pdf"
+
+  build_dir="$(mktemp -d "${TMPDIR:-/tmp}"/pdf2scan.XXXX)"
+  output_file="$(basename "$input" .pdf)_scan.pdf"
   
-  # random rotation from 0.2 to 0.4 degrees
-  local rotation=$(bc -l <<< "0.2 + 0.2 * ($RANDOM/32767)")
-  if [ $(($RANDOM % 2)) == 0 ]
-  then
-    rotation=-$rotation
-  fi
+  # process each page
+  page_count=$(identify -ping "$input" | wc -l | bc)
+  page_range="0..$(bc <<< "$page_count - 1")"
+  for (( page_index=0; page_index<$page_count; page_index++ ))
+  do
+    echo "process page $(bc <<< "$page_index + 1")/$page_count ..."
+    
+    # randomize tilt
+    tilt=$(bc -l <<< "$tilt_min + ($tilt_max - $tilt_min) * ($RANDOM/32767)")
+    if [ $(($RANDOM % 2)) = 0 ]
+    then
+      tilt=-$tilt
+    fi
+    
+    convert \
+      -density $density \
+      "${input}[${page_index}]" \
+      -background none \
+      -rotate $tilt \
+      -attenuate $noise \
+      +noise Multiplicative \
+      ${colorspace:+-colorspace $colorspace} \
+      -sharpen 0x1.0 \
+      "$build_dir/page_${page_index}.pdf"
+  done
   
+  # merge pages
+  echo "merge pages into '$output_file' ..."
+  IFS=$'\n' scan_pages=($(ls -1 "$build_dir/page_"* | sort -V))
   convert \
-    -density 95 \
-    "$input" \
-    -rotate $rotation \
-    -attenuate 0.15 \
-    +noise Multiplicative \
-    ${colorspace:+-colorspace $colorspace} \
-    -sharpen 0x1.0 \
-    "$output"
+    -density $density \
+    -compress jpeg -quality 80 \
+    "${scan_pages[@]}" \
+    "$output_file"
+  
+  echo "done!"
 done
