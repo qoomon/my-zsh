@@ -2,7 +2,7 @@
 
 
 ## Features
-* [Colored Prompt](#prompt)
+* [Colored Prompt](#prompt-theme)
   * [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
    * Display Exit Code if not 0
    * Display Git informations of working directory (Branch name and Status Indicators)
