@@ -8,10 +8,10 @@
    * Display Git informations of working directory (Branch name and Status Indicators)
 * Completions
   * for Commands and Parameters; hit `Tab`
-  * for Commands and Parameters from history search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
+  * for Commands and Parameters from history; search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
 * Search History
   * by Substrings; hit `Arrow Up`
-  * Improved Version of Reverse History Search `Ctrl` + `R` search with [fzf](https://github.com/junegunn/fzf#installation)
+  * Improved Version of Reverse History Search; search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `R`
 * Jump to visited Directories with [zjump](https://github.com/qoomon/zjump.git); command `j <PART_OF_DIR_PATH>...`
 * Handy Aliases, see [`modules/alias.zsh`](modules/alias.zsh)
 * [zsh-config](https://github.com/qoomon/zconfig)
