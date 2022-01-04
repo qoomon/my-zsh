@@ -36,19 +36,16 @@
 * Return code after command, if it's not `0`
 
 
-#### Terminal Colors Schemes
-* for [iTerm](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.itermcolors)
-* for [macOS Terminal](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.terminal)
-
-
 ## Installation
-* [install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH#how-to-install-zsh-in-many-platforms)
-* [install fzf](https://github.com/junegunn/fzf#installation), it's mandatory to make following [plugins](#plugins) work
+* [Install zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH#how-to-install-zsh-in-many-platforms)
+* [Install fzf](https://github.com/junegunn/fzf#installation), it's mandatory to make following [plugins](#plugins) work
   * [zjump](https://github.com/qoomon/zjump.git)
   * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
-* install [my-zsh](https://github.com/qoomon/my-zsh)
+* Install [my-zsh](https://github.com/qoomon/my-zsh)
   * `git clone --depth 1 https://github.com/qoomon/my-zsh.git "$HOME/.zsh" && $HOME/.zsh/install.zsh`
-* Get [Terminal Colors Scheme](#terminal-colors-schemes)
+* Install Qoomon Colors Scheme [optional]
+  * for [iTerm](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.itermcolors)
+  * for [macOS Terminal](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.terminal)
 
 
 ## Configuration Structure
