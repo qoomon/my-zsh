@@ -1,11 +1,13 @@
 # my ZSH <sub>[🌊🐚]</sub>
 
+![prompt_example](.README/prompt_example.png)
 
 ## Features
-* [Colored Prompt](#prompt-theme)
-  * [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
-   * Display Exit Code if not 0
-   * Display Git informations of working directory (Branch name and Status Indicators)
+* Colored Prompt
+  * [Qoomon Theme](https://github.com/qoomon/zsh-theme-qoomon.git)
+    * Display Exit Code if not 0
+    * Display Git informations of working directory (Branch name and Status Indicators)
+  * [Syntax Highlighting Plugin](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * Completions
   * for Commands and Parameters; hit `Tab`
   * for Commands and Parameters from history; search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
@@ -14,26 +16,12 @@
   * Improved Version of Reverse History Search; search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `R`
 * Jump to visited Directories with [zjump](https://github.com/qoomon/zjump.git); command `j <PART_OF_DIR_PATH>...`
 * Handy Aliases, see [`modules/alias.zsh`](modules/alias.zsh)
-* [zsh-config](https://github.com/qoomon/zconfig)
+* [Config Plugin](https://github.com/qoomon/zconfig)
   * `zconfig cd` - cd to `$ZCONFIG_HOME`
   * `zconfig edit [EDITOR]` - open config in `$EDITOR` or in given editor
   * `zconfig update` - updates config and [zgem](https://github.com/qoomon/zgem) plugins
 * Handy optional Utils, see [Utils Directory](/utils); load by `zgem bundle <UTIL_NAME>`
 * and a lot more..., see [Configuration Modules](#modules)
-
-
-##### Prompt Theme
-* see [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)
-  
-  ![prompt_example](.README/prompt_example.png)
-
-###### Features
-* Multiline Prompt
-* Root user highlight
-* GIT status of current directory
-  * `*` dirty flag
-  * `⇡`/`⇣` before/behind
-* Return code after command, if it's not `0`
 
 
 ## Installation
