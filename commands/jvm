@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function jvm {
   if [ "$1" = "-h" ]
   then
@@ -9,22 +11,24 @@ function jvm {
   fi
 
   if [ $# = 0 ]
-  then 
+  then
     echo 'Installed Versions'
     /usr/libexec/java_home -V 2>&1 | command grep "^    "
-    echo 
+    echo
     echo 'Current Version'
     if [ "$JAVA_HOME" ]
     then
       /usr/libexec/java_home -V 2>&1 | command grep "\s${JAVA_HOME}"
     else
       /usr/libexec/java_home -V 2>&1 | command grep "\s$(/usr/libexec/java_home)"
-    fi 
+    fi
   else
     local java_home_path="$(/usr/libexec/java_home -v $1)"
     if [ $? = 0 ]
     then
       export JAVA_HOME="$java_home_path"
-    fi 
+    fi
   fi
 }
+
+jvm "$@"
