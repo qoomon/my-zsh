@@ -15,12 +15,12 @@
   * by Substrings; hit `Arrow Up`
   * Improved Version of Reverse History Search; search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `R`
 * Jump to visited Directories with [zjump](https://github.com/qoomon/zjump.git); command `j <PART_OF_DIR_PATH>...`
-* Handy Aliases, see [`modules/alias.zsh`](modules/alias.zsh)
+* Handy Util Functions and Aliases, see [`modules/general.zsh`](modules/general.zsh)
 * [Config Plugin](https://github.com/qoomon/zconfig)
   * `zconfig cd` - cd to `$ZCONFIG_HOME`
   * `zconfig edit [EDITOR]` - open config in `$EDITOR` or in given editor
   * `zconfig update` - updates config and [zgem](https://github.com/qoomon/zgem) plugins
-* Handy optional Utils, see [Utils Directory](/utils); load by `zgem bundle <UTIL_NAME>`
+* Handy optional Utils, see [Utils Directory](utils/); load by `zgem bundle <UTIL_NAME>`
 * and a lot more..., see [Configuration Modules](#modules)
 
 
