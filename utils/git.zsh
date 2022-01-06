@@ -40,3 +40,17 @@ function git-browser {
     fi
   done
 }
+
+function github-toggle-remote-url-https-ssh {
+  local remote_name=$1
+  local remote_url=$(git remote get-url $remote_name)
+  if [[ $remote_url =~ '^https://github.com/' ]]
+  then
+    remote_url=$(echo $remote_url | sed 's|^https://github.com/|git@github.com:|')
+  elif [[ $remote_url =~ '^git@github.com:' ]]
+  then
+    remote_url=$(echo $remote_url | sed 's|^git@github.com:|https://github.com/|')
+  fi
+  git remote set-url $remote_name $remote_url
+  git remote get-url $remote_name
+}
