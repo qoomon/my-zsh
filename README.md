@@ -20,7 +20,7 @@
   * `zconfig cd` - cd to `$ZCONFIG_HOME`
   * `zconfig edit [EDITOR]` - open config in `$EDITOR` or in given editor
   * `zconfig update` - updates config and [zgem](https://github.com/qoomon/zgem) plugins
-* Handy optional Utils, see [Utils Directory](utils/); load by `zgem bundle <UTIL_NAME>`
+* Handy optional Utils, see [Utils Directory](utils/); load all by `zgem bundle` or specific util by `zgem bundle <UTIL_NAME>` 
 * and a lot more..., see [Configuration Modules](#modules)
 
 
