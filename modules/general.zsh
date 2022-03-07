@@ -16,9 +16,9 @@ export EDITOR='vim'
 export PAGER='less'
 
 # colorize file system view
-export LS_COLORS="di=1;34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30" 
+export LS_COLORS="di=1;34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30"
 # colorize file system view (macOS)
-export LSCOLORS="Exfxcxdxbxegedabagacad" 
+export LSCOLORS="Exfxcxdxbxegedabagacad"
 
 # support colors in less
 export LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
@@ -44,21 +44,21 @@ fi
 ####### Utils ##################################################################
 ################################################################################
 
-function pid { 
+function pid {
   ps -ax -o "pid, command" \
   | grep --color=always "$1" \
-  | grep -v " grep " 
+  | grep -v " grep "
 }
 
  # colorized alias list
 function alias-list {
   alias | sort \
   | sed -E -e "s|^([^=]*)=(.*)|${fg_bold[blue]}\1###${fg[white]}\2${reset_color}|" \
-  | column -s '###' -t 
+  | column -s '###' -t
 }
 
 # colorized command list
-function hash-list { 
+function hash-list {
   hash | grep -v -e 'hashx=' | sort \
   | sed -E -e "s|^([^=]*)(=.*)|${fg_bold[blue]}\1${reset_color}\2|" \
   | column -s '=' -t
@@ -67,7 +67,7 @@ function hash-list {
 # make directory and jump into it
 function tkdir { mkdir $@ && cd $_ }
 
-# Print line annotation with comment 
+# Print line annotation with comment
 function annotate {
   local comment=$1
   echo
@@ -136,7 +136,7 @@ alias ls='ls -G' # G - colorize types,
 alias ll='ls -laphc' # -l : details; -p : file indicator; -c : last modified date; -u : last usage date; -h : human readable;
 if [ $commands[exa] ]
 then
-  alias exa='exa --group-directories-first --classify' 
+  alias exa='exa --group-directories-first --classify'
   alias el='exa -Fla '
 fi
 
@@ -150,10 +150,10 @@ alias gll='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --hum
 
 alias grep='grep --color=auto' # colorize matching parts
 alias less='less -R -M -X' # -R : enable colors; -M : shows more detailed prompt, including file position; -N : shows line number; -X : supresses the terminal clearing at exit;
-  
+
 alias http-server='\http-server -a localhost -p 8080'
 # you may generate cert and key with following command
-#   mkcert -cert-file localhost.pem, -key-file localhost-key.pem localhost 'local.host' '*.local.host' 
+#   mkcert -cert-file localhost.pem, -key-file localhost-key.pem localhost 'local.host' '*.local.host'
 alias https-server='\http-server -a localhost -p 8443 --ssl --cert $HOME/localhost.pem --key $HOME/localhost-key.pem'
 
 alias pwgen='pwgen -scnyB1'
