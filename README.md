@@ -32,8 +32,8 @@
 * Install [my-zsh](https://github.com/qoomon/my-zsh)
   * `git clone --depth 1 https://github.com/qoomon/my-zsh.git "$HOME/.zsh" && $HOME/.zsh/install.zsh`
 * Install Qoomon Colors Scheme [optional]
-  * for [iTerm](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.itermcolors)
-  * for [macOS Terminal](https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.terminal)
+  * for [iTerm](https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.itermcolors)
+  * for [macOS Terminal](https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.terminal)
 
 
 ## Configuration Structure
