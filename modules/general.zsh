@@ -133,11 +133,11 @@ alias cp='cp -i' # ask before overwrite file
 alias rm='rm -i' # ask before remove file
 
 alias ls='ls -G' # G - colorize types,
-alias ll='ls -laphc' # -l : details; -p : file indicator; -c : last modified date; -u : last usage date; -h : human readable;
+alias ll='ls -lpch' # -l : details; -p : file indicator; -c : last modified date; -u : last usage date; -h : human readable;
 if [ $commands[exa] ]
 then
   alias exa='exa --group-directories-first --classify'
-  alias el='exa -Fla '
+  alias el='exa -l'
 fi
 
 alias bat='bat --plain --paging never' # disable line numbers and paging by default
