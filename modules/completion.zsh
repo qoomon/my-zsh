@@ -94,19 +94,16 @@ zstyle ':completion:*:killall:*' command 'ps -u $USER -o command'
 ################
 
 function __completion-widget {
-  if  [[ $BUFFER == '' ]]
-  then return 1 # prevent empty tab
-  elif  [[ $BUFFER == '.' ]]
-  then 
+  if [[ $BUFFER == '' || $BUFFER == '.' ]]
+  then
     BUFFER="./"
     CURSOR=${#BUFFER}
-    zle list-choices
-  else
-    # adds '...' during completion to cli
-    echo -n "${fg_bold[magenta]}…$reset_color"
-    zle expand-or-complete # default binding
-    zle reset-prompt
   fi
+
+  # adds '...' during completion to cli
+  echo -n "${fg_bold[magenta]}…$reset_color"
+  zle expand-or-complete # default binding
+  zle reset-prompt
 }
 zle -N __completion-widget
 bindkey '^I' __completion-widget # '^I' is <Tab>
