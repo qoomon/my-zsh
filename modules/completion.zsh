@@ -89,6 +89,11 @@ zstyle ':completion:*:*:*:*:processes-names' command  'ps -c -u ${USER} -o comma
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:killall:*' command 'ps -u $USER -o command'
 
+if [ $commands[brew] ]
+then
+  fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+fi
+
 ################
 ### COMPLETION UTILS
 ################
