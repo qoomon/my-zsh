@@ -4,10 +4,10 @@ ZGEM_UTILS_DIR="$ZCONFIG_HOME/utils"
 [[ -e "$ZGEM_HOME" ]] || git clone 'https://github.com/qoomon/zgem.git' "$ZGEM_HOME"
 source "$ZGEM_HOME/zgem.zsh" # && ZGEM_VERBOSE='true'
 
-### Load Config Management 
+### Load Config Management
 zgem bundle 'https://github.com/qoomon/zconfig.git'
 # ZCONFIG_HOME="$ZCONFIG_HOME" # already set in zshrc.zsh
-ZCONFIG_UPDATE_COMMAND="git pull; zgem upgrade" 
+ZCONFIG_UPDATE_COMMAND="git pull; zgem upgrade"
 
 ################################################################################
 zgem bundle 'https://github.com/qoomon/zsh-lazyload.git'
@@ -29,7 +29,7 @@ zgem bundle 'https://github.com/zsh-users/zsh-completions.git'
 ################################################################################
 zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-ZSH_HIGHLIGHT_MAXLENGTH=300
+ZSH_HIGHLIGHT_MAXLENGTH=2048
 
 ################################################################################
 zgem bundle 'https://github.com/zsh-users/zsh-history-substring-search.git'
