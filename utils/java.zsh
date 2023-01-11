@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 function jvm {
   if [ "$1" = "-h" ]
   then
@@ -26,9 +24,7 @@ function jvm {
     local java_home_path="$(/usr/libexec/java_home -v $1)"
     if [ $? = 0 ]
     then
-      export JAVA_HOME="$java_home_path"
+      export JAVA_HOME='$java_home_path'
     fi
   fi
 }
-
-jvm "$@"

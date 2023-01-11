@@ -8,3 +8,5 @@ source "$ZCONFIG_HOME/modules/general.zsh"
 source "$ZCONFIG_HOME/modules/history.zsh"
 source "$ZCONFIG_HOME/modules/completion.zsh"
 source "$ZCONFIG_HOME/modules/plugins.zsh"
+
+# zgem bundle java
