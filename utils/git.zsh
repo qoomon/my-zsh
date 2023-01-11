@@ -41,8 +41,8 @@ function git-browser {
   done
 }
 
-function github-toggle-remote-url-https-ssh {
-  local remote_name=$1
+function git-remote-toggle-url-protocol-github {
+  local remote_name=${1:-origin}
   local remote_url=$(git remote get-url $remote_name)
   if [[ $remote_url =~ '^https://github.com/' ]]
   then
