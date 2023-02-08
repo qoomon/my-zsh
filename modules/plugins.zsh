@@ -27,6 +27,12 @@ zgem bundle 'https://github.com/qoomon/zsh-history-search.git'
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git'
 
 ################################################################################
+zgem bundle 'https://github.com/Aloxaf/fzf-tab.git'
+zstyle ':fzf-tab:*'                 prefix '' # disable prefix for completion matches
+zstyle ':fzf-tab:*'                 switch-group ',' '.' # switch group using `,` and `.`
+zstyle ':completion:*:descriptions' format $'\e[1m❬%d❭\e[0m' # set descriptions format to enable group support
+
+################################################################################
 zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_HIGHLIGHT_MAXLENGTH=2048
