@@ -9,8 +9,8 @@
     * Display Git informations of working directory (Branch name and Status Indicators)
   * [Syntax Highlighting Plugin](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * Completions
-  * [fzf-tab](https://github.com/Aloxaf/fzf-tab) completion; 
-  * history completion; search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `Space`
+  * [fzf-tab](https://github.com/Aloxaf/fzf-tab) fzf completion; hit `Tab`
+  * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git) history fzf completion; hit `Ctrl` + `Space`
 * Search History
   * by Substrings; hit `Arrow Up`
   * Improved Version of Reverse History Search; search with [fzf](https://github.com/junegunn/fzf#installation); hit `Ctrl` + `R`

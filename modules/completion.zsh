@@ -40,7 +40,7 @@ ZLE_SPACE_SUFFIX_CHARS=$'&|' # do not remove space after completion for '&' and 
 # list of completers to use
 # zstyle ':completion:*' completer  _complete _expand _list _match _prefix
 
-zstyle ':completion:*'              verbose yes # show descriptions for command options
+# zstyle ':completion:*'              verbose yes # show descriptions for command options
 # zstyle ':completion:*'              extra-verbose yes # show descriptions for commands
 
 zstyle ':completion:*'               matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'  # Case-Insensitive Completion

@@ -27,10 +27,13 @@ zgem bundle 'https://github.com/qoomon/zsh-history-search.git'
 zgem bundle 'https://github.com/zsh-users/zsh-completions.git'
 
 ################################################################################
-zgem bundle 'https://github.com/Aloxaf/fzf-tab.git'
-zstyle ':fzf-tab:*'                 prefix '' # disable prefix for completion matches
-zstyle ':fzf-tab:*'                 switch-group ',' '.' # switch group using `,` and `.`
-zstyle ':completion:*:descriptions' format $'\e[1m❬%d❭\e[0m' # set descriptions format to enable group support
+if [ $commands[fzf] ]
+then
+    zgem bundle 'https://github.com/Aloxaf/fzf-tab.git'
+    zstyle ':fzf-tab:*'                 prefix '' # disable prefix for completion matches
+    zstyle ':fzf-tab:*'                 switch-group ',' '.' # switch group using `,` and `.`
+    zstyle ':completion:*:descriptions' format $'\e[1m❬%d❭\e[0m' # set descriptions format to enable group support
+fi
 
 ################################################################################
 zgem bundle 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
