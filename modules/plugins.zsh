@@ -13,7 +13,7 @@ ZCONFIG_UPDATE_COMMAND="git pull; zgem upgrade"
 zgem bundle 'https://github.com/qoomon/zsh-lazyload.git'
 
 ################################################################################
-zgem bundle 'https://github.com/qoomon/zsh-theme-qoomon.git' use:'qoomon.zsh-theme'
+zgem bundle 'https://github.com/qoomon/zsh-theme-qoomon.git'
 PROMPT_INFO_HOST='false'
 
 ################################################################################
