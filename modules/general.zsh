@@ -124,7 +124,7 @@ alias sudo='sudo ' # allow aliases to work with sudo
 alias type="type -a"
 
 if [ $commands[fzf] ]; then
-  alias pick='fzf -m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all --no-sort --ansi' # fuzzy search and select anything
+  alias pick='fzf -m --bind "ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-y:execute-silent(printf \"%s\\n\" {+} | pbcopy)" --no-sort --ansi' # fuzzy search and select anything
 fi
 
 alias cd='>/dev/null cd' # prevent stdout of special commands e.g. cd -
