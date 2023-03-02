@@ -151,10 +151,16 @@ alias gll='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --hum
 alias grep='grep --color=auto' # colorize matching parts
 alias less='less -R -M -X' # -R : enable colors; -M : shows more detailed prompt, including file position; -N : shows line number; -X : supresses the terminal clearing at exit;
 
-alias http-server='\http-server -a localhost -p 8080'
-# you may generate cert and key with following command
-#   mkcert -cert-file localhost.pem, -key-file localhost-key.pem localhost 'local.host' '*.local.host'
-alias https-server='\http-server -a localhost -p 8443 --ssl --cert $HOME/localhost.pem --key $HOME/localhost-key.pem'
+
+if [ $commands[http-server] ]
+then
+    alias http-server='\http-server -a localhost -p 8080'
+    # you may generate cert and key with following command
+    #   mkcert -cert-file "$HOME/localhost.pem" -key-file "$HOME/localhost-key.pem" localhost '*.local' '*.host.local'
+    alias https-server='\http-server -a localhost -p 8443 --ssl --cert "$HOME/localhost.pem" --key "$HOME/localhost-key.pem"'
+else
+    alias http-server='python3 -m http.server 8080 --bind 127.0.0.1'
+fi
 
 alias pwgen='pwgen -scnyB1'
 
