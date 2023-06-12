@@ -22,9 +22,7 @@ then
     zgem bundle 'https://github.com/Aloxaf/fzf-tab.git'
     zstyle ':fzf-tab:*'                 prefix '' # disable prefix for completion matches
     zstyle ':fzf-tab:*'                 switch-group ',' '.' # switch group using `,` and `.`
-    # --bind=bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof # exit fzf on delete last query character
-    # --no-mouse # make completions selectable
-    zstyle ':fzf-tab:*'                 fzf-flags '--bind=bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof' '--no-mouse' 
+    zstyle ':fzf-tab:*'                 fzf-flags '--no-mouse' # make completions selectable
     zstyle ':completion:*:descriptions' format $'\e[1m❬%d❭\e[0m' # set descriptions format to enable group support
 fi
 
