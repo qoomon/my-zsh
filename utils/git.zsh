@@ -1,3 +1,16 @@
+function git-take() {
+    git clone "$@"
+    local param
+    local last_arg
+    for param; do
+        if [[ $param != -* ]]; then
+            last_arg="$param"
+        fi
+    done
+    clone_dir=$(basename $last_arg .git)
+    cd $clone_dir;
+}
+
 function git-ssh {
   local privat_key_path="$1"; shift 1
   # -F /dev/null - disables the use of $HOME/.ssh/config
