@@ -25,6 +25,8 @@ export LESS_TERMCAP_md=$(printf "${fg_bold[green]}") \
 export LESS_TERMCAP_us=$(printf "${fg[cyan]}") \
 export LESS_TERMCAP_ue=$(printf "$reset_color")
 
+export GPG_TTY=$(tty)
+
 ### fzf configuration
 if [ $commands[fzf] ]
 then
