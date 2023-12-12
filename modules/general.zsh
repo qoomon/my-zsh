@@ -135,6 +135,8 @@ function git-take() {
 
 alias sudo='sudo ' # allow aliases to work with sudo
 
+alias tmp='cd $(mktemp -d /tmp/XXXXXXXXXX)' # create temporary directory and jump into it
+
 alias type="type -a"
 
 if [ $commands[fzf] ]; then

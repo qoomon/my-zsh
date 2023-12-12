@@ -20,7 +20,7 @@
   * `zconfig cd` - cd to `$ZCONFIG_HOME`
   * `zconfig edit [EDITOR]` - open config in `$EDITOR` or in given editor
   * `zconfig update` - updates config and [zgem](https://github.com/qoomon/zgem) plugins
-* Handy optional Utils, see [Utils Directory](utils/); load all by `zgem bundle` or specific util by `zgem bundle <UTIL_NAME>` 
+* Handy optional Utils, see [Utils Directory](utils/); load all by `zgem bundle` or specific util by `zgem bundle <UTIL_NAME>`
 * and a lot more..., see [Configuration Modules](#modules)
 
 
@@ -53,8 +53,8 @@ Entrypoint [`zshrc.zsh`](zshrc.zsh)
 * [zsh-history-search](https://github.com/qoomon/zsh-history-search.git)
   * `ctrl + R` - command history search with [fzf](https://github.com/junegunn/fzf)
   * `ctrl` + `SPACE` - command argument history search with [fzf](https://github.com/junegunn/fzf)
- * [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search.git) 
- * `UP/DOWN` - circle through command history and filter by current command line 
+ * [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search.git)
+ * `UP/DOWN` - circle through command history and filter by current command line
 * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
 * [zsh-theme-qoomon](https://github.com/qoomon/zsh-theme-qoomon.git)

