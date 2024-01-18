@@ -3,11 +3,11 @@
 autoload -Uz colors && colors
 
 function hibp {
-  if [[ $1 == 'chrome' ]]
+  if [[ $1 == '--chrome' ]]
   then
     shift
     hibp-chrome $@
-  elif [[ $1 == 'clipperz' ]]
+  elif [[ $1 == '--clipperz' ]]
   then
     shift
     hibp-clipperz $@
