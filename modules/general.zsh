@@ -156,8 +156,7 @@ then
   alias el='exa -l'
 fi
 
-alias bat='bat --plain --paging never' # disable line numbers and paging by default
-
+alias bat='bat --style=plain --paging never' # disable line numbers and paging by default
 alias du="du -h" # -h : human readable;
 alias df="df -h" # -h : human readable;
 
