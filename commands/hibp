@@ -39,14 +39,15 @@ function hibp-password {
   fi
 }
 
-
 function hibp-clipperz {
   local clipperz_export_file="$1"
   local card field secret
+
   xmllint --xpath 'string(/html/body/div/div/textarea)' "$clipperz_export_file" \
   | jq '.[] | . as $card | .currentVersion.fields[] | select(.hidden) | [$card.label,.label,.value] | @tsv' -r \
   | grep -v 'ARCH' \
-  | while IFS=$'\t' read card field secret; do
+  | while IFS=$'\t' read card field secret
+    do
       if [[ "${secret}" == "" ]]
       then
         continue
@@ -59,16 +60,19 @@ function hibp-clipperz {
 
       (
         card="${card%% *}"
+        tput sc # save current cursor position
         echo -n "${fg_bold[yellow]}Check...${reset_color}         =>    ${fg[cyan]}${card}${reset_color}   >   ${fg[blue]}${field}${reset_color}"
         pwned='no' && echo -n "$secret" | hibp >/dev/null && pwned='yes'
         test $? -gt 128 && break
-        echo -en "\r\033[K"
         if [[ "$pwned" == 'yes' ]]
         then
           echo "${fg_bold[red]}Oh no — pwned!${reset_color}   =>    ${fg[cyan]}${card}${reset_color}   >   ${fg[blue]}${field}${reset_color}"
+        else
+            tput rc # restore saved cursor position
+            tput ed # clears screen to the end of the screen
         fi
       ) || break
-  done
+    done
 }
 
 
