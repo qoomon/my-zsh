@@ -9,4 +9,5 @@ ssh -J <username>@<jump_host> <username>@<target_host>
 ```
 
 # Expose Local HTTP Server
-ssh -R 80:localhost:8080 nokey@localhost.run
+- `ssh -R 80:localhost:8080 nokey@localhost.run`
+- `cloudflared tunnel --url http://localhost:8080`

