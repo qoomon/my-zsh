@@ -5,7 +5,7 @@
   <figcaption>
     <p align="right"><sup><sup>
       Terminal - <a href="https://iterm2.com/">iTerm2</a>,
-      Colors - <a href="https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.itermcolors">qoomon</a>
+      Colors - <a href="https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.itermcolors" download>qoomon</a>
     </sup></sup></p>
   </figcaption>
 </figure>
