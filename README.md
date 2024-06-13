@@ -1,8 +1,7 @@
 # my ZSH <sub>[🌊🐚]</sub>
 
-<img width="767" alt="prompt_example" src="https://github.com/qoomon/my-zsh/assets/3963394/75aec48b-7c98-47db-8806-75e3473f0766">
-
-<p align="right"><sub><sup>Terminal - [iTerm2](https://iterm2.com/), Color Theme - [qoomon](https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.itermcolors)</sup></sub></p>
+<img width="767" alt="prompt_example" src="https://github.com/qoomon/my-zsh/assets/3963394/75aec48b-7c98-47db-8806-75e3473f0766"></img>
+<sub><sup>Terminal - [iTerm2](https://iterm2.com/), Colors - [qoomon](https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.itermcolors)</sup></sub>
 
 ## Features
 * Colored Prompt
