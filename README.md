@@ -1,8 +1,7 @@
 # my ZSH <sub>[🌊🐚]</sub>
 
-
 <figure>
-  <img width="767" alt="prompt example" src="https://github.com/qoomon/my-zsh/assets/3963394/75aec48b-7c98-47db-8806-75e3473f0766"
+  <img width="767" alt="prompt example" src="https://github.com/qoomon/my-zsh/assets/3963394/75aec48b-7c98-47db-8806-75e3473f0766">
   <figcaption>
     <sup><sup>Terminal - <a href="https://iterm2.com/">iTerm2</a>, Colors - <a href="https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.itermcolors">qoomon</a></sup></sup>
   </figcaption>
