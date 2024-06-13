@@ -5,7 +5,7 @@
   <figcaption>
     <p align="right"><sup><sup>
       Terminal - <a href="https://iterm2.com/">iTerm2</a>,
-      Colors - <a href="https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.itermcolors" download>qoomon</a>
+      Colors - <a href="https://github.com/qoomon/zsh-theme-qoomon/blob/master/qoomon.itermcolors">qoomon</a>
     </sup></sup></p>
   </figcaption>
 </figure>
@@ -41,7 +41,7 @@
 * Install [my-zsh](https://github.com/qoomon/my-zsh)
   * `git clone --depth 1 https://github.com/qoomon/my-zsh.git "$HOME/.zsh" && $HOME/.zsh/install.zsh`
 * Install qoomon Colors Scheme [optional]
-  * for [iTerm](https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.itermcolors)
+  * for <a href="https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.itermcolors" download="qoomon.itermcolors">iTerm</a>
   * for [macOS Terminal](https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.terminal)
 
 
