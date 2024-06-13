@@ -1,11 +1,11 @@
 # my ZSH <sub>[🌊🐚]</sub>
 
 <img width="767" alt="prompt_example" src="https://github.com/qoomon/my-zsh/assets/3963394/75aec48b-7c98-47db-8806-75e3473f0766">
-<sub><sup>Terminal: iTerm2</sup></sub>
+<sub><sup>Terminal - [iTerm2](https://iterm2.com/) Color Theme - [qoomon](https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.itermcolors)</sup></sub>
 
 ## Features
 * Colored Prompt
-  * [Qoomon Theme](https://github.com/qoomon/zsh-theme-qoomon.git)
+  * [qoomon Theme](https://github.com/qoomon/zsh-theme-qoomon.git)
     * Display Exit Code if not 0
     * Display Git informations of working directory (Branch name and Status Indicators)
   * [Syntax Highlighting Plugin](https://github.com/zsh-users/zsh-syntax-highlighting.git)
@@ -33,7 +33,7 @@
   * [fzf-tab](https://github.com/Aloxaf/fzf-tab)
 * Install [my-zsh](https://github.com/qoomon/my-zsh)
   * `git clone --depth 1 https://github.com/qoomon/my-zsh.git "$HOME/.zsh" && $HOME/.zsh/install.zsh`
-* Install Qoomon Colors Scheme [optional]
+* Install qoomon Colors Scheme [optional]
   * for [iTerm](https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.itermcolors)
   * for [macOS Terminal](https://raw.githubusercontent.com/qoomon/zsh-theme-qoomon/master/qoomon.terminal)
 
