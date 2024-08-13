@@ -150,10 +150,10 @@ alias rm='rm -i' # ask before remove file
 
 alias ls='ls -G' # G - colorize types,
 alias ll='ls -lpch' # -l : details; -p : file indicator; -c : last modified date; -u : last usage date; -h : human readable;
-if [ $commands[exa] ]
+if [ $commands[eza] ]
 then
-  alias exa='exa --group-directories-first --classify'
-  alias el='exa -l'
+  alias eza='eza --group-directories-first --classify'
+  alias el='eza -l'
 fi
 
 alias bat='bat --style=plain --paging never' # disable line numbers and paging by default
