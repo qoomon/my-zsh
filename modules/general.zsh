@@ -117,7 +117,7 @@ function diff {
 }
 
 function git-take() {
-    git clone "$@"
+    git clone "$@" || return $?
     local param
     local last_arg
     for param; do
