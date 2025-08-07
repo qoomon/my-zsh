@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
 
-function myip {
-  local cmd="$1"
-  [[ $# > 0 ]] && shift
-
+function ip {
+  local cmd=""
+  if [[ $1 != -* ]]
+  then
+    cmd=$1    
+    [[ $# > 0 ]] && shift
+  fi
+  
   case "$cmd" in
+    ''|'external'|'ext'|'e')
+      ip-external $@
+      ;;
     'internal'|'int'|'i')
       ip-internal $@
-      ;;
-    'external'|'ext'|'e')
-      ip-external $@
       ;;
     *)
       if [ -n "$cmd" ]
@@ -32,6 +36,8 @@ function default-interface {
 function ip-internal {
   
   local interface=$(default-interface)
+  local ipv4='false'
+  local ipv6='false'
   
   while [[ $# > 0 ]]
   do
@@ -39,6 +45,12 @@ function ip-internal {
     shift
 
     case "$param_key" in
+      '--ipv4' | '-4')
+        ipv4='true'
+      ;;
+      '--ipv6' | '-6')
+        ipv6='true'
+      ;;
       '--interface'|'-i')
         interface="$1"
         shift
@@ -51,13 +63,35 @@ function ip-internal {
         ;;
     esac
   done
+  if [ "$ipv4" != 'true' ] && [ "$ipv6" != 'true' ]
+  then
+      ipv4='true'
+      ipv6='true'
+  fi
   
-  echo "ipv4: $(ifconfig en0 | grep ' *inet .*' | cut -d ' ' -f2)"
-  echo "ipv6: $(ifconfig en0 | grep ' *inet6 .* temporary' | cut -d ' ' -f2)"
+  if [ "$ipv4" == 'true' ]
+  then
+    ipv4=$(ifconfig $(default-interface) | grep "inet "                     | awk '{print $2}')
+    if [ "$ipv4" ]
+    then
+        echo "$ipv4"
+    fi
+  fi
+  
+  if [ "$ipv6" == 'true' ]
+  then
+    ipv6=$(ifconfig $(default-interface) | grep "inet6 " | grep -v "fe80::" | awk '{print $2}')
+    if [ "$ipv6" ]
+    then
+        echo "$ipv6"
+    fi
+  fi
 }
 
 function ip-external {
 
+  local ipv4='false'
+  local ipv6='false'
   local interface=$(default-interface)
   local details=false
 
@@ -67,6 +101,12 @@ function ip-external {
     shift
 
     case "$param_key" in
+      '--ipv4' | '-4')
+        ipv4='true'
+      ;;
+      '--ipv6' | '-6')
+        ipv6='true'
+      ;;
       '--interface'|'-i')
         interface="$1"
         shift
@@ -83,17 +123,50 @@ function ip-external {
         ;;
     esac
   done
-  
-  local endpoint='https://ipapi.co/'
-  if [ "$details" == 'true' ]
+  if [ "$ipv4" != 'true' ] && [ "$ipv6" != 'true' ]
   then
-    endpoint+='json'
-  else
-    endpoint+='ip'
+      ipv4='true'
+      ipv6='true'
   fi
   
-  echo "ipv4: $(curl --ipv4 $interface_param "$endpoint" -s)"
-  echo "ipv6: $(curl --ipv6 $interface_param "$endpoint" -s)"
+  local ipEndpoint='https://ipinfo.io/ip'
+  local detailsEndpoint='https://ipinfo.io/json'
+  
+  if [ "$ipv4" == 'true' ]
+  then
+    ipv4_internal=$(ip-internal --ipv4 --interface ${interface})
+    if [ "$ipv4_internal" ]
+    then
+      ipv4=$(curl --ipv4 --interface $interface "$ipEndpoint" -s && echo)
+      if [ "$ipv4" ]
+      then
+        if [ "$details" != 'true' ]
+        then
+          echo "$ipv4"
+        else
+          curl --ipv4 --interface $interface "$detailsEndpoint" -s && echo
+        fi
+      fi
+    fi
+  fi
+  
+  if [ "$ipv6" == 'true' ]
+  then
+    ipv6_internal=$(ip-internal --ipv6  --interface ${interface})
+    if [ "$ipv6_internal" ]
+    then
+      ipv6=$(curl --ipv6 --interface $interface "$ipEndpoint" -s && echo)
+      if [ "$ipv6" -a "$details" == 'true' ]
+      then
+        if [ "$details" != 'true' ]
+        then
+          echo "$ipv6"
+        else
+          curl --ipv6 --interface $interface "$detailsEndpoint" -s && echo
+        fi
+      fi
+    fi
+  fi
 }
 
-myip "$@"
+ip "$@"
