@@ -17,6 +17,11 @@ usage() {
 resize=""
 if [ "${1:-}" == "--resize" ]
 then
+  if [ -z "${2:-}" ]
+  then
+    usage
+    exit 1
+  fi
   resize="$2"
   shift 2
 fi

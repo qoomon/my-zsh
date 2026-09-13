@@ -56,11 +56,16 @@ docker-registry-image-tags() {
   fi
 
   local response=''
+  local scheme='https'
+  if [ -n "$insecure_flag" ]
+  then
+    scheme='http'
+  fi
   if [[ -n "$authorization_header" ]]
   then
-    response="$(curl -fsSL ${insecure_flag:+$insecure_flag} -H "$authorization_header" "https://${registry}/v2/${repository}/${image}/tags/list")"
+    response="$(curl -fsSL ${insecure_flag:+$insecure_flag} -H "$authorization_header" "${scheme}://${registry}/v2/${repository}/${image}/tags/list")"
   else
-    response="$(curl -fsSL ${insecure_flag:+$insecure_flag} "https://${registry}/v2/${repository}/${image}/tags/list")"
+    response="$(curl -fsSL ${insecure_flag:+$insecure_flag} "${scheme}://${registry}/v2/${repository}/${image}/tags/list")"
   fi
   if echo "$response" | jq --exit-status 'has("errors")' >/dev/null
   then
