@@ -45,9 +45,32 @@ then
   exit 1
 fi
 
+echo "== docker-registry-image-tags token failure path with stubs =="
+docker_stub_bin="$(mktemp -d)"
+trap 'rm -rf "$tmp_home" "$docker_stub_bin"' EXIT
+cat > "$docker_stub_bin/curl" <<'EOF'
+#!/usr/bin/env bash
+echo '{}'
+EOF
+cat > "$docker_stub_bin/jq" <<'EOF'
+#!/usr/bin/env bash
+if [ "$2" = '.token' ]
+then
+  echo 'null'
+else
+  echo '{}'
+fi
+EOF
+chmod +x "$docker_stub_bin/curl" "$docker_stub_bin/jq"
+if PATH="$docker_stub_bin:$PATH" bash "$repo_root/commands/docker-registry-image-tags" alpine >/dev/null 2>&1
+then
+  echo "docker-registry-image-tags should fail when Docker Hub token is unavailable" >&2
+  exit 1
+fi
+
 echo "== convert-pdf2scan cleanup check with stubs =="
 tmp_bin="$(mktemp -d)"
-trap 'rm -rf "$tmp_home" "$tmp_bin"' EXIT
+trap 'rm -rf "$tmp_home" "$docker_stub_bin" "$tmp_bin"' EXIT
 cat > "$tmp_bin/identify" <<'EOF'
 #!/usr/bin/env bash
 echo 'page1'

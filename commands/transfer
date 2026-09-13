@@ -14,10 +14,12 @@ confirm_transfer() {
     fi
     if ! tty -s
     then
-        if [ "$mode" = "ask" ] && [ -t 1 ]
+        if [ "$mode" = "ask" ] && [ -r /dev/tty ]
         then
-            echo "Uploading piped data to transfer.sh from interactive terminal." >&2
-            return 0
+            echo "This will upload piped data to transfer.sh. Continue? [y/N] " > /dev/tty
+            read -r answer < /dev/tty
+            [[ "$answer" == "y" || "$answer" == "Y" || "$answer" == "yes" || "$answer" == "YES" ]]
+            return $?
         fi
         echo "Refusing upload from non-interactive shell without TRANSFER_SH_CONFIRM=always" >&2
         return 1

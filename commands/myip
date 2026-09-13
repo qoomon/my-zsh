@@ -31,7 +31,7 @@ function ip {
 }
 
 function default-interface {
-  if command -v route >/dev/null 2>&1 && route -n get default >/dev/null 2>&1
+  if [[ "$(uname)" == "Darwin" ]] && command -v route >/dev/null 2>&1
   then
     route -n get default | grep 'interface:' | sed 's/^.*: //'
   elif command -v ip >/dev/null 2>&1
