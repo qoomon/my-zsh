@@ -41,6 +41,11 @@ docker-registry-image-tags() {
   local authorization_header=''
   if [[ -z "$registry" ]]
   then
+    if [[ -n "$insecure_flag" ]]
+    then
+      echo "--insecure is only supported with explicitly specified registries" >&2
+      return 1
+    fi
     registry='registry-1.docker.io'
     local token=''
     token="$(curl -fsSL "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image_name}:pull" | jq --raw-output '.token')"

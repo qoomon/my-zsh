@@ -25,6 +25,20 @@ tilt_max=0.06
 density=100
 noise=0.15
 
+cleanup_dirs=()
+cleanup() {
+  local dir
+  for dir in "${cleanup_dirs[@]}"
+  do
+    if [ -d "$dir" ]
+    then
+      rm -rf "$dir"
+    fi
+  done
+  return 0
+}
+trap cleanup EXIT
+
 if [ "$#" -eq 0 ]
 then
   usage
@@ -40,7 +54,7 @@ do
   fi
 
   build_dir="$(mktemp -d "${TMPDIR:-/tmp}"/pdf2scan.XXXX)"
-  trap 'rm -rf "$build_dir"' EXIT
+  cleanup_dirs+=("$build_dir")
   output_file="$(basename "$input" .pdf)_scan.pdf"
   
   # process each page
@@ -79,5 +93,4 @@ do
   
   echo "done!"
   rm -rf "$build_dir"
-  trap - EXIT
 done

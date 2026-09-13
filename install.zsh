@@ -16,7 +16,7 @@ function ask {
   [[ $response == "y" || $response == "Y" || $response == "yes" || $response == "Yes" ]]
 }
 
-function usershell {
+function user_shell {
   if [[ "$(uname)" == "Darwin" ]]
   then
     dscl . -read /Users/${USER:-$(whoami)} | grep UserShell: | cut -d' ' -f2
@@ -57,7 +57,7 @@ then
   change_shell='no'
 fi
 
-if [[ $(usershell) = "$target_shell" ]]
+if [[ $(user_shell) = "$target_shell" ]]
 then
   echo "user shell already set to $target_shell"
 elif [[ "$change_shell" == 'yes' ]] || ([[ "$change_shell" == 'ask' ]] && ask "Want to change shell for current user?")

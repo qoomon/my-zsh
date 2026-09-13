@@ -2,12 +2,22 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+zsh_bin="${ZSH_BIN:-/bin/zsh}"
+if [ ! -x "$zsh_bin" ]
+then
+  zsh_bin="$(command -v zsh || true)"
+fi
+if [ -z "$zsh_bin" ]
+then
+  echo "zsh not found in /bin/zsh or PATH" >&2
+  exit 1
+fi
 
 tmp_home="$(mktemp -d)"
 trap 'rm -rf "$tmp_home"' EXIT
 
 echo "== install.zsh non-interactive run =="
-HOME="$tmp_home" MY_ZSH_INSTALL_CHANGE_SHELL=never zsh "$repo_root/install.zsh"
+HOME="$tmp_home" MY_ZSH_INSTALL_CHANGE_SHELL=never "$zsh_bin" "$repo_root/install.zsh"
 grep -q 'source ".*/zshrc.zsh"' "$tmp_home/.zshrc"
 
 echo "== command usage checks =="
@@ -75,5 +85,19 @@ then
   echo "Temporary pdf2scan directories should be cleaned up" >&2
   exit 1
 fi
+
+echo "== gauth signal handling check with stubs =="
+cat > "$tmp_bin/oathtool" <<'EOF'
+#!/usr/bin/env bash
+echo '123456'
+EOF
+chmod +x "$tmp_bin/oathtool"
+gauth_output="$tmp_home/gauth.out"
+(PATH="$tmp_bin:$PATH" bash "$repo_root/commands/gauth" TESTSECRET >"$gauth_output" 2>&1) &
+gauth_pid=$!
+sleep 2
+kill -TERM "$gauth_pid"
+wait "$gauth_pid"
+grep -Eq '123456 [0-9]+s' "$gauth_output"
 
 echo "Smoke tests passed."
