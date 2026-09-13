@@ -17,7 +17,7 @@ function gauth {
   trap 'echo; exit 0' INT TERM
   while true
   do
-    printf '\r%s %ss' "$(oathtool --totp --base32 "$secret_base32")" "$((30 - $(date +%s) % 30))"
+    printf '\r%s %ss' "$(oathtool --totp --base32 "$secret_base32")" "$((29 - $(date +%s) % 30))"
     sleep 1
   done
 }

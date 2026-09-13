@@ -101,5 +101,4 @@ do
     "$output_file"
   
   echo "done!"
-  rm -rf "$build_dir"
 done

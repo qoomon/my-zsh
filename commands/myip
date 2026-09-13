@@ -43,6 +43,26 @@ function default-interface {
   fi
 }
 
+function interface-ipv4 {
+  local interface="$1"
+  if command -v ifconfig >/dev/null 2>&1
+  then
+    ifconfig "$interface" | grep "inet " | awk '{print $2}'
+  else
+    command ip -o -4 addr show dev "$interface" | awk '{print $4}' | cut -d'/' -f1
+  fi
+}
+
+function interface-ipv6 {
+  local interface="$1"
+  if command -v ifconfig >/dev/null 2>&1
+  then
+    ifconfig "$interface" | grep "inet6 " | grep -v "fe80::" | awk '{print $2}'
+  else
+    command ip -o -6 addr show dev "$interface" scope global | awk '{print $4}' | cut -d'/' -f1
+  fi
+}
+
 function ip-internal {
   
   local interface
@@ -87,7 +107,7 @@ function ip-internal {
   
   if [ "$ipv4" == 'true' ]
   then
-    ipv4=$(ifconfig "$interface" | grep "inet " | awk '{print $2}')
+    ipv4=$(interface-ipv4 "$interface")
     if [ "$ipv4" ]
     then
         echo "$ipv4"
@@ -96,7 +116,7 @@ function ip-internal {
   
   if [ "$ipv6" == 'true' ]
   then
-    ipv6=$(ifconfig "$interface" | grep "inet6 " | grep -v "fe80::" | awk '{print $2}')
+    ipv6=$(interface-ipv6 "$interface")
     if [ "$ipv6" ]
     then
         echo "$ipv6"
