@@ -3,7 +3,7 @@ set -eu
 
 function ip {
   local cmd=""
-  if [[ $1 != -* ]]
+  if [[ "${1:-}" != -* ]] && [[ -n "${1:-}" ]]
   then
     cmd=$1    
     [[ $# -gt 0 ]] && shift

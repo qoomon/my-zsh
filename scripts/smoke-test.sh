@@ -86,6 +86,8 @@ touch "$tmp_home/a.pdf" "$tmp_home/b.pdf"
 PATH="$img_stub_bin:$PATH" bash "$repo_root/commands/convert-pdf2images" "$tmp_home/a.pdf" "$tmp_home/b.pdf"
 test -f "$tmp_home/a.png"
 test -f "$tmp_home/b.png"
+PATH="$img_stub_bin:$PATH" bash "$repo_root/commands/convert-pdf2images" --resize 1024x "$tmp_home/a.pdf"
+test -f "$tmp_home/a.png"
 
 echo "== convert-pdf2scan cleanup check with stubs =="
 tmp_bin="$(mktemp -d)"

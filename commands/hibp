@@ -32,6 +32,11 @@ function hibp-password {
   then
     password_sha1="$(echo -n "$password" | shasum -a 1 | cut -d' ' -f1 | tr a-z A-Z)"
   else
+    if ! (( $+commands[sha1sum] ))
+    then
+      echo "Missing dependency: shasum or sha1sum" >&2
+      return 1
+    fi
     password_sha1="$(echo -n "$password" | sha1sum | cut -d' ' -f1 | tr a-z A-Z)"
   fi
   if (curl -Ns "https://api.pwnedpasswords.com/range/${password_sha1:0:5}" \
