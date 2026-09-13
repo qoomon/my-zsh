@@ -2,7 +2,15 @@
 # see http://zsh.sourceforge.net/Doc/Release/Completion-System.html
 # Layout is :completion:FUNCTION:COMPLETER:COMMAND-OR-MAGIC-CONTEXT:ARGUMENT:TAG
 autoload -Uz colors && colors
-ZSH_COMPLETION_DIR='/usr/local/share/zsh/site-functions'
+ZSH_COMPLETION_DIR="${ZSH_COMPLETION_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/my-zsh/completion}"
+mkdir -p "$ZSH_COMPLETION_DIR"
+if [ ${commands[brew]} ]
+then
+  fpath=("$(brew --prefix)/share/zsh/site-functions" "$ZSH_COMPLETION_DIR" $fpath)
+else
+  fpath=("$ZSH_COMPLETION_DIR" $fpath)
+fi
+
 ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
 autoload -Uz compinit
 if [ $ZSH_COMPDUMP(Nmh-24) ]
@@ -93,11 +101,6 @@ zstyle ':completion:*:killall:*'             command 'ps -u $USER -o command'
 
 zstyle ':completion:*'                       sort true
 zstyle ':completion:*:git-checkout:*'        sort false # disable sort when completing `git checkout`
-
-if [ ${commands[brew]} ]
-then
-  fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
-fi
 
 ################
 ### COMPLETION UTILS

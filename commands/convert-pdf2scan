@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
-set -e # exit on error
+set -euo pipefail
 ################################################
 #
-# Prerequisits:
+# Prerequisites:
 #   ensure ImageMagick is installed
 #
 # Usage:
 #   convert-pdf2scan [--gray] files...
 #
 ################################################
-if [ "$1" == "--gray" ]
+usage() {
+  echo "Usage: ${0##*/} [--gray] <file.pdf>..." >&2
+}
+
+colorspace=""
+if [ "${1:-}" == "--gray" ]
 then
   colorspace="Gray"
-  shift 
+  shift
 fi
 
 tilt_min=0.02
@@ -20,22 +25,33 @@ tilt_max=0.06
 density=100
 noise=0.15
 
+if [ "$#" -eq 0 ]
+then
+  usage
+  exit 1
+fi
+
 for input in "$@"
 do
+  if [ ! -f "$input" ]
+  then
+    echo "Input file not found: $input" >&2
+    exit 1
+  fi
 
   build_dir="$(mktemp -d "${TMPDIR:-/tmp}"/pdf2scan.XXXX)"
+  trap 'rm -rf "$build_dir"' EXIT
   output_file="$(basename "$input" .pdf)_scan.pdf"
   
   # process each page
   page_count=$(identify -ping "$input" | wc -l | bc)
-  page_range="0..$(bc <<< "$page_count - 1")"
-  for (( page_index=0; page_index<$page_count; page_index++ ))
+  for (( page_index=0; page_index<page_count; page_index++ ))
   do
     echo "process page $(bc <<< "$page_index + 1")/$page_count ..."
     
     # randomize tilt
     tilt=$(bc -l <<< "$tilt_min + ($tilt_max - $tilt_min) * ($RANDOM/32767)")
-    if [ $(($RANDOM % 2)) = 0 ]
+    if (( RANDOM % 2 == 0 ))
     then
       tilt=-$tilt
     fi
@@ -44,7 +60,7 @@ do
       -density $density \
       "${input}[${page_index}]" \
       -background none \
-      -rotate $tilt \
+      -rotate "$tilt" \
       -attenuate $noise \
       +noise Multiplicative \
       ${colorspace:+-colorspace $colorspace} \
@@ -54,7 +70,7 @@ do
   
   # merge pages
   echo "merge pages into '$output_file' ..."
-  IFS=$'\n' scan_pages=($(ls -1 "$build_dir/page_"* | sort -V))
+  mapfile -t scan_pages < <(find "$build_dir" -maxdepth 1 -name 'page_*.pdf' -type f | sort -V)
   convert \
     -density $density \
     -compress jpeg -quality 80 \
@@ -62,4 +78,6 @@ do
     "$output_file"
   
   echo "done!"
+  rm -rf "$build_dir"
+  trap - EXIT
 done

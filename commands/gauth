@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 function gauth {
-  local secretBase32=$1
-  watch -n1 'echo $(oathtool --totp --base32 '$secretBase32') $((30 - $(date +%s) % 30))s'
+  local secret_base32="${1:-}"
+  if [ -z "$secret_base32" ]
+  then
+    echo "Usage: ${0##*/} <base32-secret>" >&2
+    return 1
+  fi
+
+  while true
+  do
+    printf '\r%s %ss' "$(oathtool --totp --base32 "$secret_base32")" "$((30 - $(date +%s) % 30))"
+    sleep 1
+  done
 }
 
 gauth "$@"

@@ -44,6 +44,31 @@
   * for [iTerm2](https://github.com/qoomon/zsh-theme-qoomon/blob/main/qoomon.itermcolors)
   * for [macOS Terminal](https://github.com/qoomon/zsh-theme-qoomon/blob/main/qoomon.terminal)
 
+### Installation Notes
+* Installer behavior:
+  * It always adds `source "<path>/zshrc.zsh"` to `~/.zshrc`.
+  * It only changes login shell when explicitly approved.
+  * For non-interactive use, control shell-change behavior via `MY_ZSH_INSTALL_CHANGE_SHELL=always|never`.
+* Platform support:
+  * Primary target: macOS + zsh
+  * Linux support is best-effort for core shell configuration
+  * Some commands and aliases are macOS-specific and are guarded with fallbacks
+
+### Prerequisites (by feature)
+* Core setup: `zsh`, `git`
+* Fuzzy completion/history plugins: `fzf`
+* Optional command dependencies:
+  * `jq` (docker registry tags, hibp helpers)
+  * `oathtool` (gauth)
+  * `zip` (transfer directory uploads)
+  * `ImageMagick` (+ `bc`) (PDF conversion scripts)
+
+### Acceptance Criteria For This Repository
+* Installer works in interactive and non-interactive mode without requiring privileged file writes.
+* Shell scripts pass syntax checks (`bash -n`, `zsh -n`) and shell lint checks.
+* Command scripts fail with useful usage/error messages when required arguments are missing.
+* README documentation matches current behavior and command expectations.
+* CI validates shell quality and smoke tests on pull requests.
 
 ## Configuration Structure
 Entrypoint [`zshrc.zsh`](zshrc.zsh)
@@ -52,7 +77,37 @@ Entrypoint [`zshrc.zsh`](zshrc.zsh)
 * [`modules/plugins.zsh`](modules/plugins.zsh)
 * [`modules/general.zsh`](modules/general.zsh)
 * [`modules/history.zsh`](modules/history.zsh)
-* [`modules/completions.zsh`](modules/completions.zsh)
+* [`modules/completion.zsh`](modules/completion.zsh)
+
+Load order is defined in [`zshrc.zsh`](zshrc.zsh):
+1. `general.zsh`
+2. `history.zsh`
+3. `completion.zsh`
+4. `plugins.zsh`
+
+### Customization
+* Put personal overrides after sourcing this project in your own `~/.zshrc`.
+* Keep repository updates safe by avoiding direct local edits to plugin-managed code.
+* Optional utility modules can be loaded via `zgem bundle` from [`utils`](utils/).
+
+## Command Reference
+
+| Command | Purpose | Dependencies |
+|---|---|---|
+| `myip` | Show internal/external IPv4/IPv6 addresses | `curl`, `ifconfig` |
+| `transfer` | Upload file/directory/stdin to `transfer.sh` | `curl`, `zip` (for directories) |
+| `docker-registry-image-tags` | List tags from container registries | `curl`, `jq` |
+| `gauth` | Show rotating TOTP code from base32 secret | `oathtool` |
+| `hibp` | Check password(s) against HIBP k-anonymity API | `curl`, `jq`, `xmllint` (clipperz mode) |
+| `convert-pdf2images` | Convert PDF files to PNG images | `ImageMagick` |
+| `convert-pdf2scan` | Convert PDFs to "scan-like" output | `ImageMagick`, `bc` |
+
+See the [`notes`](notes/) directory for supplemental snippets.
+
+## Development
+* Lint: `bash ./scripts/lint.sh`
+* Smoke tests: `bash ./scripts/smoke-test.sh`
+* CI workflow: `.github/workflows/shell-quality.yml`
 
 ##### Plugins
 * [zconfig](https://github.com/qoomon/zconfig)

@@ -120,13 +120,14 @@ function git-take() {
     git clone "$@" || return $?
     local param
     local last_arg
+    local clone_dir
     for param; do
         if [[ $param != -* ]]; then
             last_arg="$param"
         fi
     done
-    clone_dir=$(basename $last_arg .git)
-    cd $clone_dir;
+    clone_dir=$(basename "$last_arg" .git)
+    cd "$clone_dir"
 }
 alias tkgit='git-take'
 
@@ -141,7 +142,11 @@ alias tmp='cd $(mktemp -d /tmp/XXXXXXXXXX)' # create temporary directory and jum
 alias type="type -a"
 
 if [ $commands[fzf] ]; then
-  alias pick='fzf -m --bind "ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-y:execute-silent(printf \"%s\\n\" {+} | pbcopy)" --no-sort --ansi' # fuzzy search and select anything
+  if [ $commands[pbcopy] ]; then
+    alias pick='fzf -m --bind "ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-y:execute-silent(printf \"%s\\n\" {+} | pbcopy)" --no-sort --ansi' # fuzzy search and select anything
+  else
+    alias pick='fzf -m --bind "ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all" --no-sort --ansi' # fuzzy search and select anything
+  fi
 fi
 
 alias cd='>/dev/null cd' # prevent stdout of special commands e.g. cd -
@@ -149,7 +154,12 @@ alias mv='mv -i' # ask before overwrite file
 alias cp='cp -i' # ask before overwrite file
 alias rm='rm -i' # ask before remove file
 
-alias ls='ls -G' # G - colorize types,
+if [[ "$(uname)" == "Darwin" ]]
+then
+  alias ls='ls -G' # G - colorize types,
+else
+  alias ls='ls --color=auto'
+fi
 alias ll='ls -lpch' # -l : details; -p : file indicator; -c : last modified date; -u : last usage date; -h : human readable;
 if [ $commands[eza] ]
 then
@@ -161,8 +171,10 @@ alias bat='bat --style=plain --paging never' # disable line numbers and paging b
 alias du="du -h" # -h : human readable;
 alias df="df -h" # -h : human readable;
 
-alias gls='gls --color'
-alias gll='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --human-readable -l' # l - long format
+if [ $commands[gls] ]; then
+  alias gls='gls --color'
+  alias gll='gls --group-directories-first --time-style=+"%b %d %Y %H:%M:%S" --human-readable -l' # l - long format
+fi
 
 alias grep='grep --color=auto' # colorize matching parts
 alias less='less -R -M -X' # -R : enable colors; -M : shows more detailed prompt, including file position; -N : shows line number; -X : supresses the terminal clearing at exit;
@@ -175,7 +187,12 @@ then
     #   mkcert -cert-file "$HOME/localhost.pem" -key-file "$HOME/localhost-key.pem" localhost '*.local' '*.host.local'
     alias https-server='\http-server -a localhost -p 8443 --ssl --cert "$HOME/localhost.pem" --key "$HOME/localhost-key.pem"'
 else
-    alias http-server='python -m http.server --bind localhost 8080'
+    if [ $commands[python3] ]
+    then
+      alias http-server='python3 -m http.server --bind localhost 8080'
+    else
+      alias http-server='python -m http.server --bind localhost 8080'
+    fi
 fi
 
 alias pwgen='pwgen -scnyB1'

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+set -euo pipefail
 ################################################
 #
-# Prerequisits:
+# Prerequisites:
 #   ensure ImageMagick is installed
 #
 # Usage:
@@ -9,20 +10,43 @@
 #
 ################################################
 
-if [ "$1" == "--resize" ]
+usage() {
+  echo "Usage: ${0##*/} [--resize 1024x] <file.pdf>..." >&2
+}
+
+resize=""
+if [ "${1:-}" == "--resize" ]
 then
-  local resize="$2"
+  resize="$2"
   shift 2
 fi
 
-local input="$1"
-local output="${input%.*}.png"
-    
-convert \
-  -density 300 \
-  -antialias \
-  "$input" \
-  ${resize:+-resize $resize} \
-  -colorspace RGB \
-  -quality 100 \
-  "$output"
+if [ "$#" -eq 0 ]
+then
+  usage
+  exit 1
+fi
+
+for input in "$@"
+do
+  if [ ! -f "$input" ]
+  then
+    echo "Input file not found: $input" >&2
+    exit 1
+  fi
+
+  output="${input%.*}.png"
+  resize_args=()
+  if [ -n "$resize" ]
+  then
+    resize_args=(-resize "$resize")
+  fi
+  convert \
+    -density 300 \
+    -antialias \
+    "$input" \
+    "${resize_args[@]}" \
+    -colorspace RGB \
+    -quality 100 \
+    "$output"
+done

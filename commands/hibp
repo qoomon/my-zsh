@@ -6,13 +6,13 @@ function hibp {
   if [[ $1 == '--chrome' ]]
   then
     shift
-    hibp-chrome $@
+    hibp-chrome "$@"
   elif [[ $1 == '--clipperz' ]]
   then
     shift
-    hibp-clipperz $@
+    hibp-clipperz "$@"
   else
-    hibp-password $@
+    hibp-password "$@"
   fi
 }
 
@@ -27,7 +27,13 @@ function hibp-password {
     read -s password
   fi
 
-  local password_sha1="$(echo -n $password | shasum | cut -d' ' -f1 | tr a-z A-Z)"
+  local password_sha1
+  if (( $+commands[shasum] ))
+  then
+    password_sha1="$(echo -n "$password" | shasum -a 1 | cut -d' ' -f1 | tr a-z A-Z)"
+  else
+    password_sha1="$(echo -n "$password" | sha1sum | cut -d' ' -f1 | tr a-z A-Z)"
+  fi
   if (curl -Ns "https://api.pwnedpasswords.com/range/${password_sha1:0:5}" \
       | grep -q "${password_sha1:5}")
       then
@@ -46,7 +52,7 @@ function hibp-clipperz {
   xmllint --xpath 'string(/html/body/div/div/textarea)' "$clipperz_export_file" \
   | jq '.[] | . as $card | .currentVersion.fields[] | select(.hidden) | [$card.label,.label,.value] | @tsv' -r \
   | grep -v 'ARCH' \
-  | while IFS=$'\t' read card field secret
+  | while IFS=$'\t' read -r card field secret
     do
       if [[ "${secret}" == "" ]]
       then
@@ -80,7 +86,7 @@ function hibp-chrome {
   local chrome_export_file="$1"
   local card field secret
   tail -n +2 "$chrome_export_file" \
-  | while IFS=$',' read name url username password; do
+  | while IFS=',' read -r name url username password; do
       if [[ "${password}" == "" ]]
       then
         continue
@@ -103,4 +109,4 @@ function hibp-chrome {
   done
 }
 
-hibp $@
+hibp "$@"

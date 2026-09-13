@@ -1,10 +1,16 @@
 #!/bin/zsh
+set -e
+
 SELF_DIR="$(dirname "$0")"
 cd "$SELF_DIR"
 
 autoload -Uz colors && colors
 
 function ask {
+  if [[ ! -t 0 ]]
+  then
+    return 1
+  fi
   echo -n "$1 "
   local response && read response
   [[ $response == "y" || $response == "Y" || $response == "yes" || $response == "Yes" ]]
@@ -35,15 +41,35 @@ else
   {echo "$ZSHRC_FILE_COMMAND\n" && cat "$ZSHRC_FILE"} | tee "$ZSHRC_FILE" >/dev/null;
 fi
 
+target_shell="$(command -v zsh || true)"
+if [[ -z "$target_shell" ]]
+then
+  echo "zsh is not installed or not in PATH" >&2
+  exit 1
+fi
 
-if [[ $(usershell) = "/bin/zsh" ]]
+change_shell="${MY_ZSH_INSTALL_CHANGE_SHELL:-ask}"
+if [[ "$change_shell" == 'always' ]]
 then
-  echo "user shell already set to /bin/zsh"
-elif ask "Want to change shell for current user?"
+  change_shell='yes'
+elif [[ "$change_shell" == 'never' ]]
 then
-  if ! grep -xq "/bin/zsh" "/etc/shells"
+  change_shell='no'
+fi
+
+if [[ $(usershell) = "$target_shell" ]]
+then
+  echo "user shell already set to $target_shell"
+elif [[ "$change_shell" == 'yes' ]] || ([[ "$change_shell" == 'ask' ]] && ask "Want to change shell for current user?")
+then
+  if ! grep -xq "$target_shell" "/etc/shells"
   then
-    echo "/bin/zsh" >> "/etc/shells"
+    echo "Shell '$target_shell' is not listed in /etc/shells." >&2
+    echo "Please add it with elevated privileges, then run:" >&2
+    echo "  chsh -s $target_shell" >&2
+    exit 1
   fi
-  chsh -s /bin/zsh
+  chsh -s "$target_shell"
+else
+  echo "skip changing user shell (set MY_ZSH_INSTALL_CHANGE_SHELL=always|never to control this)"
 fi

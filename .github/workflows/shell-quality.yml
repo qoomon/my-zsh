@@ -1,0 +1,35 @@
+name: Shell Quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies (Ubuntu)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zsh shellcheck
+
+      - name: Install dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew update
+          brew install shellcheck
+
+      - name: Lint
+        run: bash ./scripts/lint.sh
+
+      - name: Smoke tests
+        run: bash ./scripts/smoke-test.sh

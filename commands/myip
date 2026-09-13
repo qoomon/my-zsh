@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
+set -eu
 
 function ip {
   local cmd=""
   if [[ $1 != -* ]]
   then
     cmd=$1    
-    [[ $# > 0 ]] && shift
+    [[ $# -gt 0 ]] && shift
   fi
   
   case "$cmd" in
     ''|'external'|'ext'|'e')
-      ip-external $@
+      ip-external "$@"
       ;;
     'internal'|'int'|'i')
-      ip-internal $@
+      ip-internal "$@"
       ;;
     *)
       if [ -n "$cmd" ]
@@ -30,16 +31,17 @@ function ip {
 }
 
 function default-interface {
-  echo "$(route -n get default | grep 'interface:' | sed 's/^.*: //')"
+  route -n get default | grep 'interface:' | sed 's/^.*: //'
 }
 
 function ip-internal {
   
-  local interface=$(default-interface)
+  local interface
+  interface=$(default-interface)
   local ipv4='false'
   local ipv6='false'
   
-  while [[ $# > 0 ]]
+  while [[ $# -gt 0 ]]
   do
     local param_key="$1"
     shift
@@ -71,7 +73,7 @@ function ip-internal {
   
   if [ "$ipv4" == 'true' ]
   then
-    ipv4=$(ifconfig $(default-interface) | grep "inet "                     | awk '{print $2}')
+    ipv4=$(ifconfig "$interface" | grep "inet " | awk '{print $2}')
     if [ "$ipv4" ]
     then
         echo "$ipv4"
@@ -80,7 +82,7 @@ function ip-internal {
   
   if [ "$ipv6" == 'true' ]
   then
-    ipv6=$(ifconfig $(default-interface) | grep "inet6 " | grep -v "fe80::" | awk '{print $2}')
+    ipv6=$(ifconfig "$interface" | grep "inet6 " | grep -v "fe80::" | awk '{print $2}')
     if [ "$ipv6" ]
     then
         echo "$ipv6"
@@ -92,10 +94,11 @@ function ip-external {
 
   local ipv4='false'
   local ipv6='false'
-  local interface=$(default-interface)
+  local interface
+  interface=$(default-interface)
   local details=false
 
-  while [[ $# > 0 ]]
+  while [[ $# -gt 0 ]]
   do
     local param_key="$1"
     shift
@@ -134,17 +137,17 @@ function ip-external {
   
   if [ "$ipv4" == 'true' ]
   then
-    ipv4_internal=$(ip-internal --ipv4 --interface ${interface})
+    ipv4_internal=$(ip-internal --ipv4 --interface "${interface}")
     if [ "$ipv4_internal" ]
     then
-      ipv4=$(curl --ipv4 --interface $interface "$ipEndpoint" -s && echo)
+      ipv4=$(curl --ipv4 --interface "$interface" "$ipEndpoint" -s && echo)
       if [ "$ipv4" ]
       then
         if [ "$details" != 'true' ]
         then
           echo "$ipv4"
         else
-          curl --ipv4 --interface $interface "$detailsEndpoint" -s && echo
+          curl --ipv4 --interface "$interface" "$detailsEndpoint" -s && echo
         fi
       fi
     fi
@@ -152,17 +155,17 @@ function ip-external {
   
   if [ "$ipv6" == 'true' ]
   then
-    ipv6_internal=$(ip-internal --ipv6  --interface ${interface})
+    ipv6_internal=$(ip-internal --ipv6  --interface "${interface}")
     if [ "$ipv6_internal" ]
     then
-      ipv6=$(curl --ipv6 --interface $interface "$ipEndpoint" -s && echo)
-      if [ "$ipv6" -a "$details" == 'true' ]
+      ipv6=$(curl --ipv6 --interface "$interface" "$ipEndpoint" -s && echo)
+      if [ "$ipv6" ]
       then
         if [ "$details" != 'true' ]
         then
           echo "$ipv6"
         else
-          curl --ipv6 --interface $interface "$detailsEndpoint" -s && echo
+          curl --ipv6 --interface "$interface" "$detailsEndpoint" -s && echo
         fi
       fi
     fi
