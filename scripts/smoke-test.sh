@@ -105,7 +105,7 @@ sleep 2
 kill -TERM "$gauth_pid"
 wait "$gauth_pid" || gauth_status=$?
 gauth_status="${gauth_status:-0}"
-if [ "$gauth_status" -ne 0 ] && [ "$gauth_status" -ne 143 ]
+if [ "$gauth_status" -ne 0 ]
 then
   echo "gauth exited with unexpected status: $gauth_status" >&2
   exit 1

@@ -47,6 +47,9 @@ then
   echo "zsh is not installed or not in PATH" >&2
   exit 1
 fi
+target_shell_dir="$(cd "$(dirname "$target_shell")" && pwd -P)"
+target_shell="${target_shell_dir}/$(basename "$target_shell")"
+target_shell_name="$(basename "$target_shell")"
 
 change_shell="${MY_ZSH_INSTALL_CHANGE_SHELL:-ask}"
 if [[ "$change_shell" == 'always' ]]
@@ -62,7 +65,7 @@ then
   echo "user shell already set to $target_shell"
 elif [[ "$change_shell" == 'yes' ]] || ([[ "$change_shell" == 'ask' ]] && ask "Want to change shell for current user?")
 then
-  if ! grep -xq "$target_shell" "/etc/shells"
+  if ! grep -xq "$target_shell" "/etc/shells" && ! grep -Eq ".*/${target_shell_name}$" "/etc/shells"
   then
     echo "Shell '$target_shell' is not listed in /etc/shells." >&2
     echo "Please add it with elevated privileges, then run:" >&2
