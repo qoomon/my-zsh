@@ -3,7 +3,6 @@
 # Layout is :completion:FUNCTION:COMPLETER:COMMAND-OR-MAGIC-CONTEXT:ARGUMENT:TAG
 autoload -Uz colors && colors
 ZSH_COMPLETION_DIR="${ZSH_COMPLETION_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/my-zsh/completion}"
-mkdir -p "$ZSH_COMPLETION_DIR"
 if [ ${commands[brew]} ]
 then
   fpath=("$(brew --prefix)/share/zsh/site-functions" "$ZSH_COMPLETION_DIR" $fpath)
@@ -106,6 +105,10 @@ zstyle ':completion:*:git-checkout:*'        sort false # disable sort when comp
 ### COMPLETION UTILS
 ################
 
+function ensure-zsh-completion-dir {
+  mkdir -p "$ZSH_COMPLETION_DIR"
+}
+
 function __completion-widget {
   if [[ $BUFFER == '' || $BUFFER == '.' ]]
   then
@@ -130,6 +133,7 @@ if (( $+commands[gh] ))
 then
     if [ ! "$ZSH_COMPLETION_DIR/_gh"(Nmh-24) ]
     then
+        ensure-zsh-completion-dir
         command gh completion --shell zsh >| "$ZSH_COMPLETION_DIR/_gh" &|
     fi
 fi
@@ -139,6 +143,7 @@ if (( $+commands[docker] ))
 then
     if [ ! "$ZSH_COMPLETION_DIR/_docker"(Nmh-24) ]
     then
+        ensure-zsh-completion-dir
         if [ -e '/Applications/Docker.app' ]
         then
             rm -rf "$ZSH_COMPLETION_DIR/_docker" && \

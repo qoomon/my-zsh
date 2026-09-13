@@ -84,7 +84,11 @@ do
   
   # merge pages
   echo "merge pages into '$output_file' ..."
-  mapfile -t scan_pages < <(find "$build_dir" -maxdepth 1 -name 'page_*.pdf' -type f | sort -V)
+  scan_pages=()
+  while IFS= read -r page
+  do
+    scan_pages+=("$page")
+  done < <(find "$build_dir" -maxdepth 1 -name 'page_*.pdf' -type f | sort -V)
   convert \
     -density $density \
     -compress jpeg -quality 80 \
