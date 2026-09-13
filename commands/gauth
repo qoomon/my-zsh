@@ -8,6 +8,11 @@ function gauth {
     echo "Usage: ${0##*/} <base32-secret>" >&2
     return 1
   fi
+  if ! command -v oathtool >/dev/null 2>&1
+  then
+    echo "Missing dependency: oathtool" >&2
+    return 1
+  fi
 
   trap 'echo; exit 0' INT TERM
   while true

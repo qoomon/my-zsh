@@ -87,6 +87,12 @@ then
 fi
 
 echo "== gauth signal handling check with stubs =="
+if PATH="/usr/bin:/bin" bash "$repo_root/commands/gauth" TESTSECRET >/dev/null 2>&1
+then
+  echo "gauth should fail when oathtool is unavailable" >&2
+  exit 1
+fi
+
 cat > "$tmp_bin/oathtool" <<'EOF'
 #!/usr/bin/env bash
 echo '123456'
@@ -97,7 +103,13 @@ gauth_output="$tmp_home/gauth.out"
 gauth_pid=$!
 sleep 2
 kill -TERM "$gauth_pid"
-wait "$gauth_pid"
+wait "$gauth_pid" || gauth_status=$?
+gauth_status="${gauth_status:-0}"
+if [ "$gauth_status" -ne 0 ] && [ "$gauth_status" -ne 143 ]
+then
+  echo "gauth exited with unexpected status: $gauth_status" >&2
+  exit 1
+fi
 grep -Eq '123456 [0-9]+s' "$gauth_output"
 
 echo "Smoke tests passed."

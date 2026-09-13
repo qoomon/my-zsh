@@ -31,7 +31,16 @@ function ip {
 }
 
 function default-interface {
-  route -n get default | grep 'interface:' | sed 's/^.*: //'
+  if command -v route >/dev/null 2>&1 && route -n get default >/dev/null 2>&1
+  then
+    route -n get default | grep 'interface:' | sed 's/^.*: //'
+  elif command -v ip >/dev/null 2>&1
+  then
+    ip route | awk '/default/ { print $5; exit }'
+  else
+    echo "Unable to detect default network interface" >&2
+    return 1
+  fi
 }
 
 function ip-internal {
