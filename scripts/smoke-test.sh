@@ -153,6 +153,8 @@ EOF
 chmod +x "$net_stub_bin/uname" "$net_stub_bin/ip"
 linux_ipv4="$(PATH="$net_stub_bin:$PATH" bash "$repo_root/commands/myip" internal --ipv4 --interface eth0)"
 [ "$linux_ipv4" = "10.0.0.2" ]
+linux_ipv6="$(PATH="$net_stub_bin:$PATH" bash "$repo_root/commands/myip" internal --ipv6 --interface eth0)"
+[ "$linux_ipv6" = "2001:db8::1" ]
 
 echo "== gauth signal handling check with stubs =="
 if bash "$repo_root/commands/gauth" >/dev/null 2>&1
