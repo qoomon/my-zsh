@@ -68,9 +68,28 @@ then
   exit 1
 fi
 
+echo "== convert-pdf2images validation with stubs =="
+img_stub_bin="$(mktemp -d)"
+trap 'rm -rf "$tmp_home" "$docker_stub_bin" "$img_stub_bin"' EXIT
+cat > "$img_stub_bin/convert" <<'EOF'
+#!/usr/bin/env bash
+last="${@: -1}"
+touch "$last"
+EOF
+chmod +x "$img_stub_bin/convert"
+if PATH="$img_stub_bin:$PATH" bash "$repo_root/commands/convert-pdf2images" "$tmp_home/does-not-exist.pdf" >/dev/null 2>&1
+then
+  echo "convert-pdf2images should fail for missing files" >&2
+  exit 1
+fi
+touch "$tmp_home/a.pdf" "$tmp_home/b.pdf"
+PATH="$img_stub_bin:$PATH" bash "$repo_root/commands/convert-pdf2images" "$tmp_home/a.pdf" "$tmp_home/b.pdf"
+test -f "$tmp_home/a.png"
+test -f "$tmp_home/b.png"
+
 echo "== convert-pdf2scan cleanup check with stubs =="
 tmp_bin="$(mktemp -d)"
-trap 'rm -rf "$tmp_home" "$docker_stub_bin" "$tmp_bin"' EXIT
+trap 'rm -rf "$tmp_home" "$docker_stub_bin" "$img_stub_bin" "$tmp_bin"' EXIT
 cat > "$tmp_bin/identify" <<'EOF'
 #!/usr/bin/env bash
 echo 'page1'
@@ -108,6 +127,30 @@ then
   echo "Temporary pdf2scan directories should be cleaned up" >&2
   exit 1
 fi
+
+echo "== myip Linux fallback check with stubs =="
+net_stub_bin="$(mktemp -d)"
+trap 'rm -rf "$tmp_home" "$docker_stub_bin" "$img_stub_bin" "$tmp_bin" "$net_stub_bin"' EXIT
+cat > "$net_stub_bin/uname" <<'EOF'
+#!/usr/bin/env bash
+echo Linux
+EOF
+cat > "$net_stub_bin/ip" <<'EOF'
+#!/usr/bin/env bash
+if [ "$1" = "route" ]
+then
+  echo "default via 10.0.0.1 dev eth0 proto dhcp src 10.0.0.2"
+elif [ "$1" = "-o" ] && [ "$2" = "-4" ]
+then
+  echo "2: eth0    inet 10.0.0.2/24 brd 10.0.0.255 scope global eth0"
+elif [ "$1" = "-o" ] && [ "$2" = "-6" ]
+then
+  echo "2: eth0    inet6 2001:db8::1/64 scope global"
+fi
+EOF
+chmod +x "$net_stub_bin/uname" "$net_stub_bin/ip"
+linux_ipv4="$(PATH="$net_stub_bin:$PATH" bash "$repo_root/commands/myip" internal --ipv4 --interface eth0)"
+[ "$linux_ipv4" = "10.0.0.2" ]
 
 echo "== gauth signal handling check with stubs =="
 if bash "$repo_root/commands/gauth" >/dev/null 2>&1

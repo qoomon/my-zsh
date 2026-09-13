@@ -6,6 +6,12 @@ usage() {
 }
 
 docker-registry-image-tags() {
+  if ! command -v jq >/dev/null 2>&1
+  then
+    echo "Missing dependency: jq" >&2
+    return 1
+  fi
+
   local insecure_flag=''
   local scheme='https'
   while [[ "${1:-}" == --* ]]

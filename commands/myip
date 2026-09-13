@@ -45,7 +45,7 @@ function default-interface {
 
 function interface-ipv4 {
   local interface="$1"
-  if command -v ifconfig >/dev/null 2>&1
+  if [[ "$(uname)" == "Darwin" ]]
   then
     ifconfig "$interface" | grep "inet " | awk '{print $2}'
   else
@@ -55,7 +55,7 @@ function interface-ipv4 {
 
 function interface-ipv6 {
   local interface="$1"
-  if command -v ifconfig >/dev/null 2>&1
+  if [[ "$(uname)" == "Darwin" ]]
   then
     ifconfig "$interface" | grep "inet6 " | grep -v "fe80::" | awk '{print $2}'
   else
