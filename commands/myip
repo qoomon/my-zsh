@@ -47,6 +47,11 @@ function ip-internal {
   
   local interface
   interface=$(default-interface)
+  if [ -z "$interface" ]
+  then
+    echo "Unable to detect default network interface" >&2
+    return 1
+  fi
   local ipv4='false'
   local ipv6='false'
   
@@ -105,6 +110,11 @@ function ip-external {
   local ipv6='false'
   local interface
   interface=$(default-interface)
+  if [ -z "$interface" ]
+  then
+    echo "Unable to detect default network interface" >&2
+    return 1
+  fi
   local details=false
 
   while [[ $# -gt 0 ]]

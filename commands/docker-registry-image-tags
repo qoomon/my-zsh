@@ -2,16 +2,30 @@
 set -euo pipefail
 
 usage() {
-  echo "Usage: ${0##*/} [--insecure] [registry/]repo/image" >&2
+  echo "Usage: ${0##*/} [--insecure] [--http] [registry/]repo/image" >&2
 }
 
 docker-registry-image-tags() {
   local insecure_flag=''
-  if [ "${1:-}" = '--insecure' ]
-  then
-    insecure_flag='--insecure'
-    shift
-  fi
+  local scheme='https'
+  while [[ "${1:-}" == --* ]]
+  do
+    case "$1" in
+      --insecure)
+        insecure_flag='--insecure'
+        shift
+        ;;
+      --http)
+        scheme='http'
+        shift
+        ;;
+      *)
+        echo "Unknown option: $1" >&2
+        usage
+        return 1
+        ;;
+    esac
+  done
 
   local image_ref="${1:-}"
   if [ -z "$image_ref" ]
@@ -39,12 +53,11 @@ docker-registry-image-tags() {
   fi
 
   local authorization_header=''
-  local scheme='https'
   if [[ -z "$registry" ]]
   then
-    if [[ -n "$insecure_flag" ]]
+    if [[ "$scheme" == 'http' ]]
     then
-      echo "--insecure is only supported with explicitly specified registries" >&2
+      echo "--http is only supported with explicitly specified registries" >&2
       return 1
     fi
     registry='registry-1.docker.io'
@@ -56,9 +69,6 @@ docker-registry-image-tags() {
       return 1
     fi
     authorization_header="$(printf '%s %s %s' 'Authorization:' 'Bearer' "$token")"
-  elif [[ -n "$insecure_flag" ]]
-  then
-    scheme='http'
   fi
 
   local response=''

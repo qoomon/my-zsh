@@ -87,6 +87,11 @@ then
 fi
 
 echo "== gauth signal handling check with stubs =="
+if bash "$repo_root/commands/gauth" >/dev/null 2>&1
+then
+  echo "gauth should fail without args" >&2
+  exit 1
+fi
 if PATH="/usr/bin:/bin" bash "$repo_root/commands/gauth" TESTSECRET >/dev/null 2>&1
 then
   echo "gauth should fail when oathtool is unavailable" >&2
