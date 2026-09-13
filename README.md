@@ -40,9 +40,7 @@
   * [fzf-tab](https://github.com/Aloxaf/fzf-tab)
 * Install [my-zsh](https://github.com/qoomon/my-zsh)
   * `git clone --depth 1 https://github.com/qoomon/my-zsh.git "$HOME/.zsh" && $HOME/.zsh/install.zsh`
-* Install qoomon Colors Scheme [optional]
-  * for [iTerm2](https://github.com/qoomon/zsh-theme-qoomon/blob/main/qoomon.itermcolors)
-  * for [macOS Terminal](https://github.com/qoomon/zsh-theme-qoomon/blob/main/qoomon.terminal)
+* Install [qoomon Terminal Colors Scheme](https://github.com/qoomon/zsh-theme-qoomon) [optional]
 
 
 ## Configuration Structure
