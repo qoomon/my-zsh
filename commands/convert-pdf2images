@@ -41,17 +41,23 @@ do
   fi
 
   output="${input%.*}.png"
-  resize_args=()
   if [ -n "$resize" ]
   then
-    resize_args=(-resize "$resize")
+    convert \
+      -density 300 \
+      -antialias \
+      "$input" \
+      -resize "$resize" \
+      -colorspace RGB \
+      -quality 100 \
+      "$output"
+  else
+    convert \
+      -density 300 \
+      -antialias \
+      "$input" \
+      -colorspace RGB \
+      -quality 100 \
+      "$output"
   fi
-  convert \
-    -density 300 \
-    -antialias \
-    "$input" \
-    "${resize_args[@]}" \
-    -colorspace RGB \
-    -quality 100 \
-    "$output"
 done

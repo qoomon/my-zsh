@@ -94,11 +94,10 @@ do
     echo "No pages generated for '$input'" >&2
     exit 1
   fi
-  convert \
-    -density $density \
-    -compress jpeg -quality 80 \
-    "${scan_pages[@]}" \
-    "$output_file"
+  convert_cmd=(convert -density "$density" -compress jpeg -quality 80)
+  convert_cmd+=("${scan_pages[@]}")
+  convert_cmd+=("$output_file")
+  "${convert_cmd[@]}"
   
   echo "done!"
 done

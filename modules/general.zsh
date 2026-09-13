@@ -142,11 +142,13 @@ alias tmp='cd $(mktemp -d /tmp/XXXXXXXXXX)' # create temporary directory and jum
 alias type="type -a"
 
 if [ $commands[fzf] ]; then
-  pick_bindings='ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'
-  if [ $commands[pbcopy] ]; then
-    pick_bindings="${pick_bindings},ctrl-y:execute-silent(printf \"%s\\n\" {+} | pbcopy)"
-  fi
-  alias pick="fzf -m --bind \"${pick_bindings}\" --no-sort --ansi" # fuzzy search and select anything
+  function pick {
+    local pick_bindings='ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'
+    if [ $commands[pbcopy] ]; then
+      pick_bindings="${pick_bindings},ctrl-y:execute-silent(printf \"%s\\n\" {+} | pbcopy)"
+    fi
+    fzf -m --bind "$pick_bindings" --no-sort --ansi
+  }
 fi
 
 alias cd='>/dev/null cd' # prevent stdout of special commands e.g. cd -

@@ -78,7 +78,7 @@ docker-registry-image-tags() {
   fi
 
   local response=''
-  local curl_args=(-fsSL)
+  local curl_args=(-sSL)
   if [[ -n "$insecure_flag" ]]
   then
     curl_args+=("$insecure_flag")
