@@ -89,6 +89,11 @@ do
   do
     scan_pages+=("$page")
   done < <(find "$build_dir" -maxdepth 1 -name 'page_*.pdf' -type f | sort -V)
+  if [ "${#scan_pages[@]}" -eq 0 ]
+  then
+    echo "No pages generated for '$input'" >&2
+    exit 1
+  fi
   convert \
     -density $density \
     -compress jpeg -quality 80 \

@@ -99,17 +99,25 @@ echo '123456'
 EOF
 chmod +x "$tmp_bin/oathtool"
 gauth_output="$tmp_home/gauth.out"
-(PATH="$tmp_bin:$PATH" bash "$repo_root/commands/gauth" TESTSECRET >"$gauth_output" 2>&1) &
-gauth_pid=$!
-sleep 2
-kill -TERM "$gauth_pid"
-wait "$gauth_pid" || gauth_status=$?
-gauth_status="${gauth_status:-0}"
-if [ "$gauth_status" -ne 0 ]
-then
-  echo "gauth exited with unexpected status: $gauth_status" >&2
-  exit 1
-fi
-grep -Eq '123456 [0-9]+s' "$gauth_output"
+run_gauth_signal_check() {
+  local signal="$1"
+  : > "$gauth_output"
+  (PATH="$tmp_bin:$PATH" bash "$repo_root/commands/gauth" TESTSECRET >"$gauth_output" 2>&1) &
+  gauth_pid=$!
+  sleep 2
+  kill "-$signal" "$gauth_pid"
+  wait "$gauth_pid" || gauth_status=$?
+  gauth_status="${gauth_status:-0}"
+  if [ "$gauth_status" -ne 0 ]
+  then
+    echo "gauth exited with unexpected status for $signal: $gauth_status" >&2
+    exit 1
+  fi
+  grep -Eq '123456 [0-9]+s' "$gauth_output"
+  unset gauth_status
+}
+
+run_gauth_signal_check TERM
+run_gauth_signal_check INT
 
 echo "Smoke tests passed."

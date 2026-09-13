@@ -2,7 +2,6 @@
 set -euo pipefail
 
 confirm_transfer() {
-    local upload_mode="${1:-interactive}"
     local mode="${TRANSFER_SH_CONFIRM:-ask}"
     if [ "$mode" = "always" ]
     then
@@ -15,11 +14,6 @@ confirm_transfer() {
     fi
     if ! tty -s
     then
-        if [ "$upload_mode" = "pipe" ] && [ "$mode" = "ask" ]
-        then
-            echo "Uploading piped data to transfer.sh (set TRANSFER_SH_CONFIRM=never to block or always to force)." >&2
-            return 0
-        fi
         echo "Refusing upload from non-interactive shell without TRANSFER_SH_CONFIRM=always" >&2
         return 1
     fi
@@ -41,7 +35,7 @@ function transfer {
     
     if tty -s
     then # transfer file or directory
-        confirm_transfer interactive || return 1
+        confirm_transfer || return 1
         file="$1"
         file_name=$(basename "$file")
         if [ ! -e "$file" ]
@@ -58,7 +52,7 @@ function transfer {
             curl --fail --progress-bar --upload-file "$file" "https://transfer.sh/$file_name"
         fi
     else # transfer pipe
-        confirm_transfer pipe || return 1
+        confirm_transfer || return 1
         if [ -z "${1:-}" ]
         then
             echo "No target filename specified for piped upload." >&2
