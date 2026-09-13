@@ -21,8 +21,7 @@ docker-registry-image-tags() {
   fi
 
   local registry=''
-  local repository=''
-  local image=''
+  local image_name=''
   local first="${image_ref%%/*}"
   local rest="${image_ref#*/}"
 
@@ -34,11 +33,9 @@ docker-registry-image-tags() {
 
   if [[ "$image_ref" == */* ]]
   then
-    repository="${image_ref%/*}"
-    image="${image_ref##*/}"
+    image_name="$image_ref"
   else
-    repository='library'
-    image="$image_ref"
+    image_name="library/$image_ref"
   fi
 
   local authorization_header=''
@@ -46,7 +43,7 @@ docker-registry-image-tags() {
   then
     registry='registry-1.docker.io'
     local token=''
-    token="$(curl -fsSL "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${repository}/${image}:pull" | jq --raw-output '.token')"
+    token="$(curl -fsSL "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image_name}:pull" | jq --raw-output '.token')"
     if [[ -z "$token" || "$token" == 'null' ]]
     then
       echo 'Unable to retrieve Docker Hub token' >&2
@@ -56,16 +53,11 @@ docker-registry-image-tags() {
   fi
 
   local response=''
-  local scheme='https'
-  if [ -n "$insecure_flag" ]
-  then
-    scheme='http'
-  fi
   if [[ -n "$authorization_header" ]]
   then
-    response="$(curl -fsSL ${insecure_flag:+$insecure_flag} -H "$authorization_header" "${scheme}://${registry}/v2/${repository}/${image}/tags/list")"
+    response="$(curl -fsSL ${insecure_flag:+$insecure_flag} -H "$authorization_header" "https://${registry}/v2/${image_name}/tags/list")"
   else
-    response="$(curl -fsSL ${insecure_flag:+$insecure_flag} "${scheme}://${registry}/v2/${repository}/${image}/tags/list")"
+    response="$(curl -fsSL ${insecure_flag:+$insecure_flag} "https://${registry}/v2/${image_name}/tags/list")"
   fi
   if echo "$response" | jq --exit-status 'has("errors")' >/dev/null
   then

@@ -54,6 +54,8 @@ if [[ "$expr" =~ ^[[:space:]]*[0-9]+[[:space:]]*$ ]]; then
   echo "$expr" | tr -d '[:space:]'
 elif grep -q 'page_count - 1' <<< "$expr"; then
   echo 0
+elif [[ "$expr" =~ ^[[:space:]]*[0-9]+[[:space:]]*\+[[:space:]]*1[[:space:]]*$ ]]; then
+  echo 1
 elif grep -Eq 'page_index[[:space:]]*\+[[:space:]]*1' <<< "$expr"; then
   echo 1
 else
@@ -64,6 +66,8 @@ chmod +x "$tmp_bin/identify" "$tmp_bin/convert" "$tmp_bin/bc"
 touch "$tmp_home/sample.pdf"
 before_pdf2scan_dirs="$(find "${TMPDIR:-/tmp}" -maxdepth 1 -name 'pdf2scan.*' -type d | sort || true)"
 (cd "$tmp_home" && PATH="$tmp_bin:$PATH" bash "$repo_root/commands/convert-pdf2scan" sample.pdf)
+test -f "$tmp_home/sample_scan.pdf"
+(cd "$tmp_home" && PATH="$tmp_bin:$PATH" bash "$repo_root/commands/convert-pdf2scan" --gray sample.pdf)
 test -f "$tmp_home/sample_scan.pdf"
 after_pdf2scan_dirs="$(find "${TMPDIR:-/tmp}" -maxdepth 1 -name 'pdf2scan.*' -type d | sort || true)"
 if [ "$before_pdf2scan_dirs" != "$after_pdf2scan_dirs" ]

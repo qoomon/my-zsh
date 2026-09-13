@@ -52,6 +52,13 @@ function transfer {
             curl --fail --progress-bar --upload-file "$file" "https://transfer.sh/$file_name"
         fi
     else # transfer pipe
+        if [ -z "${1:-}" ]
+        then
+            echo "No target filename specified for piped upload." >&2
+            echo "Usage:" >&2
+            echo "  ... | transfer <file_name>" >&2
+            return 1
+        fi
         file_name=$1
         curl --fail --progress-bar --upload-file "-" "https://transfer.sh/$file_name"
     fi
