@@ -47,7 +47,6 @@ do
     -antialias \
     "$input" \
     ${resize:+-resize $resize} \
-    -resize "$resize" \
     -colorspace RGB \
     -quality 100 \
     "$output"
