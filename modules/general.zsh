@@ -31,8 +31,8 @@ export GPG_TTY=$(tty)
 if [ $commands[fzf] ]
 then
   export FZF_DEFAULT_OPTS='
-    --color fg:-1,bg:-1,hl:5,fg+:3,bg+:-1,hl+:5
-    --color info:42,prompt:-1,spinner:42,pointer:51,marker:33
+    --color hl:-1,hl+:-1
+    --color prompt:-1,info:42,spinner:42
     --exact
     --ansi'
   if [ $commands[fd] ]

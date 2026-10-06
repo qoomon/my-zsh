@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+function 8ball() {
+  local question="$@"
+  if [[ -z "$question" ]]; then
+    echo "Usage: 8ball \"<question>\"" >&2
+    return 1
+  fi
+
+  local payload="$(jq -nc --arg q "$question" '{"args": {"question": $q}}')"
+
+  curl -s -X POST https://quixotic-yak-629.convex.cloud/api/run/jev/ask \
+    -H "Content-Type: application/json" \
+    -d "$payload" \
+    | jq -r ' .value | (.probabilities | to_entries | max_by(.value).key) as $k | .labels[$k]'
+}
+
+8ball "$@"
