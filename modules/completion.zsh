@@ -2,7 +2,6 @@
 # see http://zsh.sourceforge.net/Doc/Release/Completion-System.html
 # Layout is :completion:FUNCTION:COMPLETER:COMMAND-OR-MAGIC-CONTEXT:ARGUMENT:TAG
 autoload -Uz colors && colors
-ZSH_COMPLETION_DIR='/usr/local/share/zsh/site-functions'
 ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
 autoload -Uz compinit
 if [ $ZSH_COMPDUMP(Nmh-24) ]
@@ -118,32 +117,4 @@ function __completion-widget {
 zle -N __completion-widget
 bindkey '^I' __completion-widget # '^I' is <Tab>
 
-################
-### Extra COMPLETION for Commands
-################
 
-### gh (GitHub CLI )
-if (( $+commands[gh] ))
-then
-    if [ ! "$ZSH_COMPLETION_DIR/_gh"(Nmh-24) ]
-    then
-        command gh completion --shell zsh >| "$ZSH_COMPLETION_DIR/_gh" &|
-    fi
-fi
-
-### docker
-if (( $+commands[docker] ))
-then
-    if [ ! "$ZSH_COMPLETION_DIR/_docker"(Nmh-24) ]
-    then
-        if [ -e '/Applications/Docker.app' ]
-        then
-            rm -rf "$ZSH_COMPLETION_DIR/_docker" && \
-                ln -s '/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion'         "$ZSH_COMPLETION_DIR/_docker"
-            rm -rf "$ZSH_COMPLETION_DIR/_docker-compose" && \
-                ln -s '/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion' "$ZSH_COMPLETION_DIR/_docker-compose"
-        else
-            command docker completion zsh >| "$ZSH_COMPLETION_DIR/_docker" &|
-        fi
-    fi
-fi

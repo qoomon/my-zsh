@@ -175,7 +175,8 @@ then
     #   mkcert -cert-file "$HOME/localhost.pem" -key-file "$HOME/localhost-key.pem" localhost '*.local' '*.host.local'
     alias https-server='\http-server -a localhost -p 8443 --ssl --cert "$HOME/localhost.pem" --key "$HOME/localhost-key.pem"'
 else
-    alias http-server='python -m http.server --bind localhost 8080'
+    # alias http-server='python3 -m http.server --bind localhost 8080'
+    alias http-server='npx http-server -p 8000'
 fi
 
 alias pwgen='pwgen -scnyB1'
